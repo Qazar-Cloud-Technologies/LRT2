@@ -1,0 +1,38 @@
+<div class="page-width" style="padding-left: {{ settings.padding_x }}rem; padding-right: {{ settings.padding_x }}rem;">
+  {% if settings.image_source %}
+    <img 
+      src="{{ settings.image_source | image_url }}" 
+      alt="Custom Image" 
+      style="height: 100%; width: 100%;" />
+  {% else %}
+    <p>Please upload an image to display.</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom Image",
+  "settings": [
+    {
+      "id": "padding_x",
+      "type": "range",
+      "label": "Image padding on x",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "unit": "rem"
+    },
+    {
+      "id": "image_source",
+      "type": "image_picker",
+      "label": "Custom image file"
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom-image",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
