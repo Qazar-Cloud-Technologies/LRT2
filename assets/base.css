@@ -15,7 +15,6 @@
   margin: 0 auto 20px auto;
   position: relative;
   overflow: visible; /* Allow dropdowns to overflow */
-  z-index: 999; /* High z-index to ensure dropdowns appear above other content */
 }
 
 /* Add subtle gradient overlay */
@@ -64,7 +63,6 @@
   border-radius: 12px;
   min-width: 0;
   margin-bottom: 0; /* Reset margin */
-  z-index: 1000; /* Ensure menu items create proper stacking context */
 }
 
 /* Remove margin for items with children - dropdowns will overlay */
@@ -89,7 +87,7 @@
   left: 0;
   right: 0;
   height: 10px; /* Invisible bridge height */
-  z-index: 9998; /* Just below dropdown z-index */
+  z-index: 99;
 }
 
 /* Gradient animated button style for menu links */
@@ -164,7 +162,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 9999; /* Very high z-index to overlay all other elements including product grids */
+  z-index: 100; /* High z-index to overlay other elements */
   max-height: 300px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.95);
