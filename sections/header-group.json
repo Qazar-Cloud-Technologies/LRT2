@@ -56,13 +56,16 @@
     },
     "custom_liquid_9zVg8G": {
       "type": "custom-liquid",
-      "custom_css": [],
+      "custom_css": [
+        ".category-grid {display: grid; grid-template-columns: repeat(3, 1fr); /* 3 columns */ gap: 24px; /* space between the columns and rows */ list-style: none; padding: 0;}",
+        ".category-grid li {background: #f9f9f9; padding: 16px; border-radius: 8px; text-align: center;}"
+      ],
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "",
+        "custom_liquid": "<ul class=\"category-grid\">\n  {% for collection in collections %}\n    <li>\n      <a href=\"{{ collection.url }}\">\n        {{ collection.title }}\n      </a>\n    </li>\n  {% endfor %}\n</ul>",
         "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
