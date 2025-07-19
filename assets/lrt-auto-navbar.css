@@ -3,7 +3,7 @@
 /* Main container with glass effect */
 .grid-category-menu {
   width: 100%;
-  padding: 12px 0 80px 0; /* Added bottom padding to accommodate dropdowns */
+  padding: 12px 0;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -14,8 +14,7 @@
     inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
   margin: 0 auto 20px auto;
   position: relative;
-  overflow: hidden; /* Clip content but show internal dropdowns */
-  min-height: 120px; /* Ensure minimum height for dropdowns */
+  overflow: visible; /* Allow dropdowns to overflow */
 }
 
 /* Add subtle gradient overlay */
@@ -48,7 +47,6 @@
   position: relative;
   z-index: 1;
   overflow: visible; /* Allow dropdowns to show */
-  padding-bottom: 60px; /* Extra space for dropdowns */
 }
 
 .grid-menu-item {
@@ -60,9 +58,9 @@
   margin-bottom: 0; /* Reset margin */
 }
 
-/* Add space for last row items with dropdowns */
+/* Remove margin for items with children - dropdowns will overlay */
 .grid-menu-item.has-children {
-  margin-bottom: 80px; /* Space for dropdown */
+  margin-bottom: 0;
 }
 
 /* Show dropdown on hover for items with children */
@@ -155,24 +153,23 @@
 /* Glass dropdown - hidden by default, shows on hover */
 .grid-dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
   right: 0;
   width: 100%;
-  margin-top: 8px;
-  z-index: 10;
-  max-height: 200px;
+  z-index: 100; /* High z-index to overlay other elements */
+  max-height: 300px;
   overflow-y: auto;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-    0 4px 12px rgba(0, 0, 0, 0.12);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   list-style: none;
-  padding: 4px;
+  padding: 6px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -284,8 +281,7 @@
   .grid-category-menu {
     border-radius: 12px;
     margin: 0 8px 16px 8px;
-    padding: 10px 0 60px 0; /* Adjusted padding for mobile */
-    min-height: 100px;
+    padding: 10px 0;
   }
   
   .grid-menu-container {
