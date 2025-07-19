@@ -9,7 +9,7 @@
 
 .grid-menu-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(135px, min-content)); /* WIDER default min size */
+  grid-template-columns: repeat(6, 1fr); /* Max 6 columns */
   gap: 14px;
   padding: 0 18px;
   margin: 0;
@@ -33,10 +33,10 @@
   gap: 10px;
   justify-content: center;
   width: 100%;
-  padding: 16px 12px;
+  padding: 16px 6px;
   color: #221a06;
   text-decoration: none;
-  font-size: 1.15rem;     /* LARGER FONT */
+  font-size: 1.15rem;
   font-weight: 700;
   border-radius: 8px;
   background: none;
@@ -46,13 +46,19 @@
 
 .grid-menu-link:hover,
 .grid-menu-link:focus {
-  color: #c28916;
-  background: #f7b83521;
+  /* Optional: parent gradient on hover */
+  background: linear-gradient(
+    90deg,
+    #111 0%,
+    #8a1f2b 48%,
+    #ff2637 100%
+  );
+  color: #fff;
   outline: none;
 }
 
 .menu-icon {
-  font-size: 1.75em;     /* Bigger icon */
+  font-size: 1.6em;
   width: 1.6em;
   text-align: center;
   opacity: 0.94;
@@ -60,7 +66,7 @@
 }
 
 .menu-text {
-  font-size: 1.08em;     /* Make text very readable */
+  font-size: 1.08em;
   text-align: center;
   letter-spacing: .22px;
   white-space: nowrap;
@@ -108,16 +114,22 @@
   padding: 11px 20px 11px 15px;
   color: #444;
   text-decoration: none;
-  font-size: 1.08em;        /* Bigger child font */
+  font-size: 1.08em;
   font-weight: 500;
   border-radius: 6px;
   background: none;
-  transition: background 0.17s, color 0.14s;
+  transition: background 0.23s, color 0.15s;
 }
 .grid-dropdown a:hover,
 .grid-dropdown a:focus {
-  background: #f7b83522;
-  color: #ab7b19;
+  /* 3-step gradient from black to red */
+  background: linear-gradient(
+    90deg,
+    #111 0%,
+    #8a1f2b 48%,
+    #ff2637 100%
+  );
+  color: #fff;
   outline: none;
 }
 
@@ -126,11 +138,11 @@
   opacity: 0.88;
 }
 
-/* Responsive tweaks for mobile */
+/* Responsive: 3 columns under 900px, 2 columns under 600px */
 @media (max-width: 900px) {
   .grid-menu-container {
-    grid-template-columns: repeat(auto-fit, minmax(110px, min-content));
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     padding: 0 4px;
   }
   .grid-dropdown {
@@ -145,13 +157,13 @@
 @media (max-width: 600px) {
   .grid-category-menu { border-radius: 0; }
   .grid-menu-container {
-    grid-template-columns: repeat(auto-fit, minmax(70px, min-content));
-    gap: 3px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
     padding: 0 1px;
   }
-  .grid-menu-link { padding: 11px 2px; font-size: .97em; }
-  .menu-icon { font-size: 1.35em;}
-  .menu-text { font-size: .95em;}
+  .grid-menu-link { padding: 9px 2px; font-size: .98em;}
+  .menu-icon { font-size: 1.2em;}
+  .menu-text { font-size: .9em;}
   .grid-dropdown {
     left: 0; right: 0; min-width: 0; margin: 1px 0 0 0; transform: none;
   }
