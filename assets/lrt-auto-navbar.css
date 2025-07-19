@@ -79,6 +79,11 @@
   transform: translateY(0) scale(1);
 }
 
+/* Ensure hovered menu item is above others */
+.grid-menu-item.has-children:hover {
+  z-index: 999;
+}
+
 /* Create invisible bridge to maintain hover state */
 .grid-menu-item.has-children::after {
   content: '';
@@ -162,7 +167,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 100; /* High z-index to overlay other elements */
+  z-index: 1000; /* Higher z-index to overlay product grids */
   max-height: 300px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.95);
