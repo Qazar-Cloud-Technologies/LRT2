@@ -1,1 +1,91 @@
-{"sections":{"custom_image_T9jf9z":{"type":"custom-image","disabled":true,"settings":{"padding_x":0,"image_source":"shopify:\/\/shop_images\/2_4b37c339-049a-4d32-ba5c-9d436b4c3e6b.jpg"}},"collage":{"type":"collage","blocks":{"collection-0":{"type":"collection","disabled":true,"settings":{"collection":"all-products"}},"image_njhJUh":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/WhatsApp_Image_2024-10-26_at_7.35.17_PM.jpg"}}},"block_order":["collection-0","image_njhJUh"],"settings":{"heading":"","custom_link":"shopify:\/\/pages\/shop-all","heading_size":"h2","desktop_layout":"left","mobile_layout":"collage","card_styles":"product-card-wrapper","color_scheme":"scheme-1","padding_top":36,"padding_bottom":36}},"multicolumn":{"type":"multicolumn","blocks":{"column1":{"type":"column","settings":{"title":"","text":"<p><em>Wish Minimalism<\/em><\/p><p>Accessible design by producing less & building better.<br\/>From the palm-fringed western edge of the American dream<\/p>","link_label":"Shop All","link":"https:\/\/wishapparels.com\/pages\/shop-all"}}},"block_order":["column1"],"settings":{"title":"","heading_size":"h1","image_width":"third","image_ratio":"adapt","columns_desktop":3,"column_alignment":"center","background_style":"none","button_label":"","button_link":"","color_scheme":"scheme-1","columns_mobile":"1","swipe_on_mobile":false,"padding_top":0,"padding_bottom":0}}},"order":["custom_image_T9jf9z","collage","multicolumn"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_image_T9jf9z": {
+      "type": "custom-image",
+      "disabled": true,
+      "settings": {
+        "padding_x": 0
+      }
+    },
+    "collage": {
+      "type": "collage",
+      "blocks": {
+        "collection-0": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "all-products"
+          }
+        },
+        "image_njhJUh": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "collection-0",
+        "image_njhJUh"
+      ],
+      "settings": {
+        "heading": "",
+        "custom_link": "shopify://pages/shop-all",
+        "heading_size": "h2",
+        "desktop_layout": "left",
+        "mobile_layout": "collage",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column1": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "text": "<p><em>Wish Minimalism</em></p><p>Accessible design by producing less & building better.<br/>From the palm-fringed western edge of the American dream</p>",
+            "link_label": "Shop All",
+            "link": "https://wishapparels.com/pages/shop-all"
+          }
+        }
+      },
+      "block_order": [
+        "column1"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "custom_link": "",
+        "button_link": "",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "custom_image_T9jf9z",
+    "collage",
+    "multicolumn"
+  ]
+}
