@@ -35,18 +35,25 @@
   border-radius: 16px;
 }
 
-/* Auto-fit grid with minimum item width */
+/* Auto-fit grid with minimum item width and max 6 columns */
 .grid-menu-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  grid-auto-rows: minmax(45px, auto);
-  gap: 10px;
-  padding: 0 16px;
+  grid-auto-rows: minmax(auto, auto);
+  gap: 4px;
+  padding: 0px;
   margin: 0;
   list-style: none;
   position: relative;
   z-index: 1;
   overflow: visible; /* Allow dropdowns to show */
+}
+
+/* Limit to maximum 6 columns */
+@media (min-width: 860px) {
+  .grid-menu-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 .grid-menu-item {
@@ -246,15 +253,15 @@
 @media (max-width: 1200px) {
   .grid-menu-container {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 8px;
+    gap: 4px;
   }
 }
 
 @media (max-width: 900px) {
   .grid-menu-container {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 6px;
-    padding: 0 12px;
+    gap: 4px;
+    padding: 0px;
   }
   
   .grid-menu-link {
@@ -271,8 +278,8 @@
   
   .grid-menu-container {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 6px;
-    padding: 0 10px;
+    gap: 4px;
+    padding: 0px;
   }
   
   .grid-menu-link {
