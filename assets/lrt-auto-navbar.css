@@ -5,12 +5,12 @@
   padding: 8px 0;
   background: #fff;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .grid-menu-container {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column;
   gap: 0;
   padding: 0;
   margin: 0;
@@ -18,6 +18,7 @@
 }
 
 .grid-menu-item {
+  position: relative;
   width: 100%;
   border-bottom: 1px solid #eee;
   background: none;
@@ -25,9 +26,7 @@
   transition: background 0.2s;
 }
 
-.grid-menu-item:last-child {
-  border-bottom: none;
-}
+.grid-menu-item:last-child { border-bottom: none; }
 
 .grid-menu-link {
   display: flex;
@@ -64,19 +63,91 @@
   letter-spacing: .2px;
 }
 
-/* Hide dropdowns completely */
+/* -- DROPDOWN STYLES -- */
 .grid-dropdown {
-  display: none !important;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  min-width: 180px;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+  border-radius: 6px;
+  border: 1px solid #f4e4bf;
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 50;
+  transition: opacity .23s, top .2s;
 }
 
+.grid-menu-item:hover > .grid-dropdown,
+.grid-menu-item:focus-within > .grid-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  top: 0;
+}
+
+.grid-dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+.grid-dropdown a {
+  display: flex;
+  align-items: center;
+  padding: 9px 16px 9px 12px;
+  gap: 10px;
+  color: #444;
+  text-decoration: none;
+  font-size: .96em;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  transition: background 0.18s, color 0.17s;
+}
+.grid-dropdown a:hover,
+.grid-dropdown a:focus {
+  background: #f7b83522;
+  color: #ab7b19;
+  outline: none;
+}
+
+.dropdown-icon {
+  font-size: 1.05em;
+  opacity: 0.86;
+}
+
+/* Dropdown appears to the right, adjust for mobile */
 @media (max-width: 600px) {
-  .grid-category-menu {
-    max-width: 100%;
-    border-radius: 0;
+  .grid-category-menu { max-width: 100%; border-radius: 0; }
+  .grid-menu-link { padding: 12px 8px; font-size: .99em;}
+  .grid-dropdown {
+    position: static;
+    min-width: 0;
     box-shadow: none;
+    border-radius: 0;
+    border: none;
+    margin-left: 24px;
+    margin-top: 0;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    display: none;
   }
-  .grid-menu-link {
-    padding: 12px 10px;
-    font-size: 0.99em;
+  .grid-menu-item:hover > .grid-dropdown,
+  .grid-menu-item:focus-within > .grid-dropdown {
+    display: block;
   }
+}
+
+/* Accessibility: Make dropdowns keyboard navigable */
+.grid-menu-link:focus + .grid-dropdown,
+.grid-dropdown:focus-within {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
