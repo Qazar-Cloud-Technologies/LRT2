@@ -46,14 +46,13 @@
 
 .grid-menu-link:hover,
 .grid-menu-link:focus {
-  /* Optional: parent gradient on hover */
   background: linear-gradient(
     90deg,
     #111 0%,
     #8a1f2b 48%,
     #ff2637 100%
   );
-  color: #fff;
+  color: #fff;  /* Text remains white for this gradient */
   outline: none;
 }
 
@@ -129,7 +128,7 @@
     #8a1f2b 48%,
     #ff2637 100%
   );
-  color: #fff;
+  color: #111; /* Text switches to black on hover */
   outline: none;
 }
 
