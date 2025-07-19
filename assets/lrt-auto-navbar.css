@@ -208,8 +208,8 @@
 .grid-dropdown a {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the text */
-  padding: 3px; /* Reduced padding */
+  justify-content: flex-start; /* Left align the text */
+  padding: 3px 8px; /* Slightly more horizontal padding for left alignment */
   color: #1d1d1f;
   text-decoration: none;
   font-size: inherit; /* Use default shop font size */
@@ -235,9 +235,9 @@
   outline: none;
 }
 
-/* Ensure dropdown text is centered */
+/* Ensure dropdown text is left aligned */
 .grid-dropdown a span {
-  text-align: center;
+  text-align: left;
   width: 100%;
 }
 
