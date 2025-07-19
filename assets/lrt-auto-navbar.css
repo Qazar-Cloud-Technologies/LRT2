@@ -65,20 +65,13 @@
   margin-bottom: 80px; /* Space for dropdown */
 }
 
-/* Show dropdown when parent has .has-children class */
-.grid-menu-item.has-children .grid-dropdown {
+/* Show dropdown on hover for items with children */
+.grid-menu-item.has-children:hover .grid-dropdown,
+.grid-menu-item.has-children:focus-within .grid-dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0) scale(1);
-  margin-top: 8px;
-  position: absolute; /* Use absolute positioning */
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  max-height: 200px; /* Limit dropdown height */
-  overflow-y: auto; /* Scroll if content is too long */
 }
 
 /* Gradient animated button style for menu links */
@@ -159,10 +152,17 @@
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
 }
 
-/* Glass dropdown - always visible for items with children */
+/* Glass dropdown - hidden by default, shows on hover */
 .grid-dropdown {
   position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   width: 100%;
+  margin-top: 8px;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -172,7 +172,6 @@
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   list-style: none;
-  margin: 8px 0 0 0;
   padding: 4px;
   opacity: 0;
   visibility: hidden;
