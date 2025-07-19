@@ -94,7 +94,7 @@
   padding: 10px 12px;
   color: #1d1d1f;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: inherit; /* Use default shop font size */
   font-weight: 600;
   border-radius: 12px;
   
@@ -152,7 +152,7 @@
 }
 
 .menu-text {
-  font-size: 0.95em;
+  font-size: 1em; /* Use default size */
   letter-spacing: 0.2px;
   white-space: nowrap;
   line-height: 1.3;
@@ -225,7 +225,7 @@
   padding: 8px 10px;
   color: #1d1d1f;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: inherit; /* Use default shop font size */
   font-weight: 500;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.3);
@@ -248,7 +248,7 @@
 }
 
 .dropdown-icon {
-  font-size: 0.9em;
+  font-size: 1em; /* Use default size */
   opacity: 0.8;
   flex-shrink: 0;
   transition: transform 0.2s ease;
@@ -276,15 +276,10 @@
   
   .grid-menu-link {
     padding: 8px 10px;
-    font-size: 1rem;
   }
   
   .menu-icon {
     font-size: 1.2em;
-  }
-  
-  .menu-text {
-    font-size: 0.9em;
   }
 }
 
@@ -303,7 +298,6 @@
   
   .grid-menu-link {
     padding: 8px 8px;
-    font-size: 0.95rem;
     gap: 6px;
   }
   
@@ -311,16 +305,7 @@
     font-size: 1.1em;
   }
   
-  .menu-text {
-    font-size: 0.85em;
-  }
-  
-  .grid-dropdown {
-    margin: 6px 0 0 0;
-  }
-  
   .grid-dropdown a {
-    font-size: 0.8rem;
     padding: 6px 8px;
   }
 }
