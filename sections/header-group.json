@@ -56,6 +56,7 @@
     },
     "custom_liquid_9zVg8G": {
       "type": "custom-liquid",
+      "custom_css": [],
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
         "custom_liquid": "",
