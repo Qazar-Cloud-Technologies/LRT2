@@ -72,6 +72,17 @@
   transform: translateY(0) scale(1);
 }
 
+/* Create invisible bridge to maintain hover state */
+.grid-menu-item.has-children::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 10px; /* Invisible bridge height */
+  z-index: 99;
+}
+
 /* Gradient animated button style for menu links */
 .grid-menu-link {
   display: flex;
@@ -153,7 +164,7 @@
 /* Glass dropdown - hidden by default, shows on hover */
 .grid-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%; /* No gap - directly below parent */
   left: 0;
   right: 0;
   width: 100%;
@@ -173,7 +184,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-10px) scale(0.98);
+  transform: translateY(-5px) scale(0.98);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* Scrollbar styling */
   scrollbar-width: thin;
