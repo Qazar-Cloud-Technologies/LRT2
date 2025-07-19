@@ -86,16 +86,15 @@
 /* Gradient animated button style for menu links */
 .grid-menu-link {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  justify-content: flex-start;
+  justify-content: center; /* Center the text */
   width: 100%;
-  padding: 10px 12px;
+  padding: 3px; /* Reduced padding */
   color: #1d1d1f;
   text-decoration: none;
   font-size: inherit; /* Use default shop font size */
   font-weight: 600;
+  text-transform: uppercase; /* Full caps */
   border-radius: 12px;
   
   /* Gradient animation */
@@ -137,27 +136,15 @@
     inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.menu-icon {
-  font-size: 1.3em;
-  width: 1.3em;
-  text-align: center;
-  display: block;
-  flex-shrink: 0;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-  transition: transform 0.3s ease;
-}
-
-.grid-menu-link:hover .menu-icon {
-  transform: scale(1.1) rotate(5deg);
-}
 
 .menu-text {
   font-size: 1em; /* Use default size */
-  letter-spacing: 0.2px;
+  letter-spacing: 0.5px; /* Increased for uppercase */
   white-space: nowrap;
   line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
 }
 
@@ -221,12 +208,13 @@
 .grid-dropdown a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
+  justify-content: center; /* Center the text */
+  padding: 3px; /* Reduced padding */
   color: #1d1d1f;
   text-decoration: none;
   font-size: inherit; /* Use default shop font size */
   font-weight: 500;
+  text-transform: uppercase; /* Full caps */
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.3);
   transition: all 0.2s ease;
@@ -247,17 +235,6 @@
   outline: none;
 }
 
-.dropdown-icon {
-  font-size: 1em; /* Use default size */
-  opacity: 0.8;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.grid-dropdown a:hover .dropdown-icon {
-  transform: scale(1.1);
-  opacity: 1;
-}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -275,11 +252,7 @@
   }
   
   .grid-menu-link {
-    padding: 8px 10px;
-  }
-  
-  .menu-icon {
-    font-size: 1.2em;
+    padding: 3px;
   }
 }
 
@@ -297,16 +270,11 @@
   }
   
   .grid-menu-link {
-    padding: 8px 8px;
-    gap: 6px;
-  }
-  
-  .menu-icon {
-    font-size: 1.1em;
+    padding: 3px;
   }
   
   .grid-dropdown a {
-    padding: 6px 8px;
+    padding: 3px;
   }
 }
 
