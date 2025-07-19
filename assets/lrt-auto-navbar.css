@@ -235,6 +235,12 @@
   outline: none;
 }
 
+/* Ensure dropdown text is centered */
+.grid-dropdown a span {
+  text-align: center;
+  width: 100%;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
