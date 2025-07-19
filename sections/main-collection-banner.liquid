@@ -57,6 +57,170 @@
   </div>
 </div>
 
+{% comment %}
+Dynamic Grid Menu with Glass Effect and Left Icons
+Reads collections and their metafields to build parent/child menu structure
+{% endcomment %}
+
+{% assign all_collections_array = collections | map: 'handle' %}
+{% assign parent_collections = '' %}
+{% assign all_parents_data = '' %}
+
+{% comment %} Identify parent collections (no underscore in handle) {% endcomment %}
+{% for handle in all_collections_array %}
+  {% unless handle contains '_' %}
+    {% assign collection = collections[handle] %}
+    {% if collection.metafields.custom.show_in_menu == true %}
+      {% assign order = collection.metafields.custom.order | default: 999 %}
+      {% assign parent_collections = parent_collections | append: handle | append: ',' %}
+      {% assign parent_data = handle | append: '|' | append: order %}
+      {% assign all_parents_data = all_parents_data | append: parent_data | append: ',' %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+
+{% comment %} Sort parents by order {% endcomment %}
+{% assign parents_with_order = all_parents_data | split: ',' %}
+{% assign sorted_parents = '' %}
+
+{% comment %} Simple bubble sort for parent collections by order {% endcomment %}
+{% for i in (1..99) %}
+  {% assign lowest_order = 999 %}
+  {% assign lowest_handle = '' %}
+  
+  {% for parent_data in parents_with_order %}
+    {% if parent_data != blank %}
+      {% assign parts = parent_data | split: '|' %}
+      {% assign handle = parts[0] %}
+      {% assign order = parts[1] | plus: 0 %}
+      
+      {% unless sorted_parents contains handle %}
+        {% if order < lowest_order %}
+          {% assign lowest_order = order %}
+          {% assign lowest_handle = handle %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if lowest_handle != blank %}
+    {% assign sorted_parents = sorted_parents | append: lowest_handle | append: ',' %}
+  {% endif %}
+  
+  {% if sorted_parents contains lowest_handle %}
+    {% continue %}
+  {% endif %}
+{% endfor %}
+
+{% assign sorted_parents_array = sorted_parents | split: ',' %}
+
+<nav class="grid-category-menu" role="navigation" aria-label="Category menu">
+  <ul class="grid-menu-container">
+    {% for parent_handle in sorted_parents_array %}
+      {% if parent_handle != blank %}
+        {% assign parent_collection = collections[parent_handle] %}
+        {% if parent_collection %}
+          {% comment %} Check if this parent has children {% endcomment %}
+          {% assign has_children = false %}
+          {% assign parent_prefix = parent_handle | append: '_' %}
+          {% for handle in all_collections_array %}
+            {% assign handle_start = handle | slice: 0, parent_prefix.size %}
+            {% if handle_start == parent_prefix %}
+              {% assign child_collection = collections[handle] %}
+              {% if child_collection.metafields.custom.show_in_menu == true %}
+                {% assign has_children = true %}
+                {% break %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          <li class="grid-menu-item{% if has_children %} has-children{% endif %}">
+            <a href="{{ parent_collection.url }}" class="grid-menu-link">
+              <span class="menu-text">
+                {% if parent_collection.metafields.custom.display_name %}
+                  {{ parent_collection.metafields.custom.display_name }}
+                {% else %}
+                  {{ parent_collection.title }}
+                {% endif %}
+              </span>
+            </a>
+            
+            {% if has_children %}
+              {% comment %} Find and sort child collections {% endcomment %}
+              {% assign children_data = '' %}
+              {% assign parent_prefix = parent_handle | append: '_' %}
+              {% for handle in all_collections_array %}
+                {% assign handle_start = handle | slice: 0, parent_prefix.size %}
+                {% if handle_start == parent_prefix %}
+                  {% assign child_collection = collections[handle] %}
+                  {% if child_collection.metafields.custom.show_in_menu == true %}
+                    {% assign child_order = child_collection.metafields.custom.order | default: 999 %}
+                    {% assign child_data = handle | append: '|' | append: child_order %}
+                    {% assign children_data = children_data | append: child_data | append: ',' %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              
+              {% if children_data != blank %}
+                {% assign children_with_order = children_data | split: ',' %}
+                {% assign sorted_children = '' %}
+                
+                {% comment %} Sort children by order {% endcomment %}
+                {% for i in (1..50) %}
+                  {% assign lowest_child_order = 999 %}
+                  {% assign lowest_child_handle = '' %}
+                  
+                  {% for child_data in children_with_order %}
+                    {% if child_data != blank %}
+                      {% assign child_parts = child_data | split: '|' %}
+                      {% assign child_handle = child_parts[0] %}
+                      {% assign child_order = child_parts[1] | plus: 0 %}
+                      
+                      {% unless sorted_children contains child_handle %}
+                        {% if child_order < lowest_child_order %}
+                          {% assign lowest_child_order = child_order %}
+                          {% assign lowest_child_handle = child_handle %}
+                        {% endif %}
+                      {% endunless %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% if lowest_child_handle != blank %}
+                    {% assign sorted_children = sorted_children | append: lowest_child_handle | append: ',' %}
+                  {% endif %}
+                {% endfor %}
+                
+                {% assign sorted_children_array = sorted_children | split: ',' %}
+                
+                <ul class="grid-dropdown" role="menu">
+                  {% for child_handle in sorted_children_array %}
+                    {% if child_handle != blank %}
+                      {% assign child_collection = collections[child_handle] %}
+                      {% if child_collection %}
+                        <li role="none">
+                          <a href="{{ child_collection.url }}" role="menuitem">
+                            <span>
+                              {% if child_collection.metafields.custom.display_name %}
+                                {{ child_collection.metafields.custom.display_name }}
+                              {% else %}
+                                {{ child_collection.title }}
+                              {% endif %}
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+
 {% schema %}
 {
   "name": "t:sections.main-collection-banner.name",
