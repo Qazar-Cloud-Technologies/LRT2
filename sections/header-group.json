@@ -57,7 +57,6 @@
     },
     "custom_liquid_9zVg8G": {
       "type": "custom-liquid",
-      "disabled": true,
       "custom_css": [
         ".category-grid {display: grid; grid-template-columns: repeat(3, 1fr); /* 3 columns */ gap: 24px; /* space between the columns and rows */ list-style: none; padding: 0;}",
         ".category-grid li {background: #f9f9f9; padding: 16px; border-radius: 8px; text-align: center;}"
