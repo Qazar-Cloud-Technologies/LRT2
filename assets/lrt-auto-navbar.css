@@ -1,94 +1,104 @@
 .grid-category-menu {
   width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 8px 0;
+  padding: 10px 0;
   background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  margin: 0 auto 12px auto;
 }
 
 .grid-menu-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 0;
+  /* Auto-fit parent items, as compact as the content allows
+     (minmax(110px, min-content): at least 110px wide, but as small as content) */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, min-content));
+  gap: 10px;
+  padding: 0 12px;
   margin: 0;
   list-style: none;
+  justify-content: start; /* Left align (or use center if you prefer) */
 }
 
+/* Each grid cell (parent) */
 .grid-menu-item {
   position: relative;
-  width: 100%;
-  border-bottom: 1px solid #eee;
   background: none;
   margin: 0;
-  transition: background 0.2s;
+  padding: 0;
+  border-radius: 7px;
+  box-shadow: none;
+  transition: background 0.19s;
+  min-width: 0; /* Allow to shrink below content if needed */
 }
-
-.grid-menu-item:last-child { border-bottom: none; }
 
 .grid-menu-link {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 12px 18px;
-  color: #222;
+  gap: 7px;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 8px;
+  color: #1a2025;
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 500;
-  background: none;
+  font-weight: 600;
   border: none;
-  transition: color 0.2s, background 0.2s;
+  border-radius: 7px;
+  background: none;
+  transition: color 0.19s, background 0.19s;
 }
 
 .grid-menu-link:hover,
 .grid-menu-link:focus {
-  background: #f7b83522;
   color: #c28916;
+  background: #f7b83521;
   outline: none;
 }
 
 .menu-icon {
-  font-size: 1.35em;
-  width: 1.6em;
+  font-size: 1.4em;
+  width: 1.3em;
   text-align: center;
-  opacity: 0.95;
+  opacity: 0.93;
+  display: block;
 }
 
 .menu-text {
-  flex: 1;
-  text-align: left;
-  font-size: 1em;
-  letter-spacing: .2px;
+  font-size: .89em;
+  text-align: center;
+  letter-spacing: .18px;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
-/* -- DROPDOWN STYLES -- */
+/* Dropdown appears BELOW each parent in a popover */
 .grid-dropdown {
   position: absolute;
-  left: 100%;
-  top: 0;
-  min-width: 180px;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  min-width: 160px;
   background: #fff;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
-  border-radius: 6px;
-  border: 1px solid #f4e4bf;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border-radius: 7px;
+  border: 1px solid #f5ecdb;
   list-style: none;
-  margin: 0;
+  margin: 6px 0 0 0;
   padding: 5px 0;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-  z-index: 50;
-  transition: opacity .23s, top .2s;
+  z-index: 100;
+  transition: opacity 0.19s, margin-top 0.19s;
 }
 
 .grid-menu-item:hover > .grid-dropdown,
 .grid-menu-item:focus-within > .grid-dropdown {
   opacity: 1;
-  visibility: visible;
   pointer-events: auto;
-  top: 0;
+  visibility: visible;
+  margin-top: 1px;
 }
 
 .grid-dropdown li {
@@ -99,15 +109,14 @@
 .grid-dropdown a {
   display: flex;
   align-items: center;
-  padding: 9px 16px 9px 12px;
   gap: 10px;
+  padding: 8px 16px 8px 11px;
   color: #444;
   text-decoration: none;
-  font-size: .96em;
-  border: none;
-  background: none;
+  font-size: 0.97em;
   border-radius: 4px;
-  transition: background 0.18s, color 0.17s;
+  background: none;
+  transition: background 0.17s, color 0.14s;
 }
 .grid-dropdown a:hover,
 .grid-dropdown a:focus {
@@ -117,37 +126,34 @@
 }
 
 .dropdown-icon {
-  font-size: 1.05em;
-  opacity: 0.86;
+  font-size: 1.01em;
+  opacity: 0.84;
 }
 
-/* Dropdown appears to the right, adjust for mobile */
-@media (max-width: 600px) {
-  .grid-category-menu { max-width: 100%; border-radius: 0; }
-  .grid-menu-link { padding: 12px 8px; font-size: .99em;}
+/* Responsive: shrink min cell size for small screens */
+@media (max-width: 900px) {
+  .grid-menu-container {
+    grid-template-columns: repeat(auto-fit, minmax(78px, min-content));
+    gap: 7px;
+    padding: 0 3px;
+  }
   .grid-dropdown {
-    position: static;
-    min-width: 0;
-    box-shadow: none;
-    border-radius: 0;
-    border: none;
-    margin-left: 24px;
-    margin-top: 0;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    visibility: visible !important;
-    display: none;
-  }
-  .grid-menu-item:hover > .grid-dropdown,
-  .grid-menu-item:focus-within > .grid-dropdown {
-    display: block;
+    min-width: 100px;
   }
 }
 
-/* Accessibility: Make dropdowns keyboard navigable */
-.grid-menu-link:focus + .grid-dropdown,
-.grid-dropdown:focus-within {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+/* Mobile: menu in a full-width grid, dropdown overlays parent */
+@media (max-width: 600px) {
+  .grid-category-menu { border-radius: 0; }
+  .grid-menu-container {
+    grid-template-columns: repeat(auto-fit, minmax(60px, min-content));
+    gap: 3px;
+    padding: 0 1px;
+  }
+  .grid-menu-link { padding: 7px 2px; font-size: .96em; }
+  .menu-icon { font-size: 1.15em;}
+  .menu-text { font-size: .82em;}
+  .grid-dropdown {
+    left: 0; right: 0; min-width: 0; margin: 1px 0 0 0; transform: none;
+  }
 }
