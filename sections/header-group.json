@@ -20,10 +20,26 @@
             "text": "Nouveau Site -5% avec le code LRTNEWSITE2025",
             "link": "https://lrt-garage.myshopify.com/"
           }
+        },
+        "announcement_VAQipP": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
+        "announcement_mPwQHq": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_VAQipP",
+        "announcement_mPwQHq"
       ],
       "settings": {
         "color_scheme": "",
@@ -39,7 +55,7 @@
       "type": "header",
       "settings": {
         "logo_position": "left",
-        "menu": "main-menu",
+        "menu": "empty",
         "menu_type_desktop": "mega",
         "sticky_header_type": "always",
         "show_line_separator": false,
