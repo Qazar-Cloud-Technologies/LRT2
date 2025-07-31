@@ -22,7 +22,7 @@
   margin: 0 auto 30px auto;
   position: relative;
   overflow: visible; /* Allow dropdowns to overflow */
-  z-index: 100; /* Ensure menu is above product grid */
+  z-index: 40000 !important; /* Ensure menu is above product grid */
 }
 
 /* Add Matrix-style overlay with red accent */
@@ -263,7 +263,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 10000;
+  z-index: 50000 !important; /* Ensure dropdowns are above everything */
   max-height: 300px;
   overflow-y: auto;
   background: linear-gradient(
@@ -379,6 +379,15 @@
   .grid-menu-link {
     padding: 3px;
   }
+  
+  /* Mobile z-index fixes for dropdowns */
+  .grid-dropdown {
+    z-index: 20000 !important;
+  }
+  
+  .grid-menu-item.has-children:hover {
+    z-index: 19999 !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -386,20 +395,43 @@
     border-radius: 12px;
     margin: 0 8px 16px 8px;
     padding: 10px 0;
+    z-index: 500 !important;
   }
   
   .grid-menu-container {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 4px;
     padding: 0px;
+    overflow: visible !important;
   }
   
   .grid-menu-link {
     padding: 3px;
   }
   
+  /* Enhanced mobile z-index fixes */
+  .grid-dropdown {
+    z-index: 30000 !important;
+    position: fixed !important;
+    width: 90vw !important;
+    max-width: 300px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 5px !important;
+  }
+  
+  .grid-dropdown:hover,
+  .grid-menu-item.has-children:hover .grid-dropdown {
+    transform: translateX(-50%) scale(1) !important;
+  }
+  
+  .grid-menu-item.has-children:hover {
+    z-index: 29999 !important;
+  }
+  
   .grid-dropdown a {
-    padding: 3px;
+    padding: 8px 12px;
+    font-size: 0.9em;
   }
 }
 
@@ -498,4 +530,52 @@
   justify-content: center;
   opacity: 0;
   pointer-events: none;
+}
+
+/* === COMPREHENSIVE Z-INDEX HIERARCHY === */
+/* Ensure menu system appears above all other content */
+.header,
+.header__wrapper,
+.header__inline-menu {
+  position: relative;
+  z-index: 35000 !important;
+}
+
+/* Menu container hierarchy */
+.mega-menu,
+.grid-category-menu {
+  position: relative;
+  z-index: 40000 !important;
+}
+
+/* Active menu items */
+.grid-menu-item:hover,
+.grid-menu-item:focus-within,
+.grid-menu-item.has-children:hover {
+  z-index: 45000 !important;
+}
+
+/* Dropdown menus must be highest */
+.grid-dropdown {
+  z-index: 50000 !important;
+}
+
+/* Ensure main content stays below menu */
+main,
+.main-content,
+.collection,
+.product-grid-container,
+#ProductGridContainer,
+.product-grid {
+  position: relative;
+  z-index: 1 !important;
+}
+
+/* Prevent product items from interfering */
+.grid__item,
+.card-wrapper,
+.card__media,
+.card__content {
+  position: relative;
+  z-index: auto !important;
 }
