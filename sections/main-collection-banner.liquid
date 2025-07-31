@@ -1,9 +1,8 @@
 {% comment %}
 Dynamic Grid Menu with Glass Effect and Motorcycle Theme
 Includes carousel and collection navigation
+All CSS integrated - no external stylesheet needed
 {% endcomment %}
-
-{{ 'mega-menu.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   /* Motorcycle Carousel Styles */
@@ -26,18 +25,14 @@ Includes carousel and collection navigation
     display: flex;
     transition: transform 0.5s ease;
     height: 100%;
+    width: 200%; /* Width for 2 slides */
   }
   
   .carousel-slide {
     position: relative;
-    min-width: 100%;
+    width: 50%; /* Each slide takes 50% of track width */
     height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-  
-  .carousel-slide.active {
-    opacity: 1;
+    flex-shrink: 0;
   }
   
   .carousel-slide img {
@@ -143,6 +138,489 @@ Includes carousel and collection navigation
       font-size: 1rem;
     }
   }
+
+  /* Mega Menu Styles with 95% width */
+  
+  /* Main container with enhanced glass effect */
+  .grid-category-menu {
+    width: 95%;
+    padding: 16px 0;
+    background: linear-gradient(
+      135deg,
+      rgba(20, 20, 20, 0.85) 0%,
+      rgba(30, 30, 30, 0.9) 50%,
+      rgba(20, 20, 20, 0.85) 100%
+    );
+    backdrop-filter: blur(30px) saturate(150%);
+    -webkit-backdrop-filter: blur(30px) saturate(150%);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 20px;
+    box-shadow: 
+      0 12px 48px rgba(255, 0, 0, 0.15),
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.5);
+    margin: 0 auto 30px auto;
+    position: relative;
+    overflow: visible;
+    z-index: 40000 !important;
+  }
+
+  /* Add Matrix-style overlay with red accent */
+  .grid-category-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 0, 0, 0.03) 2px,
+      rgba(255, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    border-radius: 20px;
+    opacity: 0.6;
+    animation: matrix-scan 8s linear infinite;
+  }
+
+  @keyframes matrix-scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(20px); }
+  }
+
+  /* Auto-fit grid with minimum item width and max 6 columns */
+  .grid-menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-auto-rows: minmax(auto, auto);
+    gap: 4px;
+    padding: 0px;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    z-index: 10;
+    overflow: visible;
+  }
+
+  /* Limit to maximum 6 columns */
+  @media (min-width: 860px) {
+    .grid-menu-container {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .grid-menu-item {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  /* Remove margin for items with children - dropdowns will overlay */
+  .grid-menu-item.has-children {
+    margin-bottom: 0;
+  }
+
+  /* Show dropdown on hover for items with children */
+  .grid-menu-item.has-children:hover .grid-dropdown,
+  .grid-menu-item.has-children:focus-within .grid-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Ensure hovered menu item is above others */
+  .grid-menu-item.has-children:hover {
+    z-index: 9999;
+  }
+
+  /* Create invisible bridge to maintain hover state */
+  .grid-menu-item.has-children::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 10px;
+    z-index: 99;
+  }
+
+  /* Enhanced gradient animated button style with Matrix effect */
+  .grid-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    
+    /* Enhanced gradient animation */
+    background: linear-gradient(
+      135deg,
+      rgba(255, 0, 0, 0.1) 0%,
+      rgba(255, 0, 0, 0.2) 25%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(255, 0, 0, 0.2) 75%,
+      rgba(255, 0, 0, 0.1) 100%
+    );
+    background-size: 300% 300%;
+    animation: gradient-shift 10s ease infinite;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    
+    /* Enhanced glass effect */
+    backdrop-filter: blur(15px) brightness(1.1);
+    -webkit-backdrop-filter: blur(15px) brightness(1.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    box-shadow: 
+      0 4px 16px rgba(255, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* All Products special styling */
+  .grid-menu-item.all-products .grid-menu-link {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 0, 0, 0.3) 0%,
+      rgba(255, 0, 0, 0.5) 50%,
+      rgba(255, 0, 0, 0.3) 100%
+    );
+    border-color: rgba(255, 0, 0, 0.5);
+    box-shadow: 
+      0 4px 20px rgba(255, 0, 0, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /* Empty slot styling */
+  .grid-menu-item.empty-slot .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 8px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px dashed rgba(255, 0, 0, 0.2);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .grid-menu-link:hover,
+  .grid-menu-link:focus {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+      0 8px 32px rgba(255, 0, 0, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+      0 0 40px rgba(255, 0, 0, 0.3);
+    border-color: rgba(255, 0, 0, 0.6);
+    outline: none;
+  }
+
+  /* Matrix text effect on hover */
+  .grid-menu-link::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff0000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow: 0 0 10px #ff0000;
+    pointer-events: none;
+  }
+
+  .grid-menu-link:hover::after {
+    opacity: 0.1;
+    animation: glitch-text 0.5s infinite;
+  }
+
+  @keyframes glitch-text {
+    0%, 100% { transform: translate(0); }
+    33% { transform: translate(-2px, -2px); }
+    66% { transform: translate(2px, 2px); }
+  }
+
+  /* Active state */
+  .grid-menu-link:active {
+    transform: translateY(0);
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu-text {
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-family: monospace, 'Courier New', Courier;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Enhanced glass dropdown with Matrix styling */
+  .grid-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 50000 !important;
+    max-height: 300px;
+    overflow-y: auto;
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 20, 20, 0.95) 0%,
+      rgba(30, 30, 30, 0.98) 100%
+    );
+    backdrop-filter: blur(30px) brightness(0.9);
+    -webkit-backdrop-filter: blur(30px) brightness(0.9);
+    box-shadow: 
+      0 12px 48px rgba(255, 0, 0, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    list-style: none;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-5px) scale(0.98);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 0, 0, 0.3) transparent;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .grid-dropdown::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .grid-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .grid-dropdown::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+
+  .grid-dropdown::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .grid-dropdown li {
+    margin: 0 0 2px 0;
+    padding: 0;
+  }
+
+  .grid-dropdown li:last-child {
+    margin-bottom: 0;
+  }
+
+  .grid-dropdown a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 12px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-family: monospace, 'Courier New', Courier;
+    border: 1px solid transparent;
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.2);
+  }
+
+  .grid-dropdown a:hover,
+  .grid-dropdown a:focus {
+    background: linear-gradient(
+      to right,
+      rgba(255, 0, 0, 0.3),
+      rgba(255, 0, 0, 0.5)
+    );
+    color: #fff;
+    transform: translateX(6px);
+    box-shadow: 
+      0 4px 16px rgba(255, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 0, 0, 0.5);
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    outline: none;
+  }
+
+  /* Ensure dropdown text is left aligned */
+  .grid-dropdown a span {
+    text-align: left;
+    width: 100%;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .grid-menu-container {
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 4px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .grid-menu-container {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 4px;
+      padding: 0px;
+    }
+    
+    .grid-menu-link {
+      padding: 3px;
+    }
+    
+    .grid-dropdown {
+      z-index: 20000 !important;
+    }
+    
+    .grid-menu-item.has-children:hover {
+      z-index: 19999 !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid-category-menu {
+      width: 95%;
+      border-radius: 12px;
+      margin: 0 auto 16px auto;
+      padding: 10px 0;
+      z-index: 500 !important;
+    }
+    
+    .grid-menu-container {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 4px;
+      padding: 0px;
+      overflow: visible !important;
+    }
+    
+    .grid-menu-link {
+      padding: 3px;
+    }
+    
+    .grid-dropdown {
+      z-index: 30000 !important;
+      position: fixed !important;
+      width: 90vw !important;
+      max-width: 300px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-top: 5px !important;
+    }
+    
+    .grid-dropdown:hover,
+    .grid-menu-item.has-children:hover .grid-dropdown {
+      transform: translateX(-50%) scale(1) !important;
+    }
+    
+    .grid-menu-item.has-children:hover {
+      z-index: 29999 !important;
+    }
+    
+    .grid-dropdown a {
+      padding: 8px 12px;
+      font-size: 0.9em;
+    }
+  }
+
+  /* Accessibility improvements */
+  .grid-menu-link:focus-visible,
+  .grid-dropdown a:focus-visible {
+    outline: 2px solid #ff0000;
+    outline-offset: 3px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+
+  /* Z-INDEX HIERARCHY */
+  .header,
+  .header__wrapper,
+  .header__inline-menu {
+    position: relative;
+    z-index: 35000 !important;
+  }
+
+  .mega-menu,
+  .grid-category-menu {
+    position: relative;
+    z-index: 40000 !important;
+  }
+
+  .grid-menu-item:hover,
+  .grid-menu-item:focus-within,
+  .grid-menu-item.has-children:hover {
+    z-index: 45000 !important;
+  }
+
+  .grid-dropdown {
+    z-index: 50000 !important;
+  }
+
+  main,
+  .main-content,
+  .collection,
+  .product-grid-container,
+  #ProductGridContainer,
+  .product-grid {
+    position: relative;
+    z-index: 1 !important;
+  }
+
+  .grid__item,
+  .card-wrapper,
+  .card__media,
+  .card__content {
+    position: relative;
+    z-index: auto !important;
+  }
 {%- endstyle -%}
 
 {% comment %} Motorcycle Carousel Section {% endcomment %}
@@ -150,14 +628,14 @@ Includes carousel and collection navigation
   <div class="carousel-container">
     <div class="carousel-track">
       <div class="carousel-slide active">
-        <img src="{{ 'BG_LRT.jpg' | asset_url }}" alt="Performance Motorcycles" loading="lazy" width="100%" height="100%>
+        <img src="{{ 'BG_LRT.jpg' | asset_url }}" alt="Performance Motorcycles" loading="lazy">
         <div class="carousel-overlay">
           <h2 class="carousel-title" data-text="PERFORMANCE BIKES">PERFORMANCE BIKES</h2>
           <p class="carousel-subtitle">Unleash the power within</p>
         </div>
       </div>
       <div class="carousel-slide">
-        <img src="{{ 'BG_LRT2.jpg' | asset_url }}" alt="Street Machines" loading="lazy" width="100%" height="100%">
+        <img src="{{ 'BG_LRT2.jpg' | asset_url }}" alt="Street Machines" loading="lazy">
         <div class="carousel-overlay">
           <h2 class="carousel-title" data-text="STREET MACHINES">STREET MACHINES</h2>
           <p class="carousel-subtitle">Built for the urban warrior</p>
@@ -178,6 +656,7 @@ Includes carousel and collection navigation
     const carousel = document.querySelector('.motorcycle-carousel');
     if (!carousel) return;
     
+    const track = carousel.querySelector('.carousel-track');
     const slides = carousel.querySelectorAll('.carousel-slide');
     const dots = carousel.querySelectorAll('.carousel-dot');
     const prevBtn = carousel.querySelector('.carousel-prev');
@@ -185,10 +664,10 @@ Includes carousel and collection navigation
     let currentSlide = 0;
     
     function showSlide(index) {
-      slides.forEach(slide => slide.classList.remove('active'));
       dots.forEach(dot => dot.classList.remove('active'));
       
-      slides[index].classList.add('active');
+      // Use transform to slide the track
+      track.style.transform = `translateX(-${index * 50}%)`;
       dots[index].classList.add('active');
       currentSlide = index;
     }
