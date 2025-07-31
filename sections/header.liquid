@@ -1,4 +1,7 @@
 {%- style -%}
+  /* Import Pirata One Font */
+  @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+  
   /* Harmonized Header Styles with Product Grid */
   
   /* Header wrapper with glass morphism effect */
@@ -18,10 +21,6 @@
       inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 40000 !important;
-  }
-  
-  .modal-overlay {
-    display: none;
   }
 
   /* Matrix overlay effect */
@@ -117,7 +116,6 @@
   
   /* Search bar centered styling */
   .header__search {
-    width: 44vw;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -125,7 +123,7 @@
   }
   
   .header__search .header__icon {
-    width: auto;
+    width: auto !important;
     height: 44px;
     padding: 0 24px !important;
     gap: 12px;
@@ -384,6 +382,128 @@
   /* Ensure all direct children maintain proper spacing */
   .header__icons > * {
     margin: 0 !important;
+  }
+
+  /* Hide modal overlay by default */
+  .modal-overlay {
+    display: none;
+  }
+
+  /* Show modal overlay when search is open */
+  .header__search details[open] .modal-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  /* Matrix Style for LRT-GARAGE Menu Item */
+  #HeaderMenu-lrt-garage {
+    position: relative;
+    background: #000;
+    padding: 10px 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 200px;
+    display: inline-block;
+    isolation: isolate;
+  }
+
+  #HeaderMenu-lrt-garage .matrix-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+
+  #HeaderMenu-lrt-garage span {
+    color: #0f0 !important;
+    font-size: 24px;
+    font-family: "Pirata One", system-ui !important;
+    font-weight: 400;
+    font-style: normal;
+    position: relative;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+    z-index: 2;
+    letter-spacing: 0.05em;
+  }
+
+  #HeaderMenu-lrt-garage span::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: glitch-matrix 2s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px, -2px);
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0, 0 0 15px #0f0;
+  }
+
+  /* Rain effect for matrix menu item */
+  #HeaderMenu-lrt-garage::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.1) 0,
+      rgba(0, 255, 0, 0.2) 2px,
+      transparent 4px
+    );
+    animation: rain-matrix 10s linear infinite;
+    z-index: 1;
+  }
+
+  /* Animation for the rain effect */
+  @keyframes rain-matrix {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  /* Glitch effect for the text */
+  @keyframes glitch-matrix {
+    0%, 100% {
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translate(0);
+    }
+    33% {
+      clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+      transform: translate(-5px, -5px);
+    }
+    66% {
+      clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+      transform: translate(5px, 5px);
+    }
+  }
+
+  /* Hover effect */
+  #HeaderMenu-lrt-garage:hover span {
+    text-shadow: 0 0 15px #0f0, 0 0 30px #0f0, 0 0 45px #0f0;
+    animation: pulse-glow 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
   }
 {%- endstyle -%}
 
@@ -707,6 +827,19 @@
   }
 
   customElements.define('sticky-header', StickyHeader);
+
+  // Matrix effect for LRT-GARAGE menu item
+  document.addEventListener('DOMContentLoaded', function() {
+    // Apply matrix effect to any menu item with ID containing 'lrt-garage'
+    const lrtGarageItems = document.querySelectorAll('[id*="HeaderMenu-lrt-garage"]');
+    
+    lrtGarageItems.forEach(function(item) {
+      const span = item.querySelector('span');
+      if (span && !span.hasAttribute('data-text')) {
+        span.setAttribute('data-text', span.textContent);
+      }
+    });
+  });
 {% endjavascript %}
 
 <script type="application/ld+json">
