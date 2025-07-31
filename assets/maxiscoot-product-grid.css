@@ -54,8 +54,13 @@
 .maxiscoot-card .media {
   position: relative;
   overflow: hidden;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Subtle red shine effect on hover */
 .maxiscoot-card .media::before {
   content: '';
   position: absolute;
@@ -66,12 +71,13 @@
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(255, 0, 0, 0.1) 50%,
+    rgba(255, 0, 0, 0.05) 50%,
     transparent 70%
   );
   transform: rotate(45deg) translateX(-100%);
   transition: transform 0.6s;
   z-index: 1;
+  pointer-events: none;
 }
 
 .maxiscoot-card:hover .media::before {
@@ -383,8 +389,13 @@
 .grid__item .card__media {
   position: relative;
   overflow: hidden;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Remove dark overlay - keep subtle red glow on hover */
 .grid__item .card__media::after {
   content: '';
   position: absolute;
@@ -392,14 +403,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    to bottom,
+  background: radial-gradient(
+    circle at center,
     transparent 0%,
-    transparent 70%,
-    rgba(0, 0, 0, 0.8) 100%
+    transparent 60%,
+    rgba(255, 0, 0, 0.1) 100%
   );
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .grid__item:hover .card__media::after {
@@ -726,6 +738,40 @@ details.disclosure-has-popup[open] > *:not(summary),
   z-index: 1 !important;
 }
 
+/* Center product images and remove backgrounds */
+.grid__item img,
+.card__media img,
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  background: transparent !important;
+}
+
+/* Remove any media backgrounds */
+.media,
+.card__media,
+.card__media .media__size,
+.card__media > *:first-child,
+.card__inner .media {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Ensure proper aspect ratio containers */
+.media > *:first-child,
+.media--square > *:first-child,
+.media--portrait > *:first-child {
+  background: transparent !important;
+}
+
+/* Fix Shopify's default dark backgrounds */
+.card__media .placeholder-svg,
+.card__media svg,
+.media svg {
+  background: transparent !important;
+}
+
 /* Fix for absolute positioned filter dropdowns */
 .js-filter .facets__display,
 .disclosure-has-popup .facets__display {
@@ -734,4 +780,52 @@ details.disclosure-has-popup[open] > *:not(summary),
   top: calc(100% + 0.5rem);
   background: #fff;
   z-index: 10000 !important;
+}
+
+/* === COMPREHENSIVE IMAGE BACKGROUND FIXES === */
+/* Remove all possible dark backgrounds from product images */
+.card-wrapper .card__inner,
+.card-wrapper .card__media,
+.card-wrapper .media,
+.card__inner .media__wrapper,
+.product-grid .media,
+.product-grid .card__media,
+.product-grid .media > *,
+.grid__item .media,
+.grid__item .card__media,
+[class*="media--"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Ensure images are centered and sized properly */
+.media img,
+.card__media img,
+.product-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: transparent !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Remove gradient overlays from Shopify default styles */
+.media::before,
+.media::after,
+.card__media::before,
+.media--hover-effect > img + img,
+.media > *:not(img):not(svg) {
+  background: transparent !important;
+}
+
+/* Fix for placeholder and lazy loading backgrounds */
+.media--placeholder,
+.media__placeholder,
+.card__media--placeholder,
+img[data-src],
+img.lazyload,
+img.lazyloading {
+  background: transparent !important;
+  background-color: transparent !important;
 }
