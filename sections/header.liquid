@@ -8,7 +8,7 @@
       rgba(20, 20, 20, 0.95) 0%,
       rgba(30, 30, 30, 0.98) 50%,
       rgba(20, 20, 20, 0.95) 100%
-    );
+    ) !important;
     backdrop-filter: blur(30px) saturate(150%);
     -webkit-backdrop-filter: blur(30px) saturate(150%);
     border-bottom: 1px solid rgba(255, 0, 0, 0.3) !important;
@@ -18,6 +18,12 @@
       inset 0 -1px 0 0 rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 40000 !important;
+  }
+  
+  /* Force dark background on all header elements */
+  .header-wrapper *,
+  .section-header {
+    background-color: transparent !important;
   }
 
   /* Matrix overlay effect */
@@ -49,8 +55,18 @@
   .header {
     position: relative;
     z-index: 2;
-    color: #fff;
+    color: #fff !important;
     font-family: monospace, 'Courier New', Courier;
+  }
+  
+  /* Ensure all header text is visible */
+  .header *,
+  .header a,
+  .header span,
+  .header h1,
+  .header h2,
+  .header h3 {
+    color: #fff !important;
   }
 
   /* Logo styling */
@@ -75,17 +91,17 @@
     text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
   }
 
-  /* Icon styling */
+  /* Icon styling - Rectangular shape */
   .header__icon {
-    color: #fff;
-    width: 44px;
-    height: 44px;
+    color: #fff !important;
+    width: 60px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -96,8 +112,8 @@
       135deg,
       rgba(255, 0, 0, 0.2),
       rgba(255, 0, 0, 0.3)
-    );
-    border-color: rgba(255, 0, 0, 0.5);
+    ) !important;
+    border-color: rgba(255, 0, 0, 0.5) !important;
     transform: translateY(-2px);
     box-shadow: 
       0 4px 16px rgba(255, 0, 0, 0.4),
@@ -107,7 +123,14 @@
   .header__icon svg {
     width: 20px;
     height: 20px;
-    fill: #fff;
+    fill: #fff !important;
+    stroke: #fff !important;
+  }
+  
+  /* Ensure all text in header is visible */
+  .header__icon span,
+  .header__icon .visually-hidden {
+    color: #fff !important;
   }
 
   /* Cart count bubble */
@@ -188,18 +211,23 @@
 
   .list-menu__item--link {
     text-decoration: none;
-    padding: 0.8rem 1.2rem;
+    padding: 0.6rem 1.6rem;
     line-height: calc(1 + 0.8 / var(--font-body-scale));
-    color: #fff;
+    color: #fff !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
     font-size: 0.9rem;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
+    min-width: 100px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .list-menu__item--link:hover {
@@ -207,13 +235,29 @@
       135deg,
       rgba(255, 0, 0, 0.2),
       rgba(255, 0, 0, 0.3)
-    );
-    border-color: rgba(255, 0, 0, 0.5);
+    ) !important;
+    border-color: rgba(255, 0, 0, 0.5) !important;
     transform: translateY(-2px);
     box-shadow: 
       0 4px 16px rgba(255, 0, 0, 0.4),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
     text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    color: #fff !important;
+  }
+  
+  /* Override any theme color schemes for header */
+  .header-wrapper.color-scheme-1,
+  .header-wrapper.color-scheme-2,
+  .header-wrapper.color-scheme-3,
+  .header-wrapper.color-scheme-4,
+  .header-wrapper.color-scheme-5,
+  .header-wrapper.gradient {
+    background: linear-gradient(
+      135deg,
+      rgba(20, 20, 20, 0.95) 0%,
+      rgba(30, 30, 30, 0.98) 50%,
+      rgba(20, 20, 20, 0.95) 100%
+    ) !important;
   }
 
   /* Sticky header enhancement */
@@ -270,13 +314,41 @@
   /* Mobile menu styling */
   @media screen and (max-width: 989px) {
     .header__icon {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 35px;
     }
 
     .header__heading-link {
       margin-right: 2rem;
     }
+  }
+  
+  /* Ensure menu drawer toggle is visible */
+  .header__icon--menu {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
+  }
+  
+  .header__icon--menu svg {
+    fill: #fff !important;
+    stroke: #fff !important;
+  }
+  
+  /* Force white text on all link elements */
+  a.header__heading-link,
+  a.header__icon,
+  a.list-menu__item--link {
+    color: #fff !important;
+  }
+  
+  /* Ensure search icon is visible */
+  .header__search .modal__toggle {
+    color: #fff !important;
+  }
+  
+  .header__search .modal__toggle svg {
+    fill: #fff !important;
+    stroke: #fff !important;
   }
   /* Header spacing and positioning */
   .header {
