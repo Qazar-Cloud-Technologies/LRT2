@@ -5,17 +5,17 @@
   .header-wrapper {
     background: linear-gradient(
       135deg,
-      rgba(20, 20, 20, 0.95) 0%,
-      rgba(30, 30, 30, 0.98) 50%,
-      rgba(20, 20, 20, 0.95) 100%
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(250, 250, 250, 0.98) 50%,
+      rgba(255, 255, 255, 0.95) 100%
     );
     backdrop-filter: blur(30px) saturate(150%);
     -webkit-backdrop-filter: blur(30px) saturate(150%);
     border-bottom: 1px solid rgba(255, 0, 0, 0.3) !important;
     box-shadow: 
       0 4px 20px rgba(255, 0, 0, 0.1),
-      0 2px 10px rgba(0, 0, 0, 0.4),
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.5);
+      0 2px 10px rgba(0, 0, 0, 0.1),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 40000 !important;
   }
@@ -49,7 +49,7 @@
   .header {
     position: relative;
     z-index: 2;
-    color: #fff;
+    color: #111;
     font-family: monospace, 'Courier New', Courier;
   }
 
@@ -131,7 +131,7 @@
     content: '';
     width: 20px;
     height: 20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -139,7 +139,7 @@
   
   .header__search .header__icon::after {
     content: 'SEARCH';
-    color: #fff;
+    color: #111;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.15em;
@@ -152,14 +152,14 @@
 
   /* Icon styling */
   .header__icon {
-    color: #fff !important;
+    color: #111 !important;
     width: 44px;
     height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
     border: 1px solid rgba(255, 0, 0, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -169,20 +169,20 @@
   .header__icon:hover {
     background: linear-gradient(
       135deg,
-      rgba(255, 0, 0, 0.2),
-      rgba(255, 0, 0, 0.3)
-    );
+      rgba(255, 0, 0, 0.1),
+      rgba(255, 0, 0, 0.2)
+    ) !important;
     border-color: rgba(255, 0, 0, 0.5);
     transform: translateY(-2px);
     box-shadow: 
       0 4px 16px rgba(255, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
   }
 
   .header__icon svg {
     width: 20px;
     height: 20px;
-    fill: #fff !important;
+    fill: #111 !important;
   }
 
   /* Cart count bubble */
@@ -280,13 +280,13 @@
     text-decoration: none;
     padding: 0.8rem 1.2rem;
     line-height: calc(1 + 0.8 / var(--font-body-scale));
-    color: #fff;
+    color: #111;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
     font-size: 0.9rem;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
@@ -295,22 +295,22 @@
   .list-menu__item--link:hover {
     background: linear-gradient(
       135deg,
-      rgba(255, 0, 0, 0.2),
-      rgba(255, 0, 0, 0.3)
+      rgba(255, 0, 0, 0.1),
+      rgba(255, 0, 0, 0.2)
     );
     border-color: rgba(255, 0, 0, 0.5);
     transform: translateY(-2px);
     box-shadow: 
       0 4px 16px rgba(255, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
-    text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+    color: #ff0000;
   }
 
   /* Sticky header enhancement */
   .shopify-section-header-sticky {
     box-shadow: 
-      0 8px 32px rgba(255, 0, 0, 0.2),
-      0 4px 16px rgba(0, 0, 0, 0.6);
+      0 8px 32px rgba(255, 0, 0, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.1);
   }
 
   /* Account icon styling */
@@ -331,13 +331,13 @@
 
   /* Localization form styling */
   .localization-form {
-    color: #fff;
+    color: #111;
   }
 
   .localization-form select {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 0, 0, 0.2);
-    color: #fff;
+    color: #111;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     font-family: monospace;
