@@ -111,20 +111,43 @@
     80% { clip-path: inset(80% 0 0% 0); }
   }
   
-  /* Search icon loupe styling */
-  .header__search .header__icon svg {
-    display: none;
+  /* Search bar centered styling */
+  .header__search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
   }
   
-  .header__search .header__icon::after {
+  .header__search .header__icon {
+    width: auto !important;
+    height: 44px;
+    padding: 0 24px !important;
+    gap: 12px;
+    min-width: 200px;
+  }
+  
+  .header__search .header__icon::before {
     content: '';
     width: 20px;
     height: 20px;
-    display: block;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+  }
+  
+  .header__search .header__icon::after {
+    content: 'SEARCH';
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    font-family: monospace;
+  }
+  
+  .header__search .header__icon svg {
+    display: none;
   }
 
   /* Icon styling */
@@ -188,9 +211,23 @@
     50% { opacity: 0.8; transform: scale(1.1); }
   }
 
-  /* Search styling */
-  .header__search {
-    margin-right: 1rem;
+  /* Mobile adjustments for search */
+  @media screen and (max-width: 989px) {
+    .header__search {
+      position: static;
+      transform: none;
+      margin-right: 1rem;
+    }
+    
+    .header__search .header__icon {
+      width: 44px !important;
+      padding: 0 !important;
+      min-width: auto;
+    }
+    
+    .header__search .header__icon::after {
+      display: none;
+    }
   }
 
   /* Drawer and menu styling */
@@ -479,10 +516,6 @@
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
-      endif
-
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
       {% render 'header-search', input_id: 'Search-In-Modal' %}
