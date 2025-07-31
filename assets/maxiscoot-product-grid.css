@@ -2,7 +2,7 @@
 
 /* Dark Background with Matrix Effect */
 .maxiscoot-grid {
-  background: #000;
+  /* background: #000; */
   position: relative;
   min-height: 100vh;
 }
