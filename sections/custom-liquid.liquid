@@ -67,3 +67,316 @@
   ]
 }
 {% endschema %}
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  @media screen and (max-width: 749px) {
+    .collection-hero--with-image .collection-hero__inner {
+      padding-bottom: calc({{settings.media_shadow_vertical_offset | at_least: 0}}px + 2rem);
+    }
+  }
+  
+  /* Matrix-style effect for collection title */
+  .matrix-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    overflow: hidden;
+    padding: 20px 0;
+  }
+  
+  .matrix-text {
+    color: #ff0000;
+    font-size: 2.5rem;
+    font-family: monospace;
+    position: relative;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+    z-index: 2;
+    margin: 0.5rem;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  
+  .matrix-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: glitch 2s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px, -2px);
+    color: #ff0000;
+    text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000;
+  }
+  
+  .rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0.1) 0,
+      rgba(255, 0, 0, 0.2) 2px,
+      transparent 4px
+    );
+    animation: rain 10s linear infinite;
+    z-index: 1;
+  }
+  
+  /* Animation for the rain effect */
+  @keyframes rain {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+  
+  /* Glitch effect for the text */
+  @keyframes glitch {
+    0%, 100% {
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translate(0);
+    }
+    33% {
+      clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+      transform: translate(-5px, -5px);
+    }
+    66% {
+      clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+      transform: translate(5px, 5px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .matrix-text {
+      font-size: 1.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  style="border-bottom: 1px black solid;"
+  class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient"
+>
+  <div
+    style="border-bottom: 1px black solid;"
+    class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  >
+    <div class="collection-hero__text-wrapper">
+      {%- if section.settings.show_collection_description -%}
+        <div style="max-width: 50rem" class="collection-hero__description rte">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div style="position: sticky; top: 45px;">
+    <div class="matrix-container">
+      <h1 class="matrix-text" data-text="{{ collection.title | escape | upcase }}">
+        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+        {{- collection.title | escape -}}
+      </h1>
+      <div class="rain"></div>
+    </div>
+  </div>
+  <div>
+    {%- if section.settings.show_collection_image and collection.image -%}
+      <div class="collection-hero__image-container media gradient">
+        <img
+          srcset="
+            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
+            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {{ collection.image | image_url }} {{ collection.image.width }}w
+          "
+          src="{{ collection.image | image_url: width: 750 }}"
+          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+          alt="{{ collection.image.alt | escape }}"
+          width="{{ collection.image.width }}"
+          height="{{ collection.image.height }}"
+        >
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% comment %}
+Dynamic Grid Menu with Glass Effect and Left Icons
+Reads collections and their metafields to build parent/child menu structure
+{% endcomment %}
+
+{% assign all_collections_array = collections | map: 'handle' %}
+{% assign parent_collections = '' %}
+{% assign all_parents_data = '' %}
+
+{% comment %} Identify parent collections (no underscore in handle) {% endcomment %}
+{% for handle in all_collections_array %}
+  {% unless handle contains '_' %}
+    {% assign collection = collections[handle] %}
+    {% if collection.metafields.custom.show_in_menu == true %}
+      {% assign order = collection.metafields.custom.order | default: 999 %}
+      {% assign parent_collections = parent_collections | append: handle | append: ',' %}
+      {% assign parent_data = handle | append: '|' | append: order %}
+      {% assign all_parents_data = all_parents_data | append: parent_data | append: ',' %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+
+{% comment %} Sort parents by order {% endcomment %}
+{% assign parents_with_order = all_parents_data | split: ',' %}
+{% assign sorted_parents = '' %}
+
+{% comment %} Simple bubble sort for parent collections by order {% endcomment %}
+{% for i in (1..99) %}
+  {% assign lowest_order = 999 %}
+  {% assign lowest_handle = '' %}
+  
+  {% for parent_data in parents_with_order %}
+    {% if parent_data != blank %}
+      {% assign parts = parent_data | split: '|' %}
+      {% assign handle = parts[0] %}
+      {% assign order = parts[1] | plus: 0 %}
+      
+      {% unless sorted_parents contains handle %}
+        {% if order < lowest_order %}
+          {% assign lowest_order = order %}
+          {% assign lowest_handle = handle %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if lowest_handle != blank %}
+    {% assign sorted_parents = sorted_parents | append: lowest_handle | append: ',' %}
+  {% endif %}
+  
+  {% if sorted_parents contains lowest_handle %}
+    {% continue %}
+  {% endif %}
+{% endfor %}
+
+{% assign sorted_parents_array = sorted_parents | split: ',' %}
+
+<nav class="grid-category-menu" role="navigation" aria-label="Category menu">
+  <ul class="grid-menu-container">
+    {% for parent_handle in sorted_parents_array %}
+      {% if parent_handle != blank %}
+        {% assign parent_collection = collections[parent_handle] %}
+        {% if parent_collection %}
+          {% comment %} Check if this parent has children {% endcomment %}
+          {% assign has_children = false %}
+          {% assign parent_prefix = parent_handle | append: '_' %}
+          {% for handle in all_collections_array %}
+            {% assign handle_start = handle | slice: 0, parent_prefix.size %}
+            {% if handle_start == parent_prefix %}
+              {% assign child_collection = collections[handle] %}
+              {% if child_collection.metafields.custom.show_in_menu == true %}
+                {% assign has_children = true %}
+                {% break %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+          <li class="grid-menu-item{% if has_children %} has-children{% endif %}">
+            <a href="{{ parent_collection.url }}" class="grid-menu-link">
+              <span class="menu-text">
+                {% if parent_collection.metafields.custom.display_name %}
+                  {{ parent_collection.metafields.custom.display_name }}
+                {% else %}
+                  {{ parent_collection.title }}
+                {% endif %}
+              </span>
+            </a>
+            
+            {% if has_children %}
+              {% comment %} Find and sort child collections {% endcomment %}
+              {% assign children_data = '' %}
+              {% assign parent_prefix = parent_handle | append: '_' %}
+              {% for handle in all_collections_array %}
+                {% assign handle_start = handle | slice: 0, parent_prefix.size %}
+                {% if handle_start == parent_prefix %}
+                  {% assign child_collection = collections[handle] %}
+                  {% if child_collection.metafields.custom.show_in_menu == true %}
+                    {% assign child_order = child_collection.metafields.custom.order | default: 999 %}
+                    {% assign child_data = handle | append: '|' | append: child_order %}
+                    {% assign children_data = children_data | append: child_data | append: ',' %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              
+              {% if children_data != blank %}
+                {% assign children_with_order = children_data | split: ',' %}
+                {% assign sorted_children = '' %}
+                
+                {% comment %} Sort children by order {% endcomment %}
+                {% for i in (1..50) %}
+                  {% assign lowest_child_order = 999 %}
+                  {% assign lowest_child_handle = '' %}
+                  
+                  {% for child_data in children_with_order %}
+                    {% if child_data != blank %}
+                      {% assign child_parts = child_data | split: '|' %}
+                      {% assign child_handle = child_parts[0] %}
+                      {% assign child_order = child_parts[1] | plus: 0 %}
+                      
+                      {% unless sorted_children contains child_handle %}
+                        {% if child_order < lowest_child_order %}
+                          {% assign lowest_child_order = child_order %}
+                          {% assign lowest_child_handle = child_handle %}
+                        {% endif %}
+                      {% endunless %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% if lowest_child_handle != blank %}
+                    {% assign sorted_children = sorted_children | append: lowest_child_handle | append: ',' %}
+                  {% endif %}
+                {% endfor %}
+                
+                {% assign sorted_children_array = sorted_children | split: ',' %}
+                
+                <ul class="grid-dropdown" role="menu">
+                  {% for child_handle in sorted_children_array %}
+                    {% if child_handle != blank %}
+                      {% assign child_collection = collections[child_handle] %}
+                      {% if child_collection %}
+                        <li role="none">
+                          <a href="{{ child_collection.url }}" role="menuitem">
+                            <span>
+                              {% if child_collection.metafields.custom.display_name %}
+                                {{ child_collection.metafields.custom.display_name }}
+                              {% else %}
+                                {{ child_collection.title }}
+                              {% endif %}
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+
+
