@@ -69,23 +69,75 @@
   }
 
   .header h2 {
-    color: #fff;
+    color: #ff0000;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    position: relative;
+    animation: matrix-text 3s ease-in-out infinite;
+  }
+  
+  /* Matrix text animation */
+  @keyframes matrix-text {
+    0%, 100% {
+      text-shadow: 
+        0 0 20px rgba(255, 0, 0, 0.8),
+        0 0 40px rgba(255, 0, 0, 0.6),
+        0 0 60px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+      text-shadow: 
+        0 0 30px rgba(255, 0, 0, 1),
+        0 0 50px rgba(255, 0, 0, 0.8),
+        0 0 70px rgba(255, 0, 0, 0.6);
+    }
+  }
+  
+  /* Matrix overlay for text */
+  .header h2::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgba(255, 0, 0, 0.1);
+    animation: glitch 2s linear infinite;
+  }
+  
+  @keyframes glitch {
+    0%, 100% { clip-path: inset(0 0 100% 0); }
+    20% { clip-path: inset(20% 0 60% 0); }
+    40% { clip-path: inset(60% 0 20% 0); }
+    60% { clip-path: inset(40% 0 40% 0); }
+    80% { clip-path: inset(80% 0 0% 0); }
+  }
+  
+  /* Search icon loupe styling */
+  .header__search .header__icon svg {
+    display: none;
+  }
+  
+  .header__search .header__icon::after {
+    content: '';
+    width: 36px;
+    height: 36px;
+    display: block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
-  /* Icon styling */
+  /* Icon styling - Double size */
   .header__icon {
-    color: #fff;
-    width: 44px;
-    height: 44px;
+    color: #fff !important;
+    width: 88px;
+    height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -105,28 +157,28 @@
   }
 
   .header__icon svg {
-    width: 20px;
-    height: 20px;
-    fill: #fff;
+    width: 40px;
+    height: 40px;
+    fill: #fff !important;
   }
 
-  /* Cart count bubble */
+  /* Cart count bubble - Double size */
   .cart-count-bubble {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -12px;
+    right: -12px;
     background: #ff0000;
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    min-width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 6px;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    padding: 0 12px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
     animation: pulse-header 2s infinite;
   }
 
@@ -350,7 +402,7 @@
                 }}
               </div>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              <span class="h2" data-text="{{ shop.name }}">{{ shop.name }}</span>
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
@@ -389,7 +441,7 @@
                 }}
               </div>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              <span class="h2" data-text="{{ shop.name }}">{{ shop.name }}</span>
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
