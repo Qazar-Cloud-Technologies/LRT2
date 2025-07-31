@@ -468,9 +468,9 @@
   font-family: monospace;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   position: relative;
-  padding: 10px;
+  padding: 0;
   transition: all 0.3s ease;
 }
 
@@ -484,8 +484,8 @@
   color: #ff0000;
   font-family: monospace;
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 0 10px 10px;
+  font-size: 0.85em;
+  padding: 0;
 }
 
 .price__regular .price-item--regular {
@@ -911,7 +911,7 @@ img.lazyloading {
   flex-direction: column;
 }
 
-/* Reduce image container heights - 16:9 aspect ratio */
+/* Reduce image container heights - 4:3 aspect ratio for more compact cards */
 .card__media,
 .media,
 .card__inner .media {
@@ -919,7 +919,7 @@ img.lazyloading {
   min-height: unset !important;
   max-height: unset !important;
   padding: 0 !important; /* Remove padding to maximize image space */
-  aspect-ratio: 16 / 9 !important; /* 16:9 aspect ratio */
+  aspect-ratio: 4 / 3 !important; /* 4:3 aspect ratio for more compact cards */
   width: 100% !important;
 }
 
@@ -945,28 +945,13 @@ img.lazyloading {
   max-width: 100% !important;
 }
 
-/* Compact card content area */
-.card__content {
-  padding: 6px !important;
-  flex-grow: 0;
-}
-
+/* Compact card information area */
 .card__information {
   margin: 0 !important;
   padding: 0 !important;
-}
-
-/* Reduce title and price spacing */
-.card__heading {
-  margin: 0 0 4px 0 !important;
-  font-size: 0.85rem !important;
-  line-height: 1.2 !important;
-}
-
-.price {
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
 }
 
 /* Remove unnecessary spacing */
@@ -982,16 +967,20 @@ img.lazyloading {
   .card__media,
   .media,
   .card__inner .media {
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 4 / 3 !important;
     padding: 0 !important;
   }
   
   .card__heading {
-    font-size: 0.75rem !important;
+    font-size: 0.85em !important;
   }
   
   .price {
-    font-size: 0.9rem !important;
+    font-size: 0.8em !important;
+  }
+  
+  .card__content {
+    padding: 6px !important;
   }
 }
 
@@ -1017,13 +1006,30 @@ img.lazyloading {
 }
 
 /* === SHOW PRODUCT TEXT CONTENT WITH PROPER LAYOUT === */
-/* Ensure text content is visible */
+/* Hide everything except heading and price */
 .card__content,
-.card__information,
+.card__information {
+  display: block !important;
+  visibility: visible !important;
+}
+
 .card__heading,
 .price {
   display: block !important;
   visibility: visible !important;
+}
+
+/* Hide vendor and other metadata */
+.card__information > *:not(.card__heading):not(.price) {
+  display: none !important;
+}
+
+.caption,
+.card__caption,
+.card__text,
+.card-information > span:not(.price),
+.visually-hidden {
+  display: none !important;
 }
 
 /* Card layout structure */
@@ -1044,27 +1050,33 @@ img.lazyloading {
   flex-shrink: 0;
 }
 
-/* Content area styling */
+/* Content area styling - minimal padding */
 .card__content {
-  padding: 12px !important;
+  padding: 8px !important;
   background: rgba(255, 255, 255, 0.95);
-  flex-grow: 1;
+  flex-grow: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 4px;
 }
 
-/* Heading styling */
+/* Heading styling - match mega-menu font */
 .card__heading {
-  font-size: inherit !important;
-  margin-bottom: 8px !important;
-  line-height: 1.3 !important;
+  font-size: 0.9em !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  font-family: monospace;
 }
 
-/* Price styling */
-.price {
+.card__heading a {
   font-size: inherit !important;
-  margin-top: auto !important;
+}
+
+/* Price styling - match mega-menu font */
+.price {
+  font-size: 0.85em !important;
+  margin: 0 !important;
+  line-height: 1 !important;
 }
 
 /* Keep badges visible */
