@@ -1,342 +1,253 @@
-/* Maxiscoot Motorcycle Theme - Product Grid Styles */
+/* Maxiscoot Motorcycle Theme - Simplified Product Grid Styles */
 
-/* Background with Matrix Effect */
-.maxiscoot-grid {
+/* Product Grid Layout - 2 columns that fit in viewport */
+.product-grid {
   position: relative;
-  min-height: 100vh;
-}
-
-.maxiscoot-grid::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 0, 0, 0.03) 0,
-    rgba(255, 0, 0, 0.05) 2px,
-    transparent 4px
-  );
-  pointer-events: none;
   z-index: 1;
-  animation: matrix-flow 20s linear infinite;
+  display: grid !important;
+  grid-template-columns: repeat(2, 40vw) !important;
+  grid-auto-rows: 22.5vw; /* 16:9 ratio */
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: start;
 }
 
-@keyframes matrix-flow {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100px); }
+/* Product Card Container */
+.grid__item {
+  position: relative;
+  width: 40vw !important;
+  height: 22.5vw !important;
+  max-width: 40vw !important;
+  max-height: 22.5vw !important;
+  display: block !important;
+  margin: 0;
 }
 
-/* Product Cards - Glass Morphism */
-.maxiscoot-card {
+/* Card Wrapper - Glass Effect */
+.grid__item .card-wrapper {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
   position: relative;
+  cursor: pointer;
 }
 
-.maxiscoot-card:hover {
+.grid__item:hover .card-wrapper {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 0, 0, 0.5);
-  box-shadow: 
-    0 0 30px rgba(255, 0, 0, 0.3),
-    inset 0 0 20px rgba(255, 0, 0, 0.1);
-  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  transform: scale(1.02);
 }
 
-/* Product Image Effects */
-.maxiscoot-card .media {
-  position: relative;
+/* Card Structure */
+.card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.card__inner {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Override Shopify's aspect ratio styles */
+.card__inner.ratio,
+.card[style*="--ratio-percent"] {
+  padding-bottom: 0 !important;
+  height: 100% !important;
+}
+
+/* Product Image Container */
+.card__media {
+  width: 100% !important;
+  height: calc(100% - 60px) !important; /* Leave room for text */
   overflow: hidden;
   background: transparent !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Subtle red shine effect on hover */
-.maxiscoot-card .media::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 0, 0, 0.05) 50%,
-    transparent 70%
-  );
-  transform: rotate(45deg) translateX(-100%);
-  transition: transform 0.6s;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.maxiscoot-card:hover .media::before {
-  transform: rotate(45deg) translateX(100%);
-}
-
-/* Title Styling */
-.maxiscoot-title {
-  color: #333;
-  font-family: 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
-  padding: 10px;
-  transition: all 0.3s ease;
+  display: block !important;
   position: relative;
 }
 
-.maxiscoot-card:hover .maxiscoot-title {
-  color: #ff0000;
-  text-shadow: 
-    0 0 10px rgba(255, 0, 0, 0.5),
-    0 0 20px rgba(255, 0, 0, 0.3);
+/* Images */
+.card__media img,
+.media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
 }
 
-/* Price Display */
-.maxiscoot-price {
+/* Product Info Container */
+.card__content {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 8px 12px !important;
+  background: rgba(255, 255, 255, 0.95);
+  height: 60px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 4px;
+  overflow: hidden;
+}
+
+/* Hide duplicate content inside card__inner */
+.card__inner > .card__content {
+  display: none !important;
+}
+
+/* Product Title */
+.card__heading {
+  font-size: 0.9em !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+  display: block !important;
+}
+
+.card__heading a {
+  color: inherit !important;
+  text-decoration: none !important;
+  display: block !important;
+}
+
+.grid__item:hover .card__heading {
   color: #ff0000;
-  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Price Styling */
+.price {
+  font-size: 0.85em !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  font-family: monospace;
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 0 10px 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  color: #ff0000;
+  display: block !important;
 }
 
-.maxiscoot-price .regular-price {
+/* Hide unnecessary elements */
+.caption-large.light,
+.card__badge:not(.badge--bottom-left),
+.quick-add {
+  display: none !important;
+}
+
+/* Show all information elements */
+.card__information {
+  display: block !important;
+}
+
+.card-information {
+  display: block !important;
+}
+
+/* Keep only essential price elements visible */
+.price__regular .price-item--regular,
+.price__sale .price-item--sale {
   color: #ff0000;
   text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
 }
 
-.maxiscoot-price .sale-price {
-  color: #00ff00;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
-  animation: price-pulse 1s ease-in-out infinite;
+/* Handle small tags inside price */
+.price small,
+.price-item {
+  font-size: inherit !important;
 }
 
-@keyframes price-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+/* Ensure all text elements are visible */
+.card__content * {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-.maxiscoot-price .compare-price {
-  color: #999;
-  text-decoration: line-through;
-  font-size: 0.9rem;
+/* Remove text transform on price to preserve formatting */
+small[style*="text-transform"] {
+  text-transform: none !important;
 }
 
-/* Add to Cart Button */
-.maxiscoot-button {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff0000;
-  color: #ff0000;
-  font-family: 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 12px 24px;
-  width: calc(100% - 20px);
-  margin: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.maxiscoot-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 0, 0, 0.4),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.maxiscoot-button:hover::before {
-  left: 100%;
-}
-
-.maxiscoot-button:hover {
-  background: rgba(255, 0, 0, 0.2);
-  box-shadow: 
-    0 0 20px rgba(255, 0, 0, 0.5),
-    inset 0 0 10px rgba(255, 0, 0, 0.2);
-  transform: scale(1.02);
-}
-
-/* Badge Styles */
-.maxiscoot-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+/* Badges */
+.card__badge {
+  position: absolute !important;
+  top: 8px !important;
+  left: 8px !important;
+  z-index: 2 !important;
   background: #ff0000;
   color: #fff;
-  font-family: 'Courier New', monospace;
+  font-family: monospace;
   text-transform: uppercase;
   padding: 5px 10px;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
-  z-index: 2;
-  animation: badge-pulse 2s infinite;
-  border: 1px solid #fff;
+  animation: pulse 2s infinite;
 }
 
-@keyframes badge-pulse {
+@keyframes pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    opacity: 1;
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    opacity: 0.8;
+    transform: scale(1.05);
   }
-}
-
-/* Filter & Sort Styling */
-.maxiscoot-filters {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  padding: 20px;
-  margin-bottom: 30px;
-  border-radius: 5px;
-}
-
-.maxiscoot-filter-button {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff0000;
-  font-family: 'Courier New', monospace;
-  padding: 8px 16px;
-  margin: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.maxiscoot-filter-button:hover,
-.maxiscoot-filter-button.active {
-  background: rgba(255, 0, 0, 0.2);
-  border-color: #ff0000;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-/* Loading State */
-.maxiscoot-loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.maxiscoot-loading-text {
-  color: #ff0000;
-  font-family: 'Courier New', monospace;
-  font-size: 2rem;
-  text-transform: uppercase;
-  animation: loading-glitch 2s infinite;
-}
-
-@keyframes loading-glitch {
-  0%, 100% {
-    text-shadow: 
-      2px 2px 0 #00ff00,
-      -2px -2px 0 #0000ff;
-    transform: translate(0);
-  }
-  33% {
-    text-shadow: 
-      -2px 2px 0 #ff00ff,
-      2px -2px 0 #ffff00;
-    transform: translate(-2px, 2px);
-  }
-  66% {
-    text-shadow: 
-      2px -2px 0 #00ffff,
-      -2px 2px 0 #ff0000;
-    transform: translate(2px, -2px);
-  }
-}
-
-/* Pagination */
-.maxiscoot-pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 40px 0;
-}
-
-.maxiscoot-page-link {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff0000;
-  font-family: 'Courier New', monospace;
-  padding: 10px 15px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.maxiscoot-page-link:hover,
-.maxiscoot-page-link.active {
-  background: rgba(255, 0, 0, 0.2);
-  border-color: #ff0000;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-  transform: scale(1.1);
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .maxiscoot-card {
-    margin-bottom: 15px;
+@media screen and (max-width: 990px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 45vw) !important;
   }
   
-  .maxiscoot-title {
-    font-size: 0.8rem;
-  }
-  
-  .maxiscoot-price {
-    font-size: 1rem;
-  }
-  
-  .maxiscoot-button {
-    padding: 10px 20px;
-    font-size: 0.8rem;
+  .grid__item {
+    width: 45vw !important;
+    height: 25.3vw !important;
   }
 }
 
-/* ===== EXTRACTED FROM LIQUID FILE ===== */
-
-/* Maxiscoot Motorcycle Theme Styles */
-.collection {
-  position: relative;
-  z-index: 1; /* Keep below menu dropdowns */
+@media screen and (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid__item {
+    width: 90vw !important;
+    height: 50.6vw !important;
+  }
+  
+  .card__heading {
+    font-size: 0.8em !important;
+  }
+  
+  .price {
+    font-size: 0.75em !important;
+  }
 }
 
+/* Fix background overlay */
 .collection::before {
   content: '';
   position: absolute;
@@ -354,858 +265,54 @@
   z-index: 1;
 }
 
-/* Product Grid Styling - Responsive Layout */
-.product-grid {
+/* Ensure clickable links work */
+.card-wrapper a,
+.card__heading a {
   position: relative;
-  z-index: 1;
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(40vw, 1fr)) !important;
-  grid-auto-rows: 22.5vw; /* 16:9 ratio height */
-  gap: 20px;
-  padding: 20px;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  justify-items: center;
-  align-items: center;
+  z-index: 5;
 }
 
-/* Force grid items to respect size constraints */
-.product-grid > * {
-  width: 40vw !important;
-  height: 22.5vw !important;
-}
-
-/* Center the grid container */
-.collection__products,
-.products-container {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-/* Responsive grid */
-@media screen and (max-width: 990px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .product-grid {
-    grid-template-columns: 1fr !important;
-    gap: 15px;
-    padding: 15px;
-  }
-}
-
-/* Product Card Glass Effect */
-.grid__item {
-  position: relative;
-  overflow: visible; /* Allow content to be visible */
-  width: 40vw !important;
-  height: 22.5vw !important; /* 16:9 ratio */
-  max-width: 40vw !important;
-  max-height: 22.5vw !important;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto; /* Center in grid cell */
-}
-
-.grid__item .card-wrapper {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 0, 0, 0.2);
-  border-radius: 10px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  width: 100% !important;
-  height: 100% !important;
-  display: flex;
-  flex-direction: column;
-}
-
-.grid__item:hover .card-wrapper {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 0, 0, 0.5);
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
-  transform: scale(1.02); /* Scale instead of translate to avoid overflow */
-}
-
-/* Product Image Overlay */
-.grid__item .card__media {
-  position: relative;
-  overflow: hidden;
-  background: transparent !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Remove dark overlay - keep subtle red glow on hover */
-.grid__item .card__media::after {
+/* Make entire card clickable */
+.card-wrapper::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 0%,
-    transparent 60%,
-    rgba(255, 0, 0, 0.1) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  z-index: 4;
 }
 
-.grid__item:hover .card__media::after {
-  opacity: 1;
-}
-
-/* Product Title Matrix Style */
-.grid__item .card__heading {
-  color: #333;
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.9em;
-  position: relative;
-  padding: 0;
-  transition: all 0.3s ease;
-}
-
-.grid__item:hover .card__heading {
-  color: #ff0000;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-/* Price Styling */
-.price {
-  color: #ff0000;
-  font-family: monospace;
-  font-weight: 700;
-  font-size: 0.85em;
-  padding: 0;
-}
-
-.price__regular .price-item--regular {
-  color: #ff0000;
-  text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-}
-
-.price__sale .price-item--sale {
-  color: #00ff00;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
-}
-
-/* Vendor Styling */
-.card__information .visually-hidden + span {
-  color: #666;
-  font-family: monospace;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  padding: 0 10px;
-}
-
-/* Quick Add Button */
-.quick-add__submit {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff0000;
-  color: #ff0000;
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-}
-
-.quick-add__submit:hover {
-  background: rgba(255, 0, 0, 0.2);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-  transform: scale(1.05);
-}
-
-/* Filters Glass Effect */
-.facets-wrapper {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 0, 0, 0.3);
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 100;
-}
-
-.facets__form {
-  border-color: rgba(255, 0, 0, 0.2);
-}
-
-.facets__heading {
-  color: #ff0000;
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* Filter Buttons */
-.facets__reset,
-.facet-filters__sort {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff0000;
-  font-family: monospace;
-}
-
-.facets__reset:hover,
-.facet-filters__sort:hover {
-  background: rgba(255, 0, 0, 0.2);
-  border-color: #ff0000;
-}
-
-/* Ensure filter dropdowns appear above products */
-.facets__disclosure,
-.facets__display,
-.price-filter,
-.facets__price,
-.facets__item,
-.disclosure__list-wrapper,
-.facets__list,
-.facets__submenu,
-[data-disclosure-list],
-.disclosure__list {
-  position: relative;
-  z-index: 1000 !important;
-}
-
-/* Price filter specific */
-.facets__price .facets__display,
-.price-filter .facets__display,
-.facets__price details[open] > .facets__display,
-.facets summary + .facets__display,
-.facets__heading:contains("Price") + * .facets__display,
-details.js-filter[data-index] .facets__display {
-  position: absolute;
-  z-index: 1001 !important;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 0, 0, 0.2);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-}
-
-/* Ensure open dropdowns are on top */
-details[open] .facets__display,
-details[open] .disclosure__list-wrapper,
-.facets__item[open] > * {
-  z-index: 1002 !important;
-}
-
-/* Fix for Shopify's disclosure elements */
-.disclosure {
-  position: relative;
-}
-
-.disclosure__toggle[aria-expanded="true"] + .disclosure__list-wrapper {
-  z-index: 1003 !important;
-}
-
-/* Ensure facets form doesn't clip content */
-.facets,
-.facets__form,
-.facets-container,
-.facets-wrap,
-#main-collection-filters {
-  position: relative;
-  overflow: visible !important;
-}
-
-/* Override any parent container overflow */
-.facets__wrapper,
-.facets__item,
-.disclosure-has-popup {
-  overflow: visible !important;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.loading-overlay::after {
-  content: 'LOADING...';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ff0000;
-  font-family: monospace;
-  font-size: 2rem;
-  text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-  animation: glitch 2s infinite;
-}
-
-@keyframes glitch {
-  0%, 100% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  33% {
-    transform: translate(-48%, -52%);
-    opacity: 0.8;
-  }
-  66% {
-    transform: translate(-52%, -48%);
-    opacity: 0.8;
-  }
-}
-
-/* Pagination */
-.pagination__list {
-  gap: 10px;
-}
-
-.pagination__item a {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff0000;
-  font-family: monospace;
-  padding: 10px 15px;
-  transition: all 0.3s ease;
-}
-
-.pagination__item a:hover,
-.pagination__item--current a {
-  background: rgba(255, 0, 0, 0.2);
-  border-color: #ff0000;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-/* Badge Styling */
-.card__badge {
-  background: #ff0000;
-  color: #fff;
-  font-family: monospace;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  border: none;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-/* Responsive Adjustments */
-@media screen and (max-width: 749px) {
-  .product-grid {
-    gap: 15px;
-    padding: 15px;
-  }
-
-  .grid__item .card__heading {
-    font-size: 0.8rem;
-  }
-
-  .price {
-    font-size: 1rem;
-  }
-}
-
-/* Z-index fixes to ensure menu appears above product grid */
-.product-grid-container,
-#ProductGridContainer {
-  position: relative;
-  z-index: 1;
-}
-
-/* Ensure product cards don't create new stacking contexts that interfere */
-.grid__item,
-.card-wrapper {
-  position: relative;
-  z-index: auto;
-}
-
-/* Prevent overflow issues that might clip menu dropdowns */
-.section-padding,
-.gradient,
-.collection {
-  overflow: visible !important;
-}
-
-/* Additional specificity for Shopify elements */
-main,
-.main-content {
-  position: relative;
-  z-index: 1;
-}
-
-/* Fix filter dropdowns appearing under products */
-.facets-vertical {
-  position: relative;
-  z-index: 100;
-}
-
-/* Ensure filter elements stay on top */
-details.disclosure-has-popup[open] > *:not(summary),
-.facets__wrapper details[open] .facets__display {
-  position: absolute;
-  z-index: 9999 !important;
-}
-
-/* Keep products below filters */
-.collection .grid__item {
-  position: relative;
-  z-index: 1;
-}
-
-/* Prevent transform from creating new stacking context on hover */
-.grid__item:hover .card-wrapper {
-  transform: scale(1.02);
-  z-index: 2; /* Lower than filters */
-}
-
-/* Ensure product images stay below filters */
-.card__media,
-.card__inner,
-.card-wrapper,
-.card__content,
-.product-grid .grid__item img {
-  position: relative;
-  z-index: 1 !important;
-}
-
-/* Center product images and remove backgrounds */
-.grid__item img,
-.card__media img,
-.media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain !important;
-  background: transparent !important;
-}
-
-/* Remove any media backgrounds */
-.media,
-.card__media,
-.card__media .media__size,
-.card__media > *:first-child,
-.card__inner .media {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Ensure proper aspect ratio containers */
-.media > *:first-child,
-.media--square > *:first-child,
-.media--portrait > *:first-child {
-  background: transparent !important;
-  padding-bottom: 0 !important; /* Remove aspect ratio padding */
-  position: relative !important;
-  height: 100% !important;
-}
-
-/* Fix Shopify's default dark backgrounds */
-.card__media .placeholder-svg,
-.card__media svg,
-.media svg {
-  background: transparent !important;
-}
-
-/* Fix for absolute positioned filter dropdowns */
-.js-filter .facets__display,
-.disclosure-has-popup .facets__display {
-  min-width: 12rem;
-  max-width: 25rem;
-  top: calc(100% + 0.5rem);
-  background: #fff;
-  z-index: 10000 !important;
-}
-
-/* Enhanced z-index for menu to appear above products */
-.header,
-.header__inline-menu,
-.mega-menu,
-.grid-dropdown {
-  z-index: 15000 !important;
-  position: relative;
-}
-
-/* Menu dropdowns specifically */
-.grid-dropdown {
-  position: absolute !important;
-  z-index: 20000 !important;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-}
-
-/* Ensure main content stays below menus */
-main,
-.main-content,
-.collection,
-.product-grid-container {
-  position: relative;
-  z-index: 1 !important;
-}
-
-/* === COMPREHENSIVE IMAGE BACKGROUND FIXES === */
-/* Remove all possible dark backgrounds from product images */
-.card-wrapper .card__inner,
-.card-wrapper .card__media,
-.card-wrapper .media,
-.card__inner .media__wrapper,
-.product-grid .media,
-.product-grid .card__media,
-.product-grid .media > *,
-.grid__item .media,
-.grid__item .card__media,
-[class*="media--"] {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Ensure images are centered and sized properly */
-.media img,
-.card__media img,
-.product-grid img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain !important;
-  object-position: center !important;
-  background: transparent !important;
-  mix-blend-mode: normal !important;
-}
-
-/* Remove gradient overlays from Shopify default styles */
-.media::before,
-.media::after,
-.card__media::before,
-.media--hover-effect > img + img,
-.media > *:not(img):not(svg) {
-  background: transparent !important;
-}
-
-/* Fix for placeholder and lazy loading backgrounds */
-.media--placeholder,
-.media__placeholder,
-.card__media--placeholder,
-img[data-src],
-img.lazyload,
-img.lazyloading {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* === COMPACT CARD LAYOUT === */
-/* Reduce card heights and maximize image space */
-.card-wrapper {
-  height: auto !important;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Image container - takes most of card height */
-.grid__item .card__media,
-.grid__item .media {
-  width: 100% !important;
-  height: calc(22.5vw - 50px) !important; /* Card height minus text area */
-  min-height: unset !important;
-  max-height: calc(22.5vw - 50px) !important;
-  padding: 0 !important;
-  overflow: hidden;
-  display: block !important;
-  background: #f5f5f5; /* Debug: light background to see if container is visible */
-}
-
-/* Make images fill the available space */
-.card__media img,
-.media img,
-.product-grid .grid__item img {
+/* Fix Shopify media containers */
+.media {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
   display: block !important;
-}
-
-/* Ensure all card elements take full width */
-.card,
-.card-wrapper,
-.card__inner,
-.card-wrapper__inner,
-.card-information {
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
-/* Compact card information area */
-.card__information {
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 4px !important;
-  visibility: visible !important;
-}
-
-/* Ensure card-information wrapper is visible */
-.card-information {
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Remove unnecessary spacing */
-.card__badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  margin: 0 !important;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 990px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(45vw, 1fr)) !important;
-  }
-  
-  .grid__item,
-  .product-grid > * {
-    width: 45vw !important;
-    height: 25.3vw !important; /* Maintain 16:9 */
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .product-grid {
-    grid-template-columns: 1fr !important;
-    grid-auto-rows: auto;
-  }
-  
-  .grid__item,
-  .product-grid > * {
-    width: 90vw !important;
-    height: 50.6vw !important; /* Maintain 16:9 */
-  }
-  
-  .card__heading {
-    font-size: 0.8em !important;
-  }
-  
-  .price {
-    font-size: 0.75em !important;
-  }
-}
-
-/* Override Shopify aspect ratio containers */
-.ratio,
-[style*="padding-bottom"],
-.media__first-child {
-  padding-bottom: 0 !important;
-  height: auto !important;
   position: relative !important;
-}
-
-/* Remove inline ratio styles */
-.card__inner.ratio {
-  height: 100% !important;
-}
-
-/* Override inline styles on cards */
-.card[style*="--ratio-percent"] {
-  height: 100% !important;
-}
-
-/* Ensure all media wrappers have correct height */
-.card-wrapper .media,
-.card__inner .media,
-.card__media .media {
-  position: relative !important;
-  padding-bottom: 0 !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* === SHOW PRODUCT TEXT CONTENT WITH PROPER LAYOUT === */
-/* Show card content and information */
-.card__content,
-.card__information {
-  display: block !important;
-  visibility: visible !important;
-}
-
-.card__heading,
-.price {
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Hide duplicate headings - keep only one */
-.card__inner .card__heading:not(:first-of-type) {
-  display: none !important;
-}
-
-/* Hide the first card__content that's inside card__inner */
-.card__inner > .card__content:first-of-type {
-  display: none !important;
-}
-
-/* Hide vendor and other metadata */
-.card__information > *:not(.card__heading):not(.price):not(.card-information) {
-  display: none !important;
-}
-
-.caption,
-.card__caption,
-.card__text,
-.card-information > span.caption-large {
-  display: none !important;
-}
-
-/* Keep visually-hidden for accessibility but hidden */
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
   overflow: hidden !important;
-  clip: rect(0,0,0,0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
 }
 
-/* Simplified card structure */
-.card__inner {
-  display: flex !important;
-  flex-direction: column !important;
-  height: 100% !important;
-  width: 100% !important;
-}
-
-/* Ensure all content is visible */
-.card__inner .card__media {
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Show only the outer card__content */
-.card-wrapper > .card__content {
-  display: flex !important;
-  visibility: visible !important;
-}
-
-/* Media takes appropriate space */
-.card__media {
-  width: 100% !important;
+.media > *:first-child {
   position: relative !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  flex: 1 1 auto;
-  display: block !important;
-}
-
-/* Content area styling - fixed height */
-.card__content {
-  padding: 4px 8px !important;
-  background: rgba(255, 255, 255, 0.95);
-  flex: 0 0 50px; /* Fixed 50px height */
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  overflow: hidden;
-  visibility: visible !important;
-}
-
-/* Heading styling - single line */
-.card__heading {
-  font-size: 0.9em !important;
-  margin: 0 !important;
-  line-height: 1.2 !important;
-  font-family: monospace;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block !important;
-  visibility: visible !important;
-}
-
-.card__heading a {
-  font-size: inherit !important;
-  color: inherit;
-  text-decoration: none;
-  display: block !important;
-}
-
-/* Price styling - compact */
-.price {
-  font-size: 0.85em !important;
-  margin: 0 !important;
-  line-height: 1 !important;
-  white-space: nowrap;
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Ensure price containers are visible */
-.price__container,
-.price__regular,
-.price__sale {
-  display: block !important;
-}
-
-/* Keep badges visible */
-.card__badge {
-  display: block !important;
-  position: absolute !important;
-  top: 8px !important;
-  left: 8px !important;
-  z-index: 2 !important;
-}
-
-/* === COMPREHENSIVE PRODUCT CARD FIX === */
-/* Ensure grid items display content */
-.product-grid .grid__item {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.product-grid .card-wrapper {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.product-grid .card {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  padding-bottom: 0 !important;
   height: 100% !important;
 }
 
-.product-grid .card__inner {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+/* Ensure ratio containers don't break layout */
+.ratio {
+  position: relative !important;
+  height: 100% !important;
+  padding-bottom: 0 !important;
 }
 
-/* Force all images to be visible */
+/* Force visibility on all card elements */
+.product-grid .grid__item,
+.product-grid .card-wrapper,
+.product-grid .card,
+.product-grid .card__inner,
+.product-grid .card__media,
+.product-grid .card__content,
 .product-grid img {
-  display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
