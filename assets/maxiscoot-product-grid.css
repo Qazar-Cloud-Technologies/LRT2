@@ -936,3 +936,41 @@ img.lazyloading {
   align-items: center !important;
   justify-content: center !important;
 }
+
+/* === HIDE PRODUCT TEXT CONTENT - SHOW ONLY IMAGES === */
+/* Hide all text content from product cards */
+.card__content,
+.card__information,
+.card__heading,
+.card__badge.bottom,
+.price,
+.card-information,
+.card__text,
+.card__caption {
+  display: none !important;
+}
+
+/* Make card__inner use full space for media only */
+.card__inner {
+  display: block !important; /* Remove any grid/flex that splits the view */
+  height: 100% !important;
+  position: relative !important;
+}
+
+/* Ensure card__media uses full card space */
+.card__media {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Keep only top badges visible (Sale, New, etc.) */
+.card__badge.top {
+  display: block !important;
+  position: absolute !important;
+  top: 8px !important;
+  left: 8px !important;
+  z-index: 2 !important;
+}
