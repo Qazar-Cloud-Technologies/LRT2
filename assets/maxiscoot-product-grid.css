@@ -363,8 +363,16 @@
   grid-auto-rows: auto;
   gap: 20px;
   padding: 20px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Force grid items to fill their cells */
+.product-grid > * {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Center the grid container */
@@ -394,6 +402,10 @@
 .grid__item {
   position: relative;
   overflow: hidden;
+  width: 100% !important; /* Take full width of grid cell */
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid__item .card-wrapper {
@@ -404,6 +416,10 @@
   overflow: hidden;
   transition: all 0.3s ease;
   height: 100%;
+  width: 100% !important; /* Take full width */
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid__item:hover .card-wrapper {
@@ -919,6 +935,16 @@ img.lazyloading {
   max-height: 100% !important;
 }
 
+/* Ensure all card elements take full width */
+.card,
+.card-wrapper,
+.card__inner,
+.card-wrapper__inner,
+.card-information {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 /* Compact card content area */
 .card__content {
   padding: 6px !important;
@@ -1006,6 +1032,7 @@ img.lazyloading {
   flex-direction: column !important;
   height: 100% !important;
   position: relative !important;
+  width: 100% !important;
 }
 
 /* Media takes appropriate space */
