@@ -1,155 +1,219 @@
-{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{% comment %}
+Dynamic Grid Menu with Glass Effect and Motorcycle Theme
+Includes carousel and collection navigation
+{% endcomment %}
+
+{{ 'mega-menu.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{settings.media_shadow_vertical_offset | at_least: 0}}px + 2rem);
-    }
-  }
-  
-  /* Matrix-style effect for collection title */
-  .matrix-container {
+  /* Motorcycle Carousel Styles */
+  .motorcycle-carousel {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    background: transparent;
+    height: 500px;
     overflow: hidden;
-    padding: 20px 0;
+    background: #000;
+    margin-bottom: 40px;
   }
   
-  .matrix-text {
-    color: #ff0000;
-    font-size: 2.5rem;
-    font-family: monospace;
+  .carousel-container {
     position: relative;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+  }
+  
+  .carousel-slide {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  .carousel-slide.active {
+    opacity: 1;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .carousel-overlay {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
     z-index: 2;
-    margin: 0.5rem;
-    padding: 0;
+  }
+  
+  .carousel-title {
+    font-family: monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ff0000;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+    animation: glitch 2s infinite;
+  }
+  
+  .carousel-subtitle {
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-weight: 700;
+    margin-top: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
   }
   
-  .matrix-text::before {
-    content: attr(data-text);
+  .carousel-nav {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    animation: glitch 2s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-2px, -2px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 0, 0, 0.3);
     color: #ff0000;
-    text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000;
+    font-size: 2rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 3;
   }
   
-  .rain {
+  .carousel-nav:hover {
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+  
+  .carousel-prev {
+    left: 20px;
+  }
+  
+  .carousel-next {
+    right: 20px;
+  }
+  
+  .carousel-dots {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(255, 0, 0, 0.1) 0,
-      rgba(255, 0, 0, 0.2) 2px,
-      transparent 4px
-    );
-    animation: rain 10s linear infinite;
-    z-index: 1;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
   }
   
-  /* Animation for the rain effect */
-  @keyframes rain {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(100%);
-    }
+  .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
   
-  /* Glitch effect for the text */
-  @keyframes glitch {
-    0%, 100% {
-      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-      transform: translate(0);
-    }
-    33% {
-      clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
-      transform: translate(-5px, -5px);
-    }
-    66% {
-      clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
-      transform: translate(5px, 5px);
-    }
+  .carousel-dot.active {
+    background: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
   }
   
   @media (max-width: 768px) {
-    .matrix-text {
-      font-size: 1.5rem;
+    .motorcycle-carousel {
+      height: 300px;
+    }
+    
+    .carousel-title {
+      font-size: 2rem;
+    }
+    
+    .carousel-subtitle {
+      font-size: 1rem;
     }
   }
 {%- endstyle -%}
 
-<div
-  style="border-bottom: 1px black solid;"
-  class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient"
->
-  <div
-    style="border-bottom: 1px black solid;"
-    class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-  >
-    <div class="collection-hero__text-wrapper">
-      {%- if section.settings.show_collection_description -%}
-        <div style="max-width: 50rem" class="collection-hero__description rte">
-          {{ collection.description }}
+{% comment %} Motorcycle Carousel Section {% endcomment %}
+<div class="motorcycle-carousel">
+  <div class="carousel-container">
+    <div class="carousel-track">
+      <div class="carousel-slide active">
+        <img src="{{ 'BG_LRT.jpg' | asset_url }}" alt="Performance Motorcycles" loading="lazy">
+        <div class="carousel-overlay">
+          <h2 class="carousel-title" data-text="PERFORMANCE BIKES">PERFORMANCE BIKES</h2>
+          <p class="carousel-subtitle">Unleash the power within</p>
         </div>
-      {%- endif -%}
-    </div>
-  </div>
-  <div style="position: sticky; top: 45px;">
-    <div class="matrix-container">
-      <h1 class="matrix-text" data-text="{{ collection.title | escape | upcase }}">
-        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
-      </h1>
-      <div class="rain"></div>
-    </div>
-  </div>
-  <div>
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
       </div>
-    {%- endif -%}
+      <div class="carousel-slide">
+        <img src="{{ 'BG_LRT2.jpg' | asset_url }}" alt="Street Machines" loading="lazy">
+        <div class="carousel-overlay">
+          <h2 class="carousel-title" data-text="STREET MACHINES">STREET MACHINES</h2>
+          <p class="carousel-subtitle">Built for the urban warrior</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-nav carousel-prev" aria-label="Previous slide">‹</button>
+    <button class="carousel-nav carousel-next" aria-label="Next slide">›</button>
+    <div class="carousel-dots">
+      <button class="carousel-dot active" aria-label="Slide 1" data-slide="0"></button>
+      <button class="carousel-dot" aria-label="Slide 2" data-slide="1"></button>
+    </div>
   </div>
 </div>
 
-{% comment %}
-Dynamic Grid Menu with Glass Effect and Left Icons
-Reads collections and their metafields to build parent/child menu structure
-{% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.motorcycle-carousel');
+    if (!carousel) return;
+    
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    let currentSlide = 0;
+    
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentSlide = index;
+    }
+    
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }
+    
+    function prevSlide() {
+      const prev = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prev);
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showSlide(index));
+    });
+    
+    // Auto-advance carousel
+    setInterval(nextSlide, 5000);
+  });
+</script>
 
 {% assign all_collections_array = collections | map: 'handle' %}
 {% assign parent_collections = '' %}
@@ -205,6 +269,12 @@ Reads collections and their metafields to build parent/child menu structure
 
 <nav class="grid-category-menu" role="navigation" aria-label="Category menu">
   <ul class="grid-menu-container">
+    {% comment %} All Products Button {% endcomment %}
+    <li class="grid-menu-item all-products">
+      <a href="/collections/all" class="grid-menu-link">
+        <span class="menu-text">ALL PRODUCTS</span>
+      </a>
+    </li>
     {% for parent_handle in sorted_parents_array %}
       {% if parent_handle != blank %}
         {% assign parent_collection = collections[parent_handle] %}
@@ -307,37 +377,18 @@ Reads collections and their metafields to build parent/child menu structure
         {% endif %}
       {% endif %}
     {% endfor %}
+    
+    {% comment %} Calculate remaining slots needed for 18 total (minus 1 for All Products) {% endcomment %}
+    {% assign total_items = sorted_parents_array | size | plus: 1 %}
+    {% assign remaining_slots = 18 | minus: total_items %}
+    
+    {% comment %} Fill empty slots {% endcomment %}
+    {% for i in (1..remaining_slots) %}
+      <li class="grid-menu-item empty-slot">
+        <div class="grid-menu-link placeholder">
+          <span class="menu-text">COMING SOON</span>
+        </div>
+      </li>
+    {% endfor %}
   </ul>
 </nav>
-
-{% schema %}
-{
-  "name": "t:sections.main-collection-banner.name",
-  "class": "section",
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_description",
-      "default": true,
-      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_image",
-      "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
-      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    }
-  ]
-}
-{% endschema %}
