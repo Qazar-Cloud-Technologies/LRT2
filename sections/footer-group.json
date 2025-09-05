@@ -43,6 +43,7 @@
         "footer-2",
         "footer-0"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-5",
         "newsletter_enable": true,
