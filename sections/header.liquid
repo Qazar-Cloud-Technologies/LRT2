@@ -681,44 +681,72 @@
           background: transparent !important;
         }
         
-        /* Style the close button as prominent arrow */
-        .search-modal__close-button {
-          position: fixed !important;
-          top: 120px !important;
-          right: 40px !important;
-          z-index: 100000 !important;
+        /* Button container aligned with search bar */
+        .search-modal__buttons {
+          position: absolute !important;
+          top: 50% !important;
+          right: 10px !important;
+          transform: translateY(-50%) !important;
+          display: flex !important;
+          gap: 10px !important;
+          z-index: 100 !important;
+        }
+        
+        /* Style both close and reset buttons */
+        .search-modal__close-button,
+        .search-modal__reset-button {
           background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9)) !important;
           color: #fff !important;
-          width: 50px !important;
-          height: 50px !important;
+          width: 35px !important;
+          height: 35px !important;
           border-radius: 50% !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
           border: 2px solid rgba(255, 255, 255, 0.3) !important;
-          box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5) !important;
+          box-shadow: 0 3px 15px rgba(255, 0, 0, 0.4) !important;
           transition: all 0.3s ease !important;
           opacity: 1 !important;
           visibility: visible !important;
+          cursor: pointer !important;
+        }
+        
+        .search-modal__reset-button {
+          background: linear-gradient(135deg, rgba(200, 0, 0, 0.8), rgba(150, 0, 0, 0.8)) !important;
+        }
+        
+        .search-modal__close-button:hover,
+        .search-modal__reset-button:hover {
+          transform: scale(1.1) rotate(90deg) !important;
+          box-shadow: 0 5px 25px rgba(255, 0, 0, 0.6) !important;
         }
         
         .search-modal__close-button:hover {
-          transform: scale(1.1) rotate(90deg) !important;
-          box-shadow: 0 6px 30px rgba(255, 0, 0, 0.7) !important;
           background: linear-gradient(135deg, rgba(255, 0, 0, 1), rgba(200, 0, 0, 1)) !important;
         }
         
-        .search-modal__close-button svg {
-          width: 24px !important;
-          height: 24px !important;
+        .search-modal__reset-button:hover {
+          background: linear-gradient(135deg, rgba(200, 0, 0, 1), rgba(150, 0, 0, 1)) !important;
+        }
+        
+        .search-modal__close-button svg,
+        .search-modal__reset-button svg {
+          width: 18px !important;
+          height: 18px !important;
           stroke: #fff !important;
           fill: #fff !important;
         }
         
-        .search-modal__close-button .svg-wrapper {
+        .search-modal__close-button .svg-wrapper,
+        .search-modal__reset-button .svg-wrapper {
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
+        }
+        
+        /* Position the field relative for button container */
+        .search-modal__form .field {
+          position: relative !important;
         }
         
         /* Ensure search content is properly positioned */
@@ -783,20 +811,7 @@
                   >
                   <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
                   <input type="hidden" name="options[prefix]" value="last">
-                  <button
-                    type="reset"
-                    class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
-                    aria-label="{{ 'general.search.reset' | t }}"
-                  >
-                    <span class="svg-wrapper">
-                      {{- 'icon-reset.svg' | inline_asset_content -}}
-                    </span>
-                  </button>
-                  <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-                    <span class="svg-wrapper">
-                      {{- 'icon-search.svg' | inline_asset_content -}}
-                    </span>
-                  </button>
+                  <!-- Buttons moved to separate container -->
                 </div>
 
                 {%- if settings.predictive_search_enabled -%}
@@ -812,15 +827,28 @@
               {%- else -%}
                 </search-form>
               {%- endif -%}
-              <button
-                type="button"
-                class="search-modal__close-button modal__close-button link link--text focus-inset"
-                aria-label="{{ 'accessibility.close' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </button>
+              <!-- Button container aligned with search bar -->
+              <div class="search-modal__buttons">
+                <button
+                  type="button"
+                  class="search-modal__reset-button"
+                  aria-label="{{ 'general.search.reset' | t }}"
+                  onclick="document.getElementById('Search-In-Modal').value = ''; document.getElementById('Search-In-Modal').focus();"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-reset.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  class="search-modal__close-button modal__close-button link link--text focus-inset"
+                  aria-label="{{ 'accessibility.close' | t }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </details>
