@@ -657,7 +657,174 @@
         render 'header-drawer'
       endif
     -%}
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
+      {% comment %} Header search modal integrated directly {% endcomment %}
+      <style>
+        /* Remove modal overlay background */
+        details-modal[open] {
+          background: transparent !important;
+        }
+        
+        .search-modal.modal__content {
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+        
+        details-modal::before,
+        details-modal::after,
+        .header__search::before,
+        .header__search::after {
+          display: none !important;
+        }
+        
+        /* Remove any overlay backgrounds */
+        details[open] {
+          background: transparent !important;
+        }
+        
+        /* Style the close button as prominent arrow */
+        .search-modal__close-button {
+          position: fixed !important;
+          top: 120px !important;
+          right: 40px !important;
+          z-index: 100000 !important;
+          background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9)) !important;
+          color: #fff !important;
+          width: 50px !important;
+          height: 50px !important;
+          border-radius: 50% !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          border: 2px solid rgba(255, 255, 255, 0.3) !important;
+          box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5) !important;
+          transition: all 0.3s ease !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        
+        .search-modal__close-button:hover {
+          transform: scale(1.1) rotate(90deg) !important;
+          box-shadow: 0 6px 30px rgba(255, 0, 0, 0.7) !important;
+          background: linear-gradient(135deg, rgba(255, 0, 0, 1), rgba(200, 0, 0, 1)) !important;
+        }
+        
+        .search-modal__close-button svg {
+          width: 24px !important;
+          height: 24px !important;
+          stroke: #fff !important;
+          fill: #fff !important;
+        }
+        
+        .search-modal__close-button .svg-wrapper {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        
+        /* Ensure search content is properly positioned */
+        .search-modal__content {
+          position: relative !important;
+          z-index: 99999 !important;
+          background: white !important;
+          border-radius: 10px !important;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+        }
+      </style>
+
+      <details-modal class="header__search">
+        <details>
+          <summary
+            class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle"
+            aria-haspopup="dialog"
+            aria-label="{{ 'general.search.search' | t }}"
+          >
+            <span>
+              <span class="svg-wrapper">
+                {{ 'icon-search.svg' | inline_asset_content }}
+              </span>
+            </span>
+          </summary>
+          <div
+            class="search-modal modal__content"
+            role="dialog"
+            aria-modal="true"
+            aria-label="{{ 'general.search.search' | t }}"
+          >
+            <div
+              class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}"
+              tabindex="-1"
+            >
+              {%- if settings.predictive_search_enabled -%}
+                <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+              {%- else -%}
+                <search-form class="search-modal__form">
+              {%- endif -%}
+              <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+                <div class="field">
+                  <input
+                    class="search__input field__input"
+                    id="Search-In-Modal"
+                    type="search"
+                    name="q"
+                    value="{{ search.terms | escape }}"
+                    placeholder="{{ 'general.search.search' | t }}"
+                    {%- if settings.predictive_search_enabled -%}
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results"
+                      aria-controls="predictive-search-results"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    {%- endif -%}
+                  >
+                  <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
+                  <input type="hidden" name="options[prefix]" value="last">
+                  <button
+                    type="reset"
+                    class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+                    aria-label="{{ 'general.search.reset' | t }}"
+                  >
+                    <span class="svg-wrapper">
+                      {{- 'icon-reset.svg' | inline_asset_content -}}
+                    </span>
+                  </button>
+                  <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                    <span class="svg-wrapper">
+                      {{- 'icon-search.svg' | inline_asset_content -}}
+                    </span>
+                  </button>
+                </div>
+
+                {%- if settings.predictive_search_enabled -%}
+                  <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+                    {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+                  </div>
+
+                  <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+                {%- endif -%}
+              </form>
+              {%- if settings.predictive_search_enabled -%}
+                </predictive-search>
+              {%- else -%}
+                </search-form>
+              {%- endif -%}
+              <button
+                type="button"
+                class="search-modal__close-button modal__close-button link link--text focus-inset"
+                aria-label="{{ 'accessibility.close' | t }}"
+              >
+                <span class="svg-wrapper">
+                  {{- 'icon-close.svg' | inline_asset_content -}}
+                </span>
+              </button>
+            </div>
+          </div>
+        </details>
+      </details-modal>
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
