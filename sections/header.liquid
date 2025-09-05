@@ -692,13 +692,12 @@
           z-index: 100 !important;
         }
         
-        /* Style both close and reset buttons */
-        .search-modal__close-button,
-        .search-modal__reset-button {
+        /* Style close button - smaller size */
+        .search-modal__close-button {
           background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9)) !important;
           color: #fff !important;
-          width: 35px !important;
-          height: 35px !important;
+          width: 25px !important;
+          height: 25px !important;
           border-radius: 50% !important;
           display: flex !important;
           align-items: center !important;
@@ -711,34 +710,20 @@
           cursor: pointer !important;
         }
         
-        .search-modal__reset-button {
-          background: linear-gradient(135deg, rgba(200, 0, 0, 0.8), rgba(150, 0, 0, 0.8)) !important;
-        }
-        
-        .search-modal__close-button:hover,
-        .search-modal__reset-button:hover {
+        .search-modal__close-button:hover {
           transform: scale(1.1) rotate(90deg) !important;
           box-shadow: 0 5px 25px rgba(255, 0, 0, 0.6) !important;
-        }
-        
-        .search-modal__close-button:hover {
           background: linear-gradient(135deg, rgba(255, 0, 0, 1), rgba(200, 0, 0, 1)) !important;
         }
         
-        .search-modal__reset-button:hover {
-          background: linear-gradient(135deg, rgba(200, 0, 0, 1), rgba(150, 0, 0, 1)) !important;
-        }
-        
-        .search-modal__close-button svg,
-        .search-modal__reset-button svg {
-          width: 18px !important;
-          height: 18px !important;
+        .search-modal__close-button svg {
+          width: 14px !important;
+          height: 14px !important;
           stroke: #fff !important;
           fill: #fff !important;
         }
         
-        .search-modal__close-button .svg-wrapper,
-        .search-modal__reset-button .svg-wrapper {
+        .search-modal__close-button .svg-wrapper {
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
@@ -818,7 +803,7 @@
                   <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
                     {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
                   </div>
-
+                  <div id="predictive-search-results" class="predictive-search__results" role="listbox" style="display: none;"></div>
                   <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
                 {%- endif -%}
               </form>
@@ -829,16 +814,6 @@
               {%- endif -%}
               <!-- Button container aligned with search bar -->
               <div class="search-modal__buttons">
-                <button
-                  type="button"
-                  class="search-modal__reset-button"
-                  aria-label="{{ 'general.search.reset' | t }}"
-                  onclick="document.getElementById('Search-In-Modal').value = ''; document.getElementById('Search-In-Modal').focus();"
-                >
-                  <span class="svg-wrapper">
-                    {{- 'icon-reset.svg' | inline_asset_content -}}
-                  </span>
-                </button>
                 <button
                   type="button"
                   class="search-modal__close-button modal__close-button link link--text focus-inset"
@@ -1078,6 +1053,153 @@
     }
   </script>
 {%- endif -%}
+
+<script>
+  // Predictive Search Implementation
+  class PredictiveSearch extends HTMLElement {
+    constructor() {
+      super();
+      this.cachedResults = {};
+      this.searchTerm = '';
+      this.isOpen = false;
+      this.searchTimeout = null;
+    }
+
+    connectedCallback() {
+      this.input = this.querySelector('input[type="search"]');
+      this.predictiveSearchResults = document.getElementById('predictive-search-results');
+      
+      if (!this.input) return;
+      
+      this.input.addEventListener('input', this.debounce((event) => {
+        this.onChange(event);
+      }, 300).bind(this));
+      
+      this.input.addEventListener('focus', this.onFocus.bind(this));
+      document.addEventListener('click', this.onDocumentClick.bind(this));
+    }
+
+    debounce(fn, wait) {
+      let t;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    onChange(event) {
+      const searchTerm = event.target.value.trim();
+      this.searchTerm = searchTerm;
+
+      if (!searchTerm.length) {
+        this.close();
+        return;
+      }
+
+      this.getSearchResults(searchTerm);
+    }
+
+    onFocus() {
+      if (this.searchTerm.length && this.cachedResults[this.searchTerm]) {
+        this.open();
+      }
+    }
+
+    onDocumentClick(event) {
+      if (!this.contains(event.target)) {
+        this.close();
+      }
+    }
+
+    getSearchResults(searchTerm) {
+      if (this.cachedResults[searchTerm]) {
+        this.renderSearchResults(this.cachedResults[searchTerm]);
+        return;
+      }
+
+      fetch(`/search/suggest?q=${encodeURIComponent(searchTerm)}&resources[type]=product,collection,article,page&resources[limit]=10&section_id=predictive-search`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+          return response.text();
+        })
+        .then((text) => {
+          const resultsMarkup = new DOMParser()
+            .parseFromString(text, 'text/html')
+            .querySelector('#shopify-section-predictive-search')?.innerHTML;
+          
+          if (resultsMarkup) {
+            this.cachedResults[searchTerm] = resultsMarkup;
+            this.renderSearchResults(resultsMarkup);
+          }
+        })
+        .catch((error) => {
+          console.error('Predictive search error:', error);
+          this.close();
+        });
+    }
+
+    renderSearchResults(resultsMarkup) {
+      if (this.predictiveSearchResults) {
+        this.predictiveSearchResults.innerHTML = resultsMarkup;
+        
+        // Style the results container
+        this.predictiveSearchResults.style.cssText = `
+          display: block !important;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(10, 10, 10, 0.98);
+          border: 1px solid rgba(255, 0, 0, 0.3);
+          border-radius: 0 0 8px 8px;
+          max-height: 400px;
+          overflow-y: auto;
+          z-index: 999999;
+          margin-top: 5px;
+          backdrop-filter: blur(10px);
+        `;
+        
+        // Style the results links
+        const links = this.predictiveSearchResults.querySelectorAll('a');
+        links.forEach(link => {
+          link.style.cssText = `
+            display: block;
+            padding: 10px 15px;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.2s;
+          `;
+          link.addEventListener('mouseenter', () => {
+            link.style.background = 'rgba(255, 0, 0, 0.1)';
+          });
+          link.addEventListener('mouseleave', () => {
+            link.style.background = 'transparent';
+          });
+        });
+        
+        this.open();
+      }
+    }
+
+    open() {
+      this.setAttribute('aria-expanded', 'true');
+      this.isOpen = true;
+    }
+
+    close() {
+      if (this.predictiveSearchResults) {
+        this.predictiveSearchResults.style.display = 'none';
+        this.predictiveSearchResults.innerHTML = '';
+      }
+      this.setAttribute('aria-expanded', 'false');
+      this.isOpen = false;
+    }
+  }
+
+  customElements.define('predictive-search', PredictiveSearch);
+</script>
 
 {% schema %}
 {
