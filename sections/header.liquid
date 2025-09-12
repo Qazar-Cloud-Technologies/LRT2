@@ -537,9 +537,9 @@
     .header {
       padding: 5px 0.3rem !important;
       display: grid !important;
-      grid-template-columns: repeat(9, 1fr) !important;
+      grid-template-columns: auto auto 1fr auto !important; /* Logo | LRT | Search | Basket */
       align-items: center !important;
-      gap: 0 !important;
+      gap: 8px !important;
       width: 100% !important;
     }
 
@@ -564,11 +564,11 @@
       width: 40px !important;
     }
 
-    /* Logo - Grid position: start 1, span 1 */
+    /* Logo - First column */
     .header__heading {
       margin: 0 !important;
-      grid-column: 1 / span 1 !important;
-      justify-self: center !important;
+      grid-column: 1 !important;
+      justify-self: start !important;
     }
 
     .header__heading-link {
@@ -578,15 +578,15 @@
       justify-content: center !important;
     }
 
-    /* LRT-GARAGE - Grid position: start 2, span 2 */
+    /* LRT-GARAGE - Second column */
     #HeaderMenu-lrt-garage {
       height: 28px !important; /* Reduced from 44px */
       min-width: auto !important; /* Auto width to fit content */
       width: fit-content !important; /* Fit to text size */
       padding: 0 10px !important; /* Reduced padding */
       margin: 0 !important;
-      grid-column: 2 / span 2 !important;
-      justify-self: center !important;
+      grid-column: 2 !important;
+      justify-self: start !important;
     }
 
     #HeaderMenu-lrt-garage span {
@@ -594,13 +594,12 @@
       line-height: 28px !important; /* Match new height */
     }
 
-    /* Header icons container - spans columns 4-9 */
+    /* Header icons container - spans columns 3-4 */
     .header__icons {
-      grid-column: 4 / span 6 !important;
-      display: grid !important;
-      grid-template-columns: repeat(6, 1fr) !important;
+      grid-column: 3 / -1 !important; /* From column 3 to end */
+      display: flex !important;
       align-items: center !important;
-      gap: 0 !important;
+      gap: 8px !important;
       margin: 0 !important;
       padding: 0 !important;
       width: 100% !important;
@@ -617,7 +616,7 @@
       min-width: unset !important;
     }
 
-    /* Basket/Cart - Grid position: spans last 2 of 6 columns in icons container */
+    /* Basket/Cart - Fixed width, no grow */
     .header__icon--cart {
       padding: 0 10px !important;
       background: rgba(255, 255, 255, 0.95) !important;
@@ -627,10 +626,9 @@
       align-items: center !important;
       justify-content: center !important;
       gap: 6px !important;
-      grid-column: 5 / span 2 !important;
+      flex: 0 0 auto !important;
       margin: 0 !important;
       width: fit-content !important;
-      justify-self: center !important;
     }
 
     /* Add "Basket" text to cart button */
@@ -680,13 +678,13 @@
       margin: 0 !important;
     }
 
-    /* Search bar - Grid position: spans first 4 of 6 columns in icons container */
+    /* Search bar - Takes all available space */
     .header__search {
       position: static !important;
       transform: none !important;
-      grid-column: 1 / span 4 !important;
+      flex: 1 1 auto !important;
       margin: 0 !important;
-      padding: 0 5px 0 0 !important; /* Small padding on right */
+      padding: 0 !important;
       width: 100% !important;
       max-width: none !important;
       min-width: 0 !important;
