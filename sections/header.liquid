@@ -669,16 +669,16 @@
       margin: 0 !important;
     }
 
-    /* Expand search bar to take all available space */
+    /* Search bar with fixed width */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 1 1 100% !important; /* Take all available space */
+      flex: 0 0 auto !important; /* Fixed width, no grow */
       margin: 0 !important; /* No margins */
       padding: 0 5px !important; /* Small padding between elements */
-      width: auto !important;
-      max-width: none !important;
-      min-width: 0 !important;
+      width: 150px !important; /* Fixed 150px width */
+      max-width: 150px !important;
+      min-width: 150px !important;
     }
 
     .header__search .header__icon {
