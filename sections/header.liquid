@@ -533,25 +533,17 @@
       max-width: 100% !important;
     }
 
-    /* Use flexbox for mobile header - simpler approach */
+    /* Reduce header padding on mobile */
     .header {
       padding: 5px 0.3rem !important;
       display: flex !important;
-      flex-direction: row !important;
       align-items: center !important;
-      gap: 10px !important;
-      width: 100% !important;
-      flex-wrap: nowrap !important;
+      gap: 0 !important; /* No gap between elements */
     }
 
     /* Hide the flex spacer div */
     .header > div[style*="flex: 1"] {
       display: none !important;
-    }
-    
-    /* Force all direct children to be in one row */
-    .header > * {
-      flex-shrink: 0 !important;
     }
 
     /* Ensure header stays on top but modal can overlay */
@@ -570,33 +562,23 @@
       width: 40px !important;
     }
 
-    /* Logo - Fixed width */
+    /* Remove all margins from logo/heading */
     .header__heading {
       margin: 0 !important;
-      flex: 0 0 auto !important;
-      order: 1 !important;
     }
 
     .header__heading-link {
       margin: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
     }
 
-    /* LRT-GARAGE and its containers - Fixed width, second position */
-    .header__inline-menu {
-      flex: 0 0 auto !important;
-      order: 2 !important;
-    }
-    
+    /* Reduce HeaderMenu-lrt-garage height by half on mobile */
     #HeaderMenu-lrt-garage {
       height: 28px !important; /* Reduced from 44px */
       min-width: auto !important; /* Auto width to fit content */
       width: fit-content !important; /* Fit to text size */
       padding: 0 10px !important; /* Reduced padding */
-      margin: 0 !important;
-      display: inline-flex !important;
+      margin-left: 5px !important; /* Small margin from logo */
+      flex: 0 0 auto !important; /* Don't grow or shrink */
     }
 
     #HeaderMenu-lrt-garage span {
@@ -604,16 +586,15 @@
       line-height: 28px !important; /* Match new height */
     }
 
-    /* Header icons container - Takes remaining space, third position */
+    /* Compact header icons on mobile and flex layout */
     .header__icons {
-      flex: 1 1 auto !important;
-      order: 3 !important;
+      gap: 0 !important; /* No gap to maximize search */
       display: flex !important;
       align-items: center !important;
-      gap: 0 !important; /* No gap between search and basket */
+      flex: 1 !important;
       margin: 0 !important;
       padding: 0 !important;
-      min-width: 0 !important;
+      width: 100% !important;
     }
 
     /* Remove all margins from desktop-localization-wrapper */
@@ -627,22 +608,18 @@
       min-width: unset !important;
     }
 
-    /* Basket/Cart - Takes 34% of icons container */
+    /* Style cart icon specifically */
     .header__icon--cart {
       padding: 0 10px !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
-      border-left: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle divider */
-      border-radius: 0 10px 10px 0 !important; /* Rounded only on right */
+      border-radius: 10px !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: center !important;
       gap: 6px !important;
-      flex: 0 0 34% !important; /* Fixed 34% width */
+      flex: 0 0 auto !important; /* Don't grow or shrink */
       margin: 0 !important;
-      width: auto !important;
-      box-sizing: border-box !important;
-      height: 28px !important;
+      margin-left: 5px !important; /* Small gap from search */
     }
 
     /* Add "Basket" text to cart button */
@@ -692,15 +669,16 @@
       margin: 0 !important;
     }
 
-    /* Search bar - Takes 66% of icons container */
+    /* Expand search bar to take all available space */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 0 0 66% !important; /* Fixed 66% width */
-      margin: 0 !important;
-      padding: 0 !important;
+      flex: 1 1 100% !important; /* Take all available space */
+      margin: 0 !important; /* No margins */
+      padding: 0 5px !important; /* Small padding between elements */
+      width: auto !important;
+      max-width: none !important;
       min-width: 0 !important;
-      box-sizing: border-box !important;
     }
 
     .header__search .header__icon {
@@ -713,8 +691,7 @@
       justify-content: flex-start !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
-      border-radius: 10px 0 0 10px !important; /* Rounded only on left */
-      border-right: none !important;
+      border-radius: 10px !important;
     }
 
     /* Add search text next to icon */
@@ -759,9 +736,8 @@
       display: none !important;
     }
 
-    /* Hide account icon and app blocks on mobile */
-    .header__icon--account,
-    .header__icons > div:not(.header__search):not(.header__icon--cart) {
+    /* Hide account icon on mobile to save space */
+    .header__icon--account {
       display: none !important;
     }
   }
