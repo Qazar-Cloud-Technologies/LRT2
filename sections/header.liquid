@@ -533,12 +533,14 @@
       max-width: 100% !important;
     }
 
-    /* Reduce header padding on mobile */
+    /* Convert header to CSS Grid on mobile */
     .header {
       padding: 5px 0.3rem !important;
-      display: flex !important;
+      display: grid !important;
+      grid-template-columns: repeat(9, 1fr) !important;
       align-items: center !important;
-      gap: 0 !important; /* No gap between elements */
+      gap: 0 !important;
+      width: 100% !important;
     }
 
     /* Hide the flex spacer div */
@@ -562,23 +564,29 @@
       width: 40px !important;
     }
 
-    /* Remove all margins from logo/heading */
+    /* Logo - Grid position: start 1, span 1 */
     .header__heading {
       margin: 0 !important;
+      grid-column: 1 / span 1 !important;
+      justify-self: center !important;
     }
 
     .header__heading-link {
       margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
-    /* Reduce HeaderMenu-lrt-garage height by half on mobile */
+    /* LRT-GARAGE - Grid position: start 2, span 2 */
     #HeaderMenu-lrt-garage {
       height: 28px !important; /* Reduced from 44px */
       min-width: auto !important; /* Auto width to fit content */
       width: fit-content !important; /* Fit to text size */
       padding: 0 10px !important; /* Reduced padding */
-      margin-left: 5px !important; /* Small margin from logo */
-      flex: 0 0 auto !important; /* Don't grow or shrink */
+      margin: 0 !important;
+      grid-column: 2 / span 2 !important;
+      justify-self: center !important;
     }
 
     #HeaderMenu-lrt-garage span {
@@ -586,12 +594,13 @@
       line-height: 28px !important; /* Match new height */
     }
 
-    /* Compact header icons on mobile and flex layout */
+    /* Header icons container - spans columns 4-9 */
     .header__icons {
-      gap: 0 !important; /* No gap to maximize search */
-      display: flex !important;
+      grid-column: 4 / span 6 !important;
+      display: grid !important;
+      grid-template-columns: repeat(6, 1fr) !important;
       align-items: center !important;
-      flex: 1 !important;
+      gap: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
       width: 100% !important;
@@ -608,7 +617,7 @@
       min-width: unset !important;
     }
 
-    /* Style cart icon specifically */
+    /* Basket/Cart - Grid position: spans last 2 of 6 columns in icons container */
     .header__icon--cart {
       padding: 0 10px !important;
       background: rgba(255, 255, 255, 0.95) !important;
@@ -616,10 +625,12 @@
       border-radius: 10px !important;
       display: flex !important;
       align-items: center !important;
+      justify-content: center !important;
       gap: 6px !important;
-      flex: 0 0 auto !important; /* Don't grow or shrink */
+      grid-column: 5 / span 2 !important;
       margin: 0 !important;
-      margin-left: 5px !important; /* Small gap from search */
+      width: fit-content !important;
+      justify-self: center !important;
     }
 
     /* Add "Basket" text to cart button */
@@ -669,14 +680,14 @@
       margin: 0 !important;
     }
 
-    /* Expand search bar to take all available space */
+    /* Search bar - Grid position: spans first 4 of 6 columns in icons container */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 1 1 100% !important; /* Take all available space */
-      margin: 0 !important; /* No margins */
-      padding: 0 5px !important; /* Small padding between elements */
-      width: auto !important;
+      grid-column: 1 / span 4 !important;
+      margin: 0 !important;
+      padding: 0 5px 0 0 !important; /* Small padding on right */
+      width: 100% !important;
       max-width: none !important;
       min-width: 0 !important;
     }
@@ -736,8 +747,9 @@
       display: none !important;
     }
 
-    /* Hide account icon on mobile to save space */
-    .header__icon--account {
+    /* Hide account icon and app blocks on mobile */
+    .header__icon--account,
+    .header__icons > div:not(.header__search):not(.header__icon--cart) {
       display: none !important;
     }
   }
