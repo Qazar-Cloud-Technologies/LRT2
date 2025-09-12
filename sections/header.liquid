@@ -507,6 +507,98 @@
       opacity: 0.8;
     }
   }
+
+  /* Mobile optimizations for 430px viewport */
+  @media screen and (max-width: 430px) {
+    /* Reduce header padding on mobile */
+    .header {
+      padding: 5px 1rem !important;
+    }
+
+    /* Optimize logo/heading size */
+    .header__heading {
+      margin: 0 1rem 0 0 !important;
+    }
+
+    .header__heading-link {
+      margin-right: 1rem !important;
+    }
+
+    /* Reduce HeaderMenu-lrt-garage height by half on mobile */
+    #HeaderMenu-lrt-garage {
+      height: 28px !important; /* Reduced from 44px */
+      min-width: 120px !important; /* Reduced from 200px */
+      padding: 0 12px !important; /* Reduced from 20px */
+    }
+
+    #HeaderMenu-lrt-garage span {
+      font-size: 14px !important; /* Reduced from 18px */
+      line-height: 28px !important; /* Match new height */
+    }
+
+    /* Compact header icons on mobile */
+    .header__icons {
+      gap: 10px !important; /* Reduced spacing */
+    }
+
+    .header__icon {
+      width: 36px !important; /* Reduced from 44px */
+      height: 36px !important;
+    }
+
+    /* Adjust search bar for mobile */
+    .header__search .header__icon {
+      min-width: 150px !important; /* Reduced from 200px */
+      height: 36px !important;
+    }
+
+    /* Make cart bubble smaller */
+    .cart-count-bubble {
+      min-width: 16px !important;
+      height: 16px !important;
+      font-size: 0.65rem !important;
+      top: -6px !important;
+      right: -6px !important;
+    }
+
+    /* Optimize menu items spacing */
+    .list-menu__item--link {
+      padding: 0 0.6rem !important;
+      height: 32px !important;
+      line-height: 32px !important;
+      font-size: 0.8rem !important;
+    }
+
+    /* Use flex wrap for better space utilization */
+    .header {
+      flex-wrap: nowrap !important;
+    }
+
+    /* Ensure drawer menu icon is smaller */
+    header-drawer {
+      margin-left: -0.5rem !important;
+    }
+    
+    header-drawer .header__icon {
+      width: 36px !important;
+      height: 36px !important;
+    }
+  }
+
+  /* Additional mobile optimizations for viewports up to 989px */
+  @media screen and (min-width: 431px) and (max-width: 989px) {
+    /* Moderate reduction for tablets */
+    #HeaderMenu-lrt-garage {
+      height: 36px !important;
+      min-width: 160px !important;
+      padding: 0 16px !important;
+    }
+
+    #HeaderMenu-lrt-garage span {
+      font-size: 16px !important;
+      line-height: 36px !important;
+    }
+  }
 {%- endstyle -%}
 
 {%- style -%}
