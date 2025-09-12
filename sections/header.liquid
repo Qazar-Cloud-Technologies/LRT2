@@ -523,6 +523,12 @@
       padding: 5px 0.5rem !important;
     }
 
+    /* Ensure header stays on top but modal can overlay */
+    .header-wrapper {
+      position: relative !important;
+      z-index: 999 !important;
+    }
+
     /* Reduce logo size significantly on mobile */
     .header__heading-logo {
       max-width: 40px !important;
@@ -883,6 +889,33 @@
           background: white !important;
           border-radius: 10px !important;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Mobile-specific search modal positioning */
+        @media screen and (max-width: 430px) {
+          .search-modal.modal__content {
+            position: fixed !important;
+            top: 60px !important; /* Position below header */
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            transform: none !important;
+          }
+
+          .search-modal__content {
+            margin: 0 !important;
+            border-radius: 0 0 10px 10px !important;
+            width: 100% !important;
+          }
+
+          /* Ensure predictive search results show below */
+          .predictive-search__results {
+            top: calc(100% + 5px) !important;
+            position: absolute !important;
+          }
         }
       </style>
 
