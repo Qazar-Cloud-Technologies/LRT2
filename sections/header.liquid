@@ -520,10 +520,10 @@
 
     /* Reduce header padding on mobile */
     .header {
-      padding: 5px 0.5rem !important;
+      padding: 5px 0.3rem !important;
       display: flex !important;
       align-items: center !important;
-      gap: 0.3rem !important;
+      gap: 0 !important; /* No gap between elements */
     }
 
     /* Ensure header stays on top but modal can overlay */
@@ -542,13 +542,13 @@
       width: 40px !important;
     }
 
-    /* Optimize logo/heading size */
+    /* Remove all margins from logo/heading */
     .header__heading {
-      margin: 0 0.5rem 0 0 !important;
+      margin: 0 !important;
     }
 
     .header__heading-link {
-      margin-right: 0.5rem !important;
+      margin: 0 !important;
     }
 
     /* Reduce HeaderMenu-lrt-garage height by half on mobile */
@@ -557,6 +557,7 @@
       min-width: auto !important; /* Auto width to fit content */
       width: fit-content !important; /* Fit to text size */
       padding: 0 10px !important; /* Reduced padding */
+      margin-left: 5px !important; /* Small margin from logo */
     }
 
     #HeaderMenu-lrt-garage span {
@@ -610,7 +611,7 @@
       position: static !important;
       transform: none !important;
       flex: 2 !important; /* Increased flex to make it wider */
-      margin: 0 5px !important; /* Reduced margin for more width */
+      margin: 0 3px 0 5px !important; /* Minimal margins */
     }
 
     .header__search .header__icon {
@@ -676,8 +677,8 @@
   @media screen and (max-width: 375px) {
     /* Even more compact for very small screens */
     .header {
-      padding: 3px 0.3rem !important;
-      gap: 0.2rem !important;
+      padding: 3px 0.2rem !important;
+      gap: 0 !important;
     }
 
     /* Smaller logo */
