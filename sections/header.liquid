@@ -509,8 +509,8 @@
     }
   }
 
-  /* Mobile optimizations for 430px viewport */
-  @media screen and (max-width: 430px) {
+  /* Mobile optimizations for all mobile viewports */
+  @media screen and (max-width: 749px) {
     /* Remove page-width margins for maximum space */
     .page-width {
       margin: 0 !important;
@@ -521,6 +521,9 @@
     /* Reduce header padding on mobile */
     .header {
       padding: 5px 0.5rem !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.3rem !important;
     }
 
     /* Ensure header stays on top but modal can overlay */
@@ -669,8 +672,58 @@
     }
   }
 
-  /* Additional mobile optimizations for viewports up to 989px */
-  @media screen and (min-width: 431px) and (max-width: 989px) {
+  /* Extra small screens optimization (iPhone SE, etc.) */
+  @media screen and (max-width: 375px) {
+    /* Even more compact for very small screens */
+    .header {
+      padding: 3px 0.3rem !important;
+      gap: 0.2rem !important;
+    }
+
+    /* Smaller logo */
+    .header__heading-logo {
+      max-width: 35px !important;
+    }
+
+    .header__heading-logo-wrapper {
+      width: 35px !important;
+    }
+
+    /* Smaller LRT-GARAGE text */
+    #HeaderMenu-lrt-garage {
+      height: 26px !important;
+      padding: 0 8px !important;
+    }
+
+    #HeaderMenu-lrt-garage span {
+      font-size: 12px !important;
+      line-height: 26px !important;
+    }
+
+    /* Adjust search and cart heights */
+    .header__search .header__icon,
+    .header__icon--cart {
+      height: 26px !important;
+    }
+
+    /* Smaller text */
+    .header__search .header__icon::after,
+    .header__icon--cart::after {
+      font-size: 12px !important;
+    }
+
+    /* Smaller cart bubble */
+    .cart-count-bubble {
+      min-width: 12px !important;
+      height: 12px !important;
+      font-size: 0.55rem !important;
+      top: -6px !important;
+      right: -6px !important;
+    }
+  }
+
+  /* Additional tablet optimizations for viewports between mobile and desktop */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
     /* Reduce page-width margins on tablets too */
     .page-width {
       margin: 0 auto !important;
@@ -927,7 +980,7 @@
         }
 
         /* Mobile-specific search modal positioning */
-        @media screen and (max-width: 430px) {
+        @media screen and (max-width: 749px) {
           .search-modal.modal__content {
             position: fixed !important;
             top: 60px !important; /* Position below header */
