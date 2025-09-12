@@ -535,10 +535,12 @@
 
     /* Reduce header padding on mobile */
     .header {
-      padding: 5px 0.3rem !important;
+      padding: 5px 0.5rem !important;
       display: flex !important;
+      flex-direction: row !important;
       align-items: center !important;
-      gap: 0 !important; /* No gap between elements */
+      gap: 8px !important; /* Small gap between elements */
+      flex-wrap: nowrap !important;
     }
 
     /* Hide the flex spacer div */
@@ -588,13 +590,14 @@
 
     /* Compact header icons on mobile and flex layout */
     .header__icons {
-      gap: 0 !important; /* No gap to maximize search */
+      gap: 8px !important; /* Small gap between elements */
       display: flex !important;
       align-items: center !important;
-      flex: 1 !important;
+      flex: 1 1 auto !important; /* Take all remaining space */
       margin: 0 !important;
       padding: 0 !important;
-      width: 100% !important;
+      width: auto !important;
+      min-width: 0 !important;
     }
 
     /* Remove all margins from desktop-localization-wrapper */
@@ -617,9 +620,9 @@
       display: flex !important;
       align-items: center !important;
       gap: 6px !important;
-      flex: 0 0 auto !important; /* Don't grow or shrink */
+      flex: 0 0 auto !important; /* Fixed width based on content */
       margin: 0 !important;
-      margin-left: 5px !important; /* Small gap from search */
+      width: fit-content !important;
     }
 
     /* Add "Basket" text to cart button */
@@ -669,16 +672,16 @@
       margin: 0 !important;
     }
 
-    /* Search bar with fixed width */
+    /* Search bar - flexible width to take available space */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 0 0 auto !important; /* Fixed width, no grow */
-      margin: 0 !important; /* No margins */
-      padding: 0 5px !important; /* Small padding between elements */
-      width: 150px !important; /* Fixed 150px width */
-      max-width: 150px !important;
-      min-width: 150px !important;
+      flex: 1 1 auto !important; /* Grow to take available space */
+      margin: 0 5px !important;
+      padding: 0 !important;
+      width: auto !important;
+      max-width: none !important;
+      min-width: 0 !important;
     }
 
     .header__search .header__icon {
@@ -731,13 +734,10 @@
       flex-wrap: nowrap !important;
     }
 
-    /* Hide drawer menu on mobile */
-    header-drawer {
-      display: none !important;
-    }
-
-    /* Hide account icon on mobile to save space */
-    .header__icon--account {
+    /* Hide drawer menu and account on mobile - removed from layout flow */
+    header-drawer,
+    .header__icon--account,
+    .small-hide {
       display: none !important;
     }
   }
