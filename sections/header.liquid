@@ -396,6 +396,14 @@
     margin: 0 !important;
   }
 
+  /* Remove any debugging outlines from svg-wrapper */
+  .svg-wrapper {
+    outline: none !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
   /* Modal overlay completely removed - no background overlay for search */
 
   /* Matrix Style for LRT-GARAGE Menu Item */
@@ -604,6 +612,16 @@
     .header__icon--cart svg {
       width: 16px !important;
       height: 16px !important;
+    }
+
+    /* Remove any purple outlines/borders from SVG wrappers on mobile */
+    .svg-wrapper {
+      outline: none !important;
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
     /* Expand search bar to take all available space */
