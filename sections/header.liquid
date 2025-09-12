@@ -64,7 +64,9 @@ All CSS integrated - no external stylesheet needed
       2px 2px 4px rgba(0, 0, 0, 0.8),
       0 0 20px rgba(255, 0, 0, 0.6),
       0 0 40px rgba(255, 0, 0, 0.4);
-    animation: pulse-glow 3s ease-in-out infinite;
+    animation: pulse-glow 6s ease-in-out infinite;
+    will-change: opacity, text-shadow;
+    transform: translateZ(0); /* Hardware acceleration */
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7),
@@ -181,7 +183,7 @@ All CSS integrated - no external stylesheet needed
       0 8px 24px rgba(255, 0, 0, 0.2),
       0 4px 12px rgba(0, 0, 0, 0.4);
     z-index: 10;
-    animation: info-glow 3s ease-in-out infinite;
+    animation: info-glow 5s ease-in-out infinite;
   }
 
   @keyframes info-glow {
@@ -253,6 +255,20 @@ All CSS integrated - no external stylesheet needed
   }
 
   @media (max-width: 768px) {
+    /* Disable heavy animations on mobile for better performance */
+    .grid-category-menu::before,
+    .featured-item::before,
+    .promo-banner::before {
+      animation-duration: 30s !important; /* Much slower */
+      animation-delay: 1s; /* Add delay to reduce initial load */
+    }
+    
+    /* Disable gradient animations on mobile */
+    .grid-menu-link {
+      animation: none !important;
+      background-size: 100% 100% !important;
+    }
+    
     .motorcycle-carousel {
       height: 300px;
     }
@@ -328,7 +344,7 @@ All CSS integrated - no external stylesheet needed
       rgba(255, 0, 0, 0.4) 50%,
       transparent 100%
     );
-    animation: promo-shine 3s infinite;
+    animation: promo-shine 6s infinite;
   }
 
   @keyframes promo-shine {
@@ -354,7 +370,7 @@ All CSS integrated - no external stylesheet needed
     font-weight: 700;
     text-align: center;
     text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
-    animation: promo-pulse 2s ease-in-out infinite;
+    animation: promo-pulse 4s ease-in-out infinite;
   }
 
   @keyframes promo-pulse {
@@ -379,7 +395,7 @@ All CSS integrated - no external stylesheet needed
     margin: 0 5px;
     font-weight: 900;
     box-shadow: 0 2px 10px rgba(255, 0, 0, 0.4);
-    animation: code-glow 2s ease-in-out infinite;
+    animation: code-glow 4s ease-in-out infinite;
   }
 
   @keyframes code-glow {
@@ -459,7 +475,9 @@ All CSS integrated - no external stylesheet needed
     pointer-events: none;
     border-radius: 20px;
     opacity: 0.6;
-    animation: matrix-scan 8s linear infinite;
+    animation: matrix-scan 15s linear infinite;
+    will-change: transform;
+    transform: translateZ(0); /* Enable GPU acceleration */
   }
 
   @keyframes matrix-scan {
@@ -597,7 +615,7 @@ All CSS integrated - no external stylesheet needed
       rgba(255, 0, 0, 0.1) 100%
     );
     background-size: 300% 300%;
-    animation: gradient-shift 10s ease infinite;
+    animation: gradient-shift 20s ease infinite;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     
@@ -633,7 +651,7 @@ All CSS integrated - no external stylesheet needed
     margin-bottom: 30px;
     text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
     letter-spacing: 0.2em;
-    animation: matrix-text 3s ease-in-out infinite;
+    animation: matrix-text 5s ease-in-out infinite;
   }
 
   @keyframes matrix-text {
@@ -696,7 +714,7 @@ All CSS integrated - no external stylesheet needed
     pointer-events: none;
     z-index: 2;
     opacity: 0.6;
-    animation: matrix-scan 8s linear infinite;
+    animation: matrix-scan 15s linear infinite;
   }
 
   .featured-item:hover {
@@ -756,7 +774,7 @@ All CSS integrated - no external stylesheet needed
     height: 100%;
     color: #ff0000;
     opacity: 0;
-    animation: glitch-featured 2s infinite;
+    animation: glitch-featured 4s infinite;
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     transform: translate(-2px, -2px);
   }
@@ -996,7 +1014,7 @@ All CSS integrated - no external stylesheet needed
 
   .grid-menu-link:hover::after {
     opacity: 0.1;
-    animation: glitch-text 0.5s infinite;
+    animation: glitch-text 2s infinite;
   }
 
   @keyframes glitch-text {
@@ -1648,8 +1666,8 @@ All CSS integrated - no external stylesheet needed
       dot.addEventListener('click', () => showSlide(index));
     });
     
-    // Auto-advance carousel
-    setInterval(nextSlide, 5000);
+    // Auto-advance carousel - slower interval for less distraction
+    setInterval(nextSlide, 8000);
   });
 </script>
 
