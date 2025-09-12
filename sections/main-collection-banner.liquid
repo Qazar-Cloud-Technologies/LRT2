@@ -159,8 +159,8 @@ All CSS integrated - no external stylesheet needed
     box-shadow: 0 0 10px #ff0000;
   }
   
-  /* Promo Code Container Styles */
-  .promo-container {
+  /* Info Container Styles (formerly promo) */
+  .info-container {
     position: absolute;
     top: 50%;
     left: 100px;
@@ -182,15 +182,15 @@ All CSS integrated - no external stylesheet needed
       0 4px 16px rgba(0, 0, 0, 0.5),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
     z-index: 10;
-    animation: promo-glow 3s ease-in-out infinite;
+    animation: info-glow 3s ease-in-out infinite;
   }
 
-  @keyframes promo-glow {
+  @keyframes info-glow {
     0%, 100% { box-shadow: 0 12px 48px rgba(255, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.5); }
     50% { box-shadow: 0 12px 48px rgba(255, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 0, 0, 0.4); }
   }
 
-  .promo-title {
+  .info-title {
     font-family: monospace;
     font-size: 1.8rem;
     color: #ff0000;
@@ -200,35 +200,57 @@ All CSS integrated - no external stylesheet needed
     letter-spacing: 0.1em;
   }
 
-  .promo-code {
+  .info-highlight {
     display: inline-block;
     background: linear-gradient(135deg, #ff0000, #cc0000);
     color: #fff;
     font-family: monospace;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 10px;
     margin: 10px 0;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
   }
 
-  .promo-code:hover {
+  .info-highlight:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 25px rgba(255, 0, 0, 0.6);
     background: linear-gradient(135deg, #ff3333, #ff0000);
   }
 
-  .promo-description {
+  .info-description {
     color: #fff;
     font-size: 1.15rem;
     margin-top: 10px;
     line-height: 1.6;
     font-weight: 500;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+
+  .info-list li {
+    color: #fff;
+    font-size: 1rem;
+    margin: 8px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .info-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #ff0000;
+    font-weight: bold;
   }
 
   @media (max-width: 768px) {
@@ -244,19 +266,142 @@ All CSS integrated - no external stylesheet needed
       font-size: 1rem;
     }
     
-    .promo-container {
+    .info-container {
       left: 20px;
       right: 20px;
       max-width: calc(100% - 40px);
       padding: 20px;
     }
     
-    .promo-title {
+    .info-title {
       font-size: 1.3rem;
     }
     
-    .promo-code {
-      font-size: 1.2rem;
+    .info-highlight {
+      font-size: 1.1rem;
+      padding: 8px 16px;
+    }
+  }
+
+  /* Promo Banner Styles */
+  .promo-banner {
+    width: 95%;
+    margin: 20px auto;
+    background: linear-gradient(
+      90deg,
+      rgba(20, 20, 20, 0.95) 0%,
+      rgba(255, 0, 0, 0.15) 20%,
+      rgba(255, 0, 0, 0.25) 50%,
+      rgba(255, 0, 0, 0.15) 80%,
+      rgba(20, 20, 20, 0.95) 100%
+    );
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 15px 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+      0 8px 32px rgba(255, 0, 0, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .promo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 0, 0, 0.4) 50%,
+      transparent 100%
+    );
+    animation: promo-shine 3s infinite;
+  }
+
+  @keyframes promo-shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .promo-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .promo-banner-text {
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    animation: promo-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes promo-pulse {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px rgba(255, 0, 0, 0.5),
+        0 0 20px rgba(255, 0, 0, 0.3);
+    }
+    50% {
+      text-shadow: 
+        0 0 15px rgba(255, 0, 0, 0.8),
+        0 0 30px rgba(255, 0, 0, 0.5);
+    }
+  }
+
+  .promo-code-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin: 0 8px;
+    font-weight: 900;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+    animation: code-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes code-glow {
+    0%, 100% {
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 6px 25px rgba(255, 0, 0, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .promo-banner {
+      padding: 12px 15px;
+      margin: 15px auto;
+    }
+
+    .promo-banner-text {
+      font-size: 0.9rem;
+    }
+
+    .promo-banner-content {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .promo-code-highlight {
+      margin: 4px;
     }
   }
 
@@ -1187,7 +1332,7 @@ All CSS integrated - no external stylesheet needed
             {% endif %}
           {% endfor %}
           
-          <li class="grid-menu-item{% if has_children %} has-children{% endif %}">
+          <li class="grid-menu-item{% if has_children %} has-children{% endif %}" data-handle="{{ parent_handle }}" data-has-children="{{ has_children }}">
             <a href="{{ parent_collection.url }}" class="grid-menu-link">
               <span class="menu-text">
                 {% if parent_collection.metafields.custom.display_name %}
@@ -1287,6 +1432,17 @@ All CSS integrated - no external stylesheet needed
   </ul>
 </nav>
 
+{% comment %} Promo Banner Section {% endcomment %}
+<div class="promo-banner">
+  <div class="promo-banner-content">
+    <span class="promo-banner-text">
+      NE RATEZ PAS NOTRE CODE PROMO ›
+      <span class="promo-code-highlight">POWER5</span>
+      BÉNÉFICIEZ DE 5% SUR LE SITE
+    </span>
+  </div>
+</div>
+
 {% comment %} Motorcycle Carousel Section - Now below the category menu {% endcomment %}
 <div class="motorcycle-carousel">
   <div class="carousel-container">
@@ -1297,10 +1453,15 @@ All CSS integrated - no external stylesheet needed
           <h2 class="carousel-title" data-text="PERFORMANCE BIKES">PERFORMANCE BIKES</h2>
           <p class="carousel-subtitle">Unleash the power within</p>
         </div>
-        <div class="promo-container">
-          <h3 class="promo-title">Offre Spéciale</h3>
-          <a href="/collections/all" class="promo-code">LRTGARAGE25</a>
-          <p class="promo-description">-25% sur les pièces performance<br>Code valable jusqu'au 31/01</p>
+        <div class="info-container">
+          <h3 class="info-title">Expertise 2 Roues</h3>
+          <div class="info-highlight">15+ ANS D'EXPÉRIENCE</div>
+          <ul class="info-list">
+            <li>Banc de puissance 2T/4T</li>
+            <li>Usinage moteur de précision</li>
+            <li>Préparation compétition</li>
+          </ul>
+          <p class="info-description">Spécialiste performance sur la Côte d'Azur</p>
         </div>
       </div>
       <div class="carousel-slide">
@@ -1309,10 +1470,15 @@ All CSS integrated - no external stylesheet needed
           <h2 class="carousel-title" data-text="STREET MACHINES">STREET MACHINES</h2>
           <p class="carousel-subtitle">Built for the urban warrior</p>
         </div>
-        <div class="promo-container">
-          <h3 class="promo-title">Nouveauté 2025</h3>
-          <a href="/collections/all" class="promo-code">NEWSEASON</a>
-          <p class="promo-description">-15% sur toute la nouvelle collection<br>Livraison offerte dès 100€</p>
+        <div class="info-container">
+          <h3 class="info-title">Services Premium</h3>
+          <div class="info-highlight">SUR RENDEZ-VOUS</div>
+          <ul class="info-list">
+            <li>Diagnostic électronique</li>
+            <li>Montage moteur complet</li>
+            <li>Service express disponible</li>
+          </ul>
+          <p class="info-description">Toutes marques • Moto & Scooter</p>
         </div>
       </div>
     </div>
@@ -1433,6 +1599,7 @@ All CSS integrated - no external stylesheet needed
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(checkViewport, 250);
     });
+    
     
     // Carousel functionality
     const carousel = document.querySelector('.motorcycle-carousel');
