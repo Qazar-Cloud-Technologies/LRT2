@@ -533,20 +533,25 @@
       max-width: 100% !important;
     }
 
-    /* Convert header to CSS Grid on mobile */
+    /* Use flexbox for mobile header - simpler approach */
     .header {
       padding: 5px 0.3rem !important;
-      display: grid !important;
-      grid-template-columns: auto auto 1fr !important; /* Logo | LRT | Icons container */
-      grid-auto-flow: column !important;
+      display: flex !important;
+      flex-direction: row !important;
       align-items: center !important;
       gap: 8px !important;
       width: 100% !important;
+      flex-wrap: nowrap !important;
     }
 
     /* Hide the flex spacer div */
     .header > div[style*="flex: 1"] {
       display: none !important;
+    }
+    
+    /* Force all direct children to be in one row */
+    .header > * {
+      flex-shrink: 0 !important;
     }
 
     /* Ensure header stays on top but modal can overlay */
@@ -565,11 +570,11 @@
       width: 40px !important;
     }
 
-    /* Logo - First column */
+    /* Logo - Fixed width */
     .header__heading {
       margin: 0 !important;
-      grid-column: 1 !important;
-      justify-self: start !important;
+      flex: 0 0 auto !important;
+      order: 1 !important;
     }
 
     .header__heading-link {
@@ -579,11 +584,10 @@
       justify-content: center !important;
     }
 
-    /* LRT-GARAGE - Ensure it's in column 2 */
-    .header__inline-menu,
-    .list-menu,
-    #HeaderMenu-lrt-garage {
-      grid-column: 2 !important;
+    /* LRT-GARAGE and its containers - Fixed width, second position */
+    .header__inline-menu {
+      flex: 0 0 auto !important;
+      order: 2 !important;
     }
     
     #HeaderMenu-lrt-garage {
@@ -592,7 +596,7 @@
       width: fit-content !important; /* Fit to text size */
       padding: 0 10px !important; /* Reduced padding */
       margin: 0 !important;
-      justify-self: start !important;
+      display: inline-flex !important;
     }
 
     #HeaderMenu-lrt-garage span {
@@ -600,16 +604,16 @@
       line-height: 28px !important; /* Match new height */
     }
 
-    /* Header icons container - third column, contains search and basket */
+    /* Header icons container - Takes remaining space, third position */
     .header__icons {
-      grid-column: 3 !important;
-      display: grid !important;
-      grid-template-columns: 1fr auto !important; /* Search expands, basket fixed */
+      flex: 1 1 auto !important;
+      order: 3 !important;
+      display: flex !important;
       align-items: center !important;
       gap: 8px !important;
       margin: 0 !important;
       padding: 0 !important;
-      width: 100% !important;
+      min-width: 0 !important;
     }
 
     /* Remove all margins from desktop-localization-wrapper */
@@ -623,7 +627,7 @@
       min-width: unset !important;
     }
 
-    /* Basket/Cart - Second column in icons grid */
+    /* Basket/Cart - Fixed width, no grow */
     .header__icon--cart {
       padding: 0 10px !important;
       background: rgba(255, 255, 255, 0.95) !important;
@@ -633,7 +637,7 @@
       align-items: center !important;
       justify-content: center !important;
       gap: 6px !important;
-      grid-column: 2 !important;
+      flex: 0 0 auto !important;
       margin: 0 !important;
       width: fit-content !important;
     }
@@ -685,15 +689,13 @@
       margin: 0 !important;
     }
 
-    /* Search bar - First column in icons grid */
+    /* Search bar - Takes all available space in icons container */
     .header__search {
       position: static !important;
       transform: none !important;
-      grid-column: 1 !important;
+      flex: 1 1 auto !important;
       margin: 0 !important;
       padding: 0 !important;
-      width: 100% !important;
-      max-width: none !important;
       min-width: 0 !important;
     }
 
