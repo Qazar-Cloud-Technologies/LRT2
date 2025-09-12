@@ -523,13 +523,23 @@
       padding: 5px 0.5rem !important;
     }
 
+    /* Reduce logo size significantly on mobile */
+    .header__heading-logo {
+      max-width: 40px !important;
+      height: auto !important;
+    }
+
+    .header__heading-logo-wrapper {
+      width: 40px !important;
+    }
+
     /* Optimize logo/heading size */
     .header__heading {
       margin: 0 0.5rem 0 0 !important;
     }
 
     .header__heading-link {
-      margin-right: 1rem !important;
+      margin-right: 0.5rem !important;
     }
 
     /* Reduce HeaderMenu-lrt-garage height by half on mobile */
@@ -545,9 +555,12 @@
       line-height: 28px !important; /* Match new height */
     }
 
-    /* Compact header icons on mobile */
+    /* Compact header icons on mobile and flex layout */
     .header__icons {
-      gap: 10px !important; /* Reduced spacing */
+      gap: 8px !important; /* Reduced spacing */
+      display: flex !important;
+      align-items: center !important;
+      flex: 1 !important;
     }
 
     .header__icon {
@@ -555,10 +568,36 @@
       height: 36px !important;
     }
 
-    /* Adjust search bar for mobile */
+    /* Expand search bar to take all available space */
+    .header__search {
+      position: static !important;
+      transform: none !important;
+      flex: 1 !important;
+      margin: 0 10px !important;
+    }
+
     .header__search .header__icon {
-      min-width: 150px !important; /* Reduced from 200px */
+      width: 100% !important;
+      min-width: unset !important;
       height: 36px !important;
+      padding: 0 12px !important;
+      justify-content: flex-start !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 1px solid rgba(255, 0, 0, 0.3) !important;
+    }
+
+    /* Add search text next to icon */
+    .header__search .header__icon::after {
+      content: "Search" !important;
+      display: inline-block !important;
+      margin-left: 8px !important;
+      font-size: 14px !important;
+      color: #666 !important;
+      font-weight: normal !important;
+    }
+
+    .header__search .header__icon svg {
+      margin-right: 0 !important;
     }
 
     /* Make cart bubble smaller */
@@ -583,14 +622,9 @@
       flex-wrap: nowrap !important;
     }
 
-    /* Ensure drawer menu icon is smaller */
+    /* Hide drawer menu on mobile */
     header-drawer {
-      margin-left: -0.5rem !important;
-    }
-    
-    header-drawer .header__icon {
-      width: 36px !important;
-      height: 36px !important;
+      display: none !important;
     }
   }
 
