@@ -539,7 +539,7 @@
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
-      gap: 8px !important;
+      gap: 10px !important;
       width: 100% !important;
       flex-wrap: nowrap !important;
     }
@@ -610,7 +610,7 @@
       order: 3 !important;
       display: flex !important;
       align-items: center !important;
-      gap: 8px !important;
+      gap: 0 !important; /* No gap between search and basket */
       margin: 0 !important;
       padding: 0 !important;
       min-width: 0 !important;
@@ -627,19 +627,22 @@
       min-width: unset !important;
     }
 
-    /* Basket/Cart - Fixed width, no grow */
+    /* Basket/Cart - Takes 34% of icons container */
     .header__icon--cart {
       padding: 0 10px !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
-      border-radius: 10px !important;
+      border-left: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle divider */
+      border-radius: 0 10px 10px 0 !important; /* Rounded only on right */
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       gap: 6px !important;
-      flex: 0 0 auto !important;
+      flex: 0 0 34% !important; /* Fixed 34% width */
       margin: 0 !important;
-      width: fit-content !important;
+      width: auto !important;
+      box-sizing: border-box !important;
+      height: 28px !important;
     }
 
     /* Add "Basket" text to cart button */
@@ -689,14 +692,15 @@
       margin: 0 !important;
     }
 
-    /* Search bar - Takes all available space in icons container */
+    /* Search bar - Takes 66% of icons container */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 1 1 auto !important;
+      flex: 0 0 66% !important; /* Fixed 66% width */
       margin: 0 !important;
       padding: 0 !important;
       min-width: 0 !important;
+      box-sizing: border-box !important;
     }
 
     .header__search .header__icon {
@@ -709,7 +713,8 @@
       justify-content: flex-start !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
-      border-radius: 10px !important;
+      border-radius: 10px 0 0 10px !important; /* Rounded only on left */
+      border-right: none !important;
     }
 
     /* Add search text next to icon */
