@@ -348,13 +348,57 @@ All CSS integrated - no external stylesheet needed
     margin-bottom: 0;
   }
 
-  /* Show dropdown on hover for items with children */
-  .grid-menu-item.has-children:hover .grid-dropdown,
-  .grid-menu-item.has-children:focus-within .grid-dropdown {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
+  /* Show dropdown on hover for desktop */
+  @media (min-width: 769px) {
+    .grid-menu-item.has-children:hover .grid-dropdown,
+    .grid-menu-item.has-children:focus-within .grid-dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Mobile: Show dropdown when active class is added via JS */
+  @media (max-width: 768px) {
+    .grid-menu-item.has-children.mobile-active .grid-dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    
+    /* Visual feedback when submenu is open on mobile */
+    .grid-menu-item.has-children.mobile-active .grid-menu-link {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 0, 0, 0.25) 0%,
+        rgba(255, 0, 0, 0.4) 50%,
+        rgba(255, 0, 0, 0.25) 100%
+      );
+      border-color: rgba(255, 0, 0, 0.6);
+      box-shadow: 
+        0 6px 24px rgba(255, 0, 0, 0.3),
+        0 3px 12px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Add a small arrow or indicator for categories with children on mobile */
+    .grid-menu-item.has-children .grid-menu-link::before {
+      content: '▼';
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.7em;
+      color: rgba(255, 0, 0, 0.6);
+      transition: transform 0.3s ease;
+    }
+    
+    .grid-menu-item.has-children.mobile-active .grid-menu-link::before {
+      transform: translateY(-50%) rotate(180deg);
+      color: rgba(255, 0, 0, 1);
+    }
   }
 
   /* Ensure hovered menu item is above others */
@@ -1283,6 +1327,114 @@ All CSS integrated - no external stylesheet needed
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu handling
+    let currentlyOpen = null;
+    let mobileListeners = [];
+    
+    function setupMobileMenu() {
+      // Clean up any existing listeners
+      mobileListeners.forEach(({element, event, handler}) => {
+        element.removeEventListener(event, handler);
+      });
+      mobileListeners = [];
+      
+      const menuItems = document.querySelectorAll('.grid-menu-item.has-children');
+      
+      menuItems.forEach(item => {
+        const link = item.querySelector('.grid-menu-link');
+        const dropdown = item.querySelector('.grid-dropdown');
+        
+        if (link && dropdown) {
+          // Prevent default navigation on first click
+          const clickHandler = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // If this item is already open, navigate on second click
+            if (item.classList.contains('mobile-active')) {
+              window.location.href = link.href;
+              return;
+            }
+            
+            // Close previously opened item
+            if (currentlyOpen && currentlyOpen !== item) {
+              currentlyOpen.classList.remove('mobile-active');
+            }
+            
+            // Open current item
+            item.classList.add('mobile-active');
+            currentlyOpen = item;
+          };
+          
+          link.addEventListener('click', clickHandler);
+          mobileListeners.push({element: link, event: 'click', handler: clickHandler});
+        }
+      });
+      
+      // Close dropdown when clicking outside
+      const outsideClickHandler = function(e) {
+        if (!e.target.closest('.grid-menu-item.has-children')) {
+          if (currentlyOpen) {
+            currentlyOpen.classList.remove('mobile-active');
+            currentlyOpen = null;
+          }
+        }
+      };
+      
+      document.addEventListener('click', outsideClickHandler);
+      mobileListeners.push({element: document, event: 'click', handler: outsideClickHandler});
+      
+      // Close dropdown when clicking on child links
+      const dropdownLinks = document.querySelectorAll('.grid-dropdown a');
+      dropdownLinks.forEach(link => {
+        const dropdownClickHandler = function() {
+          if (currentlyOpen) {
+            currentlyOpen.classList.remove('mobile-active');
+            currentlyOpen = null;
+          }
+        };
+        
+        link.addEventListener('click', dropdownClickHandler);
+        mobileListeners.push({element: link, event: 'click', handler: dropdownClickHandler});
+      });
+    }
+    
+    function cleanupMobileMenu() {
+      // Remove all mobile-active classes
+      document.querySelectorAll('.grid-menu-item.mobile-active').forEach(item => {
+        item.classList.remove('mobile-active');
+      });
+      currentlyOpen = null;
+      
+      // Remove all mobile event listeners
+      mobileListeners.forEach(({element, event, handler}) => {
+        element.removeEventListener(event, handler);
+      });
+      mobileListeners = [];
+    }
+    
+    // Check and setup based on current viewport
+    function checkViewport() {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      
+      if (isMobile) {
+        setupMobileMenu();
+      } else {
+        cleanupMobileMenu();
+      }
+    }
+    
+    // Initial setup
+    checkViewport();
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkViewport, 250);
+    });
+    
+    // Carousel functionality
     const carousel = document.querySelector('.motorcycle-carousel');
     if (!carousel) return;
     
