@@ -541,6 +541,11 @@
       gap: 0 !important; /* No gap between elements */
     }
 
+    /* Hide the flex spacer div */
+    .header > div[style*="flex: 1"] {
+      display: none !important;
+    }
+
     /* Ensure header stays on top but modal can overlay */
     .header-wrapper {
       position: relative !important;
@@ -583,10 +588,18 @@
 
     /* Compact header icons on mobile and flex layout */
     .header__icons {
-      gap: 8px !important; /* Reduced spacing */
+      gap: 0 !important; /* No gap to maximize search */
       display: flex !important;
       align-items: center !important;
       flex: 1 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    /* Remove all margins from desktop-localization-wrapper */
+    .desktop-localization-wrapper {
+      display: none !important; /* Hide on mobile */
     }
 
     .header__icon {
@@ -605,6 +618,8 @@
       align-items: center !important;
       gap: 6px !important;
       flex: 0 0 auto !important; /* Don't grow or shrink */
+      margin: 0 !important;
+      margin-left: 5px !important; /* Small gap from search */
     }
 
     /* Add "Basket" text to cart button */
@@ -658,17 +673,21 @@
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 1 1 auto !important; /* Take all available space */
-      margin: 0 3px !important; /* Minimal margins */
-      width: 100% !important;
+      flex: 1 1 100% !important; /* Take all available space */
+      margin: 0 !important; /* No margins */
+      padding: 0 5px !important; /* Small padding between elements */
+      width: auto !important;
       max-width: none !important;
+      min-width: 0 !important;
     }
 
     .header__search .header__icon {
       width: 100% !important;
       min-width: unset !important;
+      max-width: none !important;
       height: 28px !important; /* Match LRT-GARAGE height */
       padding: 0 10px !important;
+      margin: 0 !important;
       justify-content: flex-start !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
