@@ -688,82 +688,78 @@ All CSS integrated - no external stylesheet needed
 
   .featured-categories-title {
     font-family: monospace;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
     color: #ff0000;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 15px;
-    text-shadow: 
-      0 0 20px rgba(255, 0, 0, 0.8),
-      0 0 40px rgba(255, 0, 0, 0.6),
-      3px 3px 0px #800000,
-      -1px -1px 0px #ff6666;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     position: relative;
-    animation: matrix-text 8s ease-in-out infinite;
     background: linear-gradient(
-      90deg,
+      135deg,
       #ff0000,
-      #ff6666,
+      #ff3333,
       #ff0000,
-      #cc0000,
-      #ff0000
+      #cc0000
     );
-    background-size: 200% auto;
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: matrix-text 8s ease-in-out infinite, gradient-flow 3s linear infinite;
+    animation: gradient-flow 4s ease-in-out infinite, pulse-glow-title 6s ease-in-out infinite;
     display: inline-block;
     width: 100%;
-    padding: 10px 0;
+    padding: 15px 0;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 40px rgba(255, 0, 0, 0.3));
   }
 
-  @keyframes matrix-text {
+  @keyframes gradient-flow {
+    0% { 
+      background-position: 0% 50%; 
+    }
+    50% { 
+      background-position: 100% 50%; 
+    }
+    100% { 
+      background-position: 0% 50%; 
+    }
+  }
+  
+  @keyframes pulse-glow-title {
     0%, 100% {
-      text-shadow: 
-        0 0 20px rgba(255, 0, 0, 0.8),
-        0 0 40px rgba(255, 0, 0, 0.6),
-        3px 3px 0px #800000,
-        -1px -1px 0px #ff6666;
-      transform: scale(1) translateY(0);
+      filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5)) 
+              drop-shadow(0 0 40px rgba(255, 0, 0, 0.3));
+      transform: scale(1);
     }
     50% {
-      text-shadow: 
-        0 0 30px rgba(255, 0, 0, 1),
-        0 0 50px rgba(255, 0, 0, 0.8),
-        4px 4px 0px #800000,
-        -2px -2px 0px #ff6666;
-      transform: scale(1.02) translateY(-2px);
+      filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8)) 
+              drop-shadow(0 0 60px rgba(255, 0, 0, 0.5));
+      transform: scale(1.01);
     }
   }
   
-  @keyframes gradient-flow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
-  }
-  
-  /* Add pseudo-element for extra effect */
-  .featured-categories-title::before {
-    content: attr(data-text);
+  /* Add subtle shine effect */
+  .featured-categories-title::after {
+    content: '';
     position: absolute;
-    left: 0;
     top: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: glitch-slide 10s linear infinite;
-    opacity: 0.3;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shine-slide 8s ease-in-out infinite;
   }
   
-  @keyframes glitch-slide {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+  @keyframes shine-slide {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
   }
 
   .featured-grid {
