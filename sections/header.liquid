@@ -570,26 +570,55 @@
     }
 
     .header__icon {
-      width: 36px !important; /* Reduced from 44px */
-      height: 36px !important;
+      width: auto !important; /* Auto width for cart with text */
+      height: 28px !important; /* Match LRT-GARAGE height */
+      min-width: unset !important;
+    }
+
+    /* Style cart icon specifically */
+    .header__icon--cart {
+      padding: 0 10px !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 1px solid rgba(255, 0, 0, 0.3) !important;
+      border-radius: 10px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    /* Add "Basket" text to cart button */
+    .header__icon--cart::after {
+      content: "Basket" !important;
+      display: inline-block !important;
+      font-size: 13px !important;
+      color: #111 !important;
+      font-weight: normal !important;
+      margin-right: 5px !important;
+    }
+
+    /* Adjust cart icon size */
+    .header__icon--cart svg {
+      width: 16px !important;
+      height: 16px !important;
     }
 
     /* Expand search bar to take all available space */
     .header__search {
       position: static !important;
       transform: none !important;
-      flex: 1 !important;
-      margin: 0 10px !important;
+      flex: 2 !important; /* Increased flex to make it wider */
+      margin: 0 5px !important; /* Reduced margin for more width */
     }
 
     .header__search .header__icon {
       width: 100% !important;
       min-width: unset !important;
-      height: 36px !important;
-      padding: 0 12px !important;
+      height: 28px !important; /* Match LRT-GARAGE height */
+      padding: 0 10px !important;
       justify-content: flex-start !important;
       background: rgba(255, 255, 255, 0.95) !important;
       border: 1px solid rgba(255, 0, 0, 0.3) !important;
+      border-radius: 10px !important;
     }
 
     /* Add search text next to icon */
@@ -597,7 +626,7 @@
       content: "Search" !important;
       display: inline-block !important;
       margin-left: 8px !important;
-      font-size: 14px !important;
+      font-size: 13px !important;
       color: #666 !important;
       font-weight: normal !important;
     }
@@ -606,13 +635,14 @@
       margin-right: 0 !important;
     }
 
-    /* Make cart bubble smaller */
+    /* Make cart bubble smaller and position it properly */
     .cart-count-bubble {
-      min-width: 16px !important;
-      height: 16px !important;
-      font-size: 0.65rem !important;
-      top: -6px !important;
-      right: -6px !important;
+      min-width: 14px !important;
+      height: 14px !important;
+      font-size: 0.6rem !important;
+      top: -8px !important;
+      right: -8px !important;
+      padding: 0 4px !important;
     }
 
     /* Optimize menu items spacing */
@@ -630,6 +660,11 @@
 
     /* Hide drawer menu on mobile */
     header-drawer {
+      display: none !important;
+    }
+
+    /* Hide account icon on mobile to save space */
+    .header__icon--account {
       display: none !important;
     }
   }
