@@ -510,14 +510,21 @@
 
   /* Mobile optimizations for 430px viewport */
   @media screen and (max-width: 430px) {
+    /* Remove page-width margins for maximum space */
+    .page-width {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+
     /* Reduce header padding on mobile */
     .header {
-      padding: 5px 1rem !important;
+      padding: 5px 0.5rem !important;
     }
 
     /* Optimize logo/heading size */
     .header__heading {
-      margin: 0 1rem 0 0 !important;
+      margin: 0 0.5rem 0 0 !important;
     }
 
     .header__heading-link {
@@ -587,6 +594,12 @@
 
   /* Additional mobile optimizations for viewports up to 989px */
   @media screen and (min-width: 431px) and (max-width: 989px) {
+    /* Reduce page-width margins on tablets too */
+    .page-width {
+      margin: 0 auto !important;
+      padding: 0 1rem !important;
+    }
+
     /* Moderate reduction for tablets */
     #HeaderMenu-lrt-garage {
       height: 36px !important;
