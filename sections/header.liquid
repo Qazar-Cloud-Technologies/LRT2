@@ -402,11 +402,12 @@
   #HeaderMenu-lrt-garage {
     position: relative;
     background: #000;
-    padding: 0 20px;
+    padding: 0 15px;
     height: 44px;
     border-radius: 10px;
     overflow: hidden;
-    min-width: 200px;
+    min-width: auto;
+    width: fit-content;
     display: inline-flex;
     align-items: center;
     isolation: isolate;
@@ -534,8 +535,9 @@
     /* Reduce HeaderMenu-lrt-garage height by half on mobile */
     #HeaderMenu-lrt-garage {
       height: 28px !important; /* Reduced from 44px */
-      min-width: 120px !important; /* Reduced from 200px */
-      padding: 0 12px !important; /* Reduced from 20px */
+      min-width: auto !important; /* Auto width to fit content */
+      width: fit-content !important; /* Fit to text size */
+      padding: 0 10px !important; /* Reduced padding */
     }
 
     #HeaderMenu-lrt-garage span {
@@ -603,8 +605,9 @@
     /* Moderate reduction for tablets */
     #HeaderMenu-lrt-garage {
       height: 36px !important;
-      min-width: 160px !important;
-      padding: 0 16px !important;
+      min-width: auto !important;
+      width: fit-content !important;
+      padding: 0 12px !important;
     }
 
     #HeaderMenu-lrt-garage span {
