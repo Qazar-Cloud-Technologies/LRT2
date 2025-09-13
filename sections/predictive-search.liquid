@@ -83,10 +83,29 @@
   }
 
   /* Price text */
+  .predictive-search__item-price {
+    margin-top: 0.5rem !important;
+    display: flex !important;
+    gap: 0.8rem !important;
+    align-items: center !important;
+  }
+  
   .predictive-search__item .price {
     color: #ff0000 !important;
     font-size: 1.5rem !important; /* Increased from 1.2rem */
     font-weight: 600 !important;
+  }
+  
+  .predictive-search__item .price--on-sale {
+    color: #ff0000 !important;
+    font-weight: 700 !important;
+  }
+  
+  .predictive-search__item .price--compare {
+    color: #999999 !important;
+    text-decoration: line-through !important;
+    font-size: 1.3rem !important;
+    font-weight: 400 !important;
   }
 
   /* Query results - better contrast */
@@ -135,6 +154,14 @@
     
     .predictive-search__item .price {
       font-size: 1.7rem !important; /* Bigger on mobile */
+    }
+    
+    .predictive-search__item .price--compare {
+      font-size: 1.5rem !important; /* Slightly smaller for compare price */
+    }
+    
+    .predictive-search__item-price {
+      margin-top: 0.7rem !important;
     }
     
     /* Bigger padding on mobile for easier tapping */
@@ -373,7 +400,7 @@
                         height="{{ 80 | divided_by: product.featured_media.preview_image.aspect_ratio }}"
                       >
                     {%- endif -%}
-                    <div class="predictive-search__item-content{% unless settings.predictive_search_show_vendor or settings.predictive_search_show_price %} predictive-search__item-content--centered{% endunless %}">
+                    <div class="predictive-search__item-content">
                       {%- if settings.predictive_search_show_vendor -%}
                         <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
                         <div class="predictive-search__item-vendor caption-with-letter-spacing">
@@ -381,9 +408,19 @@
                         </div>
                       {%- endif -%}
                       <p class="predictive-search__item-heading h5">{{ product.title | escape }}</p>
-                      {%- if settings.predictive_search_show_price -%}
-                        {% render 'price', product: product, use_variant: true, show_badges: false %}
-                      {%- endif -%}
+                      {% comment %} Always show price {% endcomment %}
+                      <div class="predictive-search__item-price">
+                        {% if product.price_varies %}
+                          <span class="price">À partir de {{ product.price_min | money }}</span>
+                        {% else %}
+                          {% if product.compare_at_price > product.price %}
+                            <span class="price price--on-sale">{{ product.price | money }}</span>
+                            <span class="price price--compare">{{ product.compare_at_price | money }}</span>
+                          {% else %}
+                            <span class="price">{{ product.price | money }}</span>
+                          {% endif %}
+                        {% endif %}
+                      </div>
                     </div>
                   </a>
                 </li>
