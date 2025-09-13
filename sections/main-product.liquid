@@ -15,6 +15,9 @@
   {% endunless %}
 
   {%- style -%}
+    /* Import Pirata One Font for Product Title */
+    @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+    
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -262,31 +265,43 @@
       flex-direction: column;
       width: 100%;
       align-items: center;
-      gap: 25px;
+      gap: 0; /* Removed gap to control spacing individually */
       text-align: center;
     }
 
     .product__title {
-      font-size: 3.5rem !important;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 20px;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+      font-family: "Pirata One", cursive !important;
+      font-size: 4.5rem !important;
+      font-weight: 400 !important;
+      color: #ff0000;
+      margin-bottom: 10px;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
       text-align: center;
       width: 100%;
+      text-transform: uppercase;
+      text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .product__title h1,
     .product__title h2,
     .product__title h3 {
+      font-family: "Pirata One", cursive !important;
       font-size: inherit !important;
       text-align: center;
+      font-weight: 400 !important;
     }
 
-    /* Increased Price Size - Centered */
+    /* Increased Price Size - Right under title */
     .price__container {
-      margin-bottom: 30px;
+      margin-top: 5px;
+      margin-bottom: 15px;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -295,9 +310,10 @@
     }
 
     .price-item {
-      font-size: 2.8rem !important;
+      font-size: 3.5rem !important;
       font-weight: 700;
       color: #c00;
+      line-height: 1;
     }
 
     .price__regular .price-item--regular {
@@ -314,10 +330,10 @@
       font-size: 1.4rem !important;
       line-height: 1.8;
       color: #333;
-      margin: 30px auto;
+      margin: 10px auto 20px auto;
       text-align: center;
       max-width: 800px;
-      padding: 20px;
+      padding: 15px 20px;
     }
 
     .product__description p {
@@ -478,11 +494,17 @@
       }
 
       .product__title {
-        font-size: 2.8rem !important;
+        font-size: 3.5rem !important;
+        margin-bottom: 8px;
       }
 
       .price-item {
-        font-size: 2.4rem !important;
+        font-size: 2.8rem !important;
+      }
+      
+      .price__container {
+        margin-top: 5px;
+        margin-bottom: 10px;
       }
 
       .product__description {
