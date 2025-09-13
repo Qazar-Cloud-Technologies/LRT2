@@ -454,11 +454,58 @@
       padding: 10px !important;
     }
     
-    /* Variant labels - 2x bigger */
-    .variant-selects label,
-    variant-selects label,
-    .product-form__input label {
-      font-size: 2.4rem !important; /* 2x bigger */
+    /* Variant pill labels styling - matching template */
+    .product-form__input--pill label,
+    .product-form__input--dropdown label,
+    .product-form__input > label:first-child,
+    fieldset.product-form__input legend {
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+      margin-bottom: 15px !important;
+      display: block !important;
+      color: #333 !important;
+    }
+    
+    /* Variant pill buttons */
+    .product-form__input--pill input[type="radio"] + label,
+    fieldset.product-form__input input[type="radio"] + label {
+      display: inline-block !important;
+      padding: 12px 24px !important;
+      margin: 5px !important;
+      border: 2px solid #e0e0e0 !important;
+      border-radius: 8px !important;
+      background-color: #ffffff !important;
+      color: #333333 !important;
+      font-size: 1.8rem !important;
+      font-weight: 400 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      text-align: center !important;
+      min-width: 200px !important;
+    }
+    
+    /* Hover state for variant pills */
+    .product-form__input--pill input[type="radio"] + label:hover,
+    fieldset.product-form__input input[type="radio"] + label:hover {
+      border-color: #ff4444 !important;
+      background-color: #fff5f5 !important;
+    }
+    
+    /* Selected state for variant pills - red background */
+    .product-form__input--pill input[type="radio"]:checked + label,
+    fieldset.product-form__input input[type="radio"]:checked + label {
+      border-color: #ff4444 !important;
+      background-color: #ff4444 !important;
+      color: #ffffff !important;
+      font-weight: 500 !important;
+    }
+    
+    /* Hide the actual radio button */
+    .product-form__input--pill input[type="radio"],
+    fieldset.product-form__input input[type="radio"] {
+      position: absolute !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
     }
 
     /* Create 2x2 grid for variant options */
