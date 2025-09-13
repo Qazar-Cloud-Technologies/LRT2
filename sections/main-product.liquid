@@ -334,16 +334,18 @@
       display: center;
     }
 
-    /* Increased Price Size - Right under title */
+    /* Price Container - No margin/padding, just price space */
     .price__container {
-      margin-top: 10px;
-      margin-bottom: 30px;
+      margin: 0 !important;
+      padding: 0 !important;
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      min-height: 150px; /* Ensure space for large price */
+      min-height: auto;
+      height: auto;
+      line-height: 1;
     }
 
     .price-item {
@@ -566,9 +568,9 @@
       }
       
       .price__container {
-        margin-top: 10px;
-        margin-bottom: 20px;
-        min-height: 120px; /* Adjust for mobile */
+        margin: 0;
+        padding: 0;
+        min-height: auto;
       }
 
       .product__description {
