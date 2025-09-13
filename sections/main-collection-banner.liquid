@@ -761,6 +761,53 @@ All CSS integrated - no external stylesheet needed
     0% { left: -100%; }
     50%, 100% { left: 100%; }
   }
+  
+  /* Services Title - Same style as featured categories */
+  .services-title {
+    font-family: monospace;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #ff0000;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 40px auto 15px auto;
+    letter-spacing: 0.25em;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      #ff0000,
+      #ff3333,
+      #ff0000,
+      #cc0000
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-flow 4s ease-in-out infinite, pulse-glow-title 6s ease-in-out infinite;
+    display: inline-block;
+    width: 100%;
+    padding: 15px 0;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 40px rgba(255, 0, 0, 0.3));
+  }
+  
+  /* Add shine effect for services title */
+  .services-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shine-slide 8s ease-in-out infinite;
+  }
 
   .featured-grid {
     display: grid;
@@ -896,11 +943,16 @@ All CSS integrated - no external stylesheet needed
       gap: 15px;
     }
     
-    .featured-categories-title {
+    .featured-categories-title,
+    .services-title {
       font-size: 1.8rem;
       letter-spacing: 0.15em;
       padding: 8px 0;
       margin-bottom: 10px;
+    }
+    
+    .services-title {
+      margin-top: 30px;
     }
     
     .featured-title {
@@ -1784,6 +1836,9 @@ All CSS integrated - no external stylesheet needed
     </a>
   </div>
 </section>
+
+{% comment %} Services Title Section {% endcomment %}
+<h2 class="services-title" data-text="NOS SERVICES">NOS SERVICES</h2>
 
 {% comment %} Company Information Section {% endcomment %}
 <section class="company-section">
