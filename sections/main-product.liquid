@@ -241,12 +241,12 @@
       fill: none;
     }
 
-    /* Product Information - Centered and Increased Text Sizes */
+    /* Product Information - Grid Layout */
     .product__info {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr;
+      place-items: center;
       text-align: center;
       padding: 0 2vw;
     }
@@ -261,12 +261,46 @@
     }
 
     .product__info-container {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      grid-template-areas:
+        "title"
+        "price"
+        "description"
+        "variant"
+        "quantity"
+        "buttons"
+        "details";
       width: 100%;
-      align-items: center;
-      gap: 0; /* Removed gap to control spacing individually */
+      justify-items: center;
+      align-content: center;
       text-align: center;
+      gap: 20px; /* Consistent gap between grid items */
+      place-items: center; /* Centers items both horizontally and vertically */
+    }
+    
+    /* Grid area assignments for better control */
+    .product__info-container .product__title {
+      grid-area: title;
+    }
+    
+    .product__info-container .price__container {
+      grid-area: price;
+    }
+    
+    .product__info-container .product__description {
+      grid-area: description;
+    }
+    
+    .product__info-container .product-form__buttons {
+      grid-area: buttons;
+    }
+    
+    /* Ensure each grid child is properly sized */
+    .product__info-container > * {
+      width: 100%;
+      max-width: 600px;
     }
 
     .product__title {
