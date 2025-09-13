@@ -336,32 +336,37 @@
 
     /* Increased Price Size - Right under title */
     .price__container {
-      margin-top: 5px;
-      margin-bottom: 15px;
+      margin-top: 10px;
+      margin-bottom: 30px;
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      min-height: 150px; /* Ensure space for large price */
     }
 
     .price-item {
-      font-family: "Pirata One", cursive !important;
-      /* font-size: 10rem !important; */
-      text-align: center;
-      /* font-weight: 400 !important; */
+      font-size: 14rem !important; /* 4x bigger */
+      font-weight: 700;
       color: #c00;
       line-height: 1;
-      width: 95vw;
+      text-align: center;
+      width: 100%;
     }
 
     .price__regular .price-item--regular {
-      font-size: clamp(1.5rem, 2.3vw, 2rem) !important;
+      font-size: 8rem !important; /* 4x bigger - was ~2rem */
+    }
+    
+    .price-item--regular {
+      font-size: 8rem !important; /* 4x bigger */
     }
 
     .price__sale .price-item--sale {
-      font-size: clamp(1.2rem, 1.8vw, 1.6rem) !important;
+      font-size: 6.4rem !important; /* 4x bigger - was 1.6rem */
       color: #666;
+      text-decoration: line-through;
     }
 
     /* Description Text - Centered and Improved */
@@ -525,6 +530,21 @@
       line-height: 1.8;
     }
 
+    /* Adjust price for medium screens */
+    @media (max-width: 1200px) {
+      .price-item {
+        font-size: 10rem !important;
+      }
+      
+      .price-item--regular {
+        font-size: 10rem !important;
+      }
+      
+      .price__regular .price-item--regular {
+        font-size: 6rem !important;
+      }
+    }
+    
     /* Mobile Responsive */
     @media (max-width: 768px) {
       .product__container {
@@ -538,12 +558,17 @@
       }
 
       .price-item {
-        font-size: 2.8rem !important;
+        font-size: 11.2rem !important; /* 4x bigger for mobile */
+      }
+      
+      .price-item--regular {
+        font-size: 11.2rem !important;
       }
       
       .price__container {
-        margin-top: 5px;
-        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        min-height: 120px; /* Adjust for mobile */
       }
 
       .product__description {
