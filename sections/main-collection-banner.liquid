@@ -1006,6 +1006,17 @@ All CSS integrated - no external stylesheet needed
     padding: 25px;
     text-align: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .service-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
   }
 
   .service-card:hover {
@@ -1013,20 +1024,11 @@ All CSS integrated - no external stylesheet needed
     box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
     background: rgba(255, 0, 0, 0.1);
   }
-
-  .service-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, #ff0000, #cc0000);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    color: white;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+  
+  .service-card:hover .service-image {
+    transform: scale(1.05);
   }
+
 
   .service-title {
     font-family: monospace;
@@ -1842,25 +1844,25 @@ All CSS integrated - no external stylesheet needed
 
   <div class="services-grid">
     <div class="service-card">
-      <div class="service-icon">🔧</div>
+      <img class="service-image" src="{{ 'LRT-Services-4.jpeg' | asset_url }}" alt="Banc de Puissance" loading="lazy">
       <h3 class="service-title">Banc de Puissance</h3>
       <p class="service-description">Réglage précis de votre machine 2T sur banc de puissance. Mesure de puissance pour machines 4T. Optimisation des performances garantie.</p>
     </div>
     
     <div class="service-card">
-      <div class="service-icon">⚙️</div>
+      <img class="service-image" src="{{ 'LRT-Services-5.jpeg' | asset_url }}" alt="Usinage Moteur" loading="lazy">
       <h3 class="service-title">Usinage Moteur</h3>
       <p class="service-description">Culasse, modification rapport volumétrique, passage vilebrequin/gros clapet, fraisage divers. Travail de précision pour performances maximales.</p>
     </div>
     
     <div class="service-card">
-      <div class="service-icon">🏍️</div>
+      <img class="service-image" src="{{ 'LRT-Services-2.jpeg' | asset_url }}" alt="Métrologie & Montage" loading="lazy">
       <h3 class="service-title">Métrologie & Montage</h3>
       <p class="service-description">Service complet de métrologie et montage moteur. Étanchéité parfaite et performance optimale. Expertise reconnue sur toutes marques.</p>
     </div>
     
     <div class="service-card">
-      <div class="service-icon">🛠️</div>
+      <img class="service-image" src="{{ 'LRT-Services-1.jpeg' | asset_url }}" alt="Diagnostic & Entretien" loading="lazy">
       <h3 class="service-title">Diagnostic & Entretien</h3>
       <p class="service-description">Diagnostic électronique complet. Entretien périodique et préparation compétition. Service rapide et professionnel sur rendez-vous.</p>
     </div>
