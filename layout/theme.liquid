@@ -343,28 +343,22 @@
       <div class="help-popup-content">
         <span class="help-popup-close" id="closePopup">&times;</span>
         <h3>Besoin d'aide?</h3>
-        <p>Contactez-nous pour toute question:</p>
-        <div class="help-contact-options">
-          <a href="tel:0650859338" class="help-contact-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-            </svg>
-            Appeler
-          </a>
-          <a href="https://wa.me/33650859338" class="help-contact-btn" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.75.45 3.39 1.23 4.82L2 22l5.34-1.19C8.71 21.53 10.31 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.56 0-3.02-.43-4.28-1.17l-.31-.18-3.2.71.73-3.11-.2-.33A7.91 7.91 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
-            </svg>
-            WhatsApp
-          </a>
-          <a href="mailto:contact@lrt-garage.fr" class="help-contact-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            Email
-          </a>
-        </div>
+        <form class="help-form" id="helpForm">
+          <div class="form-group">
+            <label for="helpCategory">Catégorie</label>
+            <select id="helpCategory" name="category" required>
+              <option value="">Sélectionnez une catégorie</option>
+              <option value="information">Demande d'information</option>
+              <option value="reclamation">Réclamation</option>
+              <option value="collab">Collaboration</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="helpMessage">Votre message</label>
+            <textarea id="helpMessage" name="message" rows="5" placeholder="Écrivez votre message ici..." required></textarea>
+          </div>
+          <button type="submit" class="help-submit-btn">Envoyer le message</button>
+        </form>
       </div>
     </div>
 
@@ -396,8 +390,9 @@
       .help-popup {
         display: none;
         position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
         width: 100% !important;
         height: 100% !important;
         background: rgba(0, 0, 0, 0.5);
@@ -408,6 +403,9 @@
 
       .help-popup.active {
         display: flex !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
       }
 
       .help-popup-content {
@@ -437,39 +435,69 @@
       .help-popup h3 {
         color: #ff0000;
         font-size: 24px;
-        margin-bottom: 15px;
-        text-align: center;
-      }
-
-      .help-popup p {
-        color: #333;
         margin-bottom: 20px;
         text-align: center;
       }
 
-      .help-contact-options {
+      /* Form Styles */
+      .help-form {
         display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 20px;
       }
 
-      .help-contact-btn {
+      .form-group {
         display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 10px 20px;
-        background: #f0f0f0;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-weight: 600;
         color: #333;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: all 0.3s ease;
         font-size: 14px;
       }
 
-      .help-contact-btn:hover {
-        background: #ff0000;
+      .form-group select,
+      .form-group textarea {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #ff0000;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .help-submit-btn {
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #ff0000, #cc0000);
         color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .help-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+      }
+
+      .help-submit-btn:active {
+        transform: translateY(0);
       }
 
       /* Mobile adjustments */
@@ -507,6 +535,10 @@
         if (helpButton && helpPopup && closePopup) {
           helpButton.addEventListener('click', function() {
             helpPopup.classList.add('active');
+            // Focus on the first form field
+            setTimeout(() => {
+              document.getElementById('helpCategory').focus();
+            }, 100);
           });
 
           closePopup.addEventListener('click', function() {
@@ -518,6 +550,27 @@
               helpPopup.classList.remove('active');
             }
           });
+
+          // Handle form submission
+          const helpForm = document.getElementById('helpForm');
+          if (helpForm) {
+            helpForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              const category = document.getElementById('helpCategory').value;
+              const message = document.getElementById('helpMessage').value;
+              
+              // Here you would normally send the data to your server
+              console.log('Category:', category);
+              console.log('Message:', message);
+              
+              // Show success message
+              alert('Votre message a été envoyé avec succès!');
+              
+              // Reset form and close popup
+              helpForm.reset();
+              helpPopup.classList.remove('active');
+            });
+          }
         }
       });
     </script>
