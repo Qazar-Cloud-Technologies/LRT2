@@ -368,22 +368,27 @@
         position: fixed !important;
         bottom: 20px !important;
         right: 20px !important;
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #ff0000, #cc0000);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 40px !important;
+        height: 40px !important;
+        background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
         z-index: 9998 !important;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: box-shadow 0.3s ease !important;
+        transform: none !important;
+        animation: none !important;
+        will-change: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
       }
 
       .floating-help-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+        box-shadow: 0 4px 20px rgba(255, 0, 0, 0.6) !important;
+        background: linear-gradient(135deg, #ff1111, #dd0000) !important;
       }
 
       /* Help Popup - Global Styles */
@@ -503,15 +508,17 @@
       /* Mobile adjustments */
       @media (max-width: 768px) {
         .floating-help-button {
-          width: 35px;
-          height: 35px;
+          width: 35px !important;
+          height: 35px !important;
           bottom: 15px !important;
           right: 15px !important;
+          transform: none !important;
+          animation: none !important;
         }
 
         .floating-help-button svg {
-          width: 14px;
-          height: 14px;
+          width: 14px !important;
+          height: 14px !important;
         }
 
         .help-popup-content {
