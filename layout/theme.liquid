@@ -332,10 +332,12 @@
     </ul>
 
     <!-- Floating Help Button and Popup (Global) -->
-    <div class="floating-help-button" id="helpButton">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-      </svg>
+    <div class="help-button-isolated-container" style="position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 2147483647 !important; isolation: isolate !important; contain: strict !important; transform: none !important; animation: none !important;">
+      <div class="floating-help-button" id="helpButton" style="position: relative !important; transform: none !important; animation: none !important;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+        </svg>
+      </div>
     </div>
 
     <!-- Help Popup (Global) -->
@@ -363,32 +365,63 @@
     </div>
 
     <style>
-      /* Floating Help Button - Global Styles */
-      .floating-help-button {
+      /* Help Button Isolated Container */
+      .help-button-isolated-container {
         position: fixed !important;
         bottom: 20px !important;
         right: 20px !important;
         width: 40px !important;
         height: 40px !important;
-        background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+        z-index: 2147483647 !important;
+        isolation: isolate !important;
+        contain: strict !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        animation: none !important;
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-play-state: paused !important;
+        transition: none !important;
+        will-change: auto !important;
+        backface-visibility: hidden !important;
+        -webkit-transform: none !important;
+        -webkit-animation: none !important;
+        -webkit-backface-visibility: hidden !important;
+      }
+
+      /* Floating Help Button - Global Styles */
+      .floating-help-button {
+        position: relative !important;
+        width: 40px !important;
+        height: 40px !important;
+        background: #ff0000 !important;
+        background-image: linear-gradient(135deg, #ff0000, #cc0000) !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         cursor: pointer !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
-        z-index: 9998 !important;
-        transition: box-shadow 0.3s ease !important;
         transform: none !important;
         animation: none !important;
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-play-state: paused !important;
+        transition: box-shadow 0.3s ease, background 0.3s ease !important;
         will-change: auto !important;
         opacity: 1 !important;
         visibility: visible !important;
+        isolation: isolate !important;
+        contain: paint !important;
+        -webkit-transform: none !important;
+        -webkit-animation: none !important;
       }
 
       .floating-help-button:hover {
         box-shadow: 0 4px 20px rgba(255, 0, 0, 0.6) !important;
-        background: linear-gradient(135deg, #ff1111, #dd0000) !important;
+        background-image: linear-gradient(135deg, #ff1111, #dd0000) !important;
+        transform: none !important;
+        animation: none !important;
       }
 
       /* Help Popup - Global Styles */
@@ -507,11 +540,16 @@
 
       /* Mobile adjustments */
       @media (max-width: 768px) {
+        .help-button-isolated-container {
+          bottom: 15px !important;
+          right: 15px !important;
+          width: 35px !important;
+          height: 35px !important;
+        }
+        
         .floating-help-button {
           width: 35px !important;
           height: 35px !important;
-          bottom: 15px !important;
-          right: 15px !important;
           transform: none !important;
           animation: none !important;
         }
