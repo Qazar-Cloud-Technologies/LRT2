@@ -647,6 +647,18 @@
         grid-template-columns: 1fr;
         gap: 40px;
       }
+      
+      /* Remove width constraints on mobile for centering */
+      .product__info-container > * {
+        width: auto;
+        max-width: none;
+      }
+      
+      /* Make buttons take 80% of screen width on mobile */
+      .product-form__buttons {
+        width: 80% !important;
+        margin: 0 auto;
+      }
 
       .product__title {
         font-size: 3.5rem !important;
