@@ -431,6 +431,17 @@
     .product-form__input label {
       font-size: clamp(0.9rem, 1.3vw, 1.1rem) !important;
     }
+    
+    /* Radio button labels in pill fieldset - 2x bigger and centered */
+    .product-form__input--pill label,
+    fieldset.product-form__input--pill input[type="radio"] + label {
+      font-size: 2.4rem !important;
+      text-align: center;
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      font-weight: 600;
+    }
 
     /* Variant Picker - Increased size and centered */
     fieldset.product-form__input .form__label {
