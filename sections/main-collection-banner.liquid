@@ -307,10 +307,14 @@ All CSS integrated - no external stylesheet needed
       max-width: 30%;
       right: auto;
       min-width: unset;
-      padding: 15px;
+      padding: 4px;
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     .panel-title {
@@ -331,6 +335,9 @@ All CSS integrated - no external stylesheet needed
     .info-title {
       font-size: 0.68em;
       margin: 8px 0 6px 0;
+      border-left: none;
+      padding-left: 0;
+      text-align: center;
     }
     
     .info-highlight {
@@ -348,9 +355,20 @@ All CSS integrated - no external stylesheet needed
       margin: 8px 0;
     }
     
+    .info-list {
+      text-align: center;
+      width: 100%;
+    }
+    
     .info-list li {
       font-size: 0.68em;
       margin: 5px 0;
+      text-align: center;
+      padding-left: 0;
+    }
+    
+    .info-list li::before {
+      display: none;
     }
   }
 
