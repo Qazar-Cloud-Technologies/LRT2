@@ -261,6 +261,46 @@ All CSS integrated - no external stylesheet needed
     text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
   }
 
+  /* Tablet-specific styles (769px to 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    /* Hide menu on tablet */
+    .grid-category-menu {
+      display: none !important;
+    }
+    
+    /* Search bar centered and at bottom of nav */
+    .header-search {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      z-index: 100;
+    }
+    
+    /* Service cards in single column */
+    .services-grid {
+      grid-template-columns: 1fr !important;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* More space below company intro */
+    .company-intro {
+      margin-bottom: 60px !important;
+    }
+    
+    /* Service card adjustments for tablet */
+    .service-card {
+      max-width: none;
+      padding: 30px;
+    }
+    
+    .service-image {
+      height: 400px;
+    }
+  }
+
   @media (max-width: 768px) {
     /* Disable heavy animations on mobile for better performance */
     .grid-category-menu::before,
@@ -1871,6 +1911,11 @@ All CSS integrated - no external stylesheet needed
                 {% else %}
                   {{ parent_collection.title }}
                 {% endif %}
+                {% assign title_lower = parent_collection.title | downcase %}
+                {% assign display_name_lower = parent_collection.metafields.custom.display_name | downcase %}
+                {% if title_lower contains 'enfant' or title_lower contains 'child' or title_lower contains 'kid' or display_name_lower contains 'enfant' or display_name_lower contains 'child' or display_name_lower contains 'kid' %}
+                  <span style="margin-left: 5px;">🧒</span>
+                {% endif %}
               </span>
             </a>
             
@@ -1933,6 +1978,11 @@ All CSS integrated - no external stylesheet needed
                                 {{ child_collection.metafields.custom.display_name }}
                               {% else %}
                                 {{ child_collection.title }}
+                              {% endif %}
+                              {% assign child_title_lower = child_collection.title | downcase %}
+                              {% assign child_display_name_lower = child_collection.metafields.custom.display_name | downcase %}
+                              {% if child_title_lower contains 'enfant' or child_title_lower contains 'child' or child_title_lower contains 'kid' or child_display_name_lower contains 'enfant' or child_display_name_lower contains 'child' or child_display_name_lower contains 'kid' %}
+                                <span style="margin-left: 5px;">🧒</span>
                               {% endif %}
                             </span>
                           </a>
