@@ -681,6 +681,21 @@
       .product-form__input--pill input[type="radio"] + label,
       fieldset.product-form__input input[type="radio"] + label {
         font-size: 1.6rem !important;
+        flex: 1 1 calc(50% - 10px); /* Each takes half width minus gap */
+        min-width: calc(50% - 10px);
+        max-width: calc(50% - 10px);
+        box-sizing: border-box;
+        margin: 0 !important;
+      }
+      
+      /* Ensure pill fieldset uses flexbox for proper alignment */
+      .product-form__input--pill,
+      fieldset.product-form__input--pill {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: space-between !important;
+        align-items: stretch !important;
       }
 
       .product__title {
