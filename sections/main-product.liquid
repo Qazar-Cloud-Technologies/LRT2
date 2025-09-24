@@ -671,10 +671,16 @@
         max-width: none;
       }
       
-      /* Make buttons take 80% of screen width on mobile */
+      /* Make buttons take 95% of screen width on mobile */
       .product-form__buttons {
-        width: 80% !important;
+        width: 95% !important;
         margin: 0 auto;
+      }
+      
+      .product-form__buttons button,
+      .product-form__buttons .button {
+        width: 100% !important;
+        max-width: none !important;
       }
       
       /* Radio button labels font size on mobile */
